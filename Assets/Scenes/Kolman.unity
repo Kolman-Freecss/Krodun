@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 919132149089431435, guid: fe0868fa5fbd2934281a4570805d2f53, type: 3}
       propertyPath: CinemachineCameraTarget
       value: 
-      objectReference: {fileID: 633311269}
+      objectReference: {fileID: 963194225}
     - target: {fileID: 3888235358582812233, guid: fe0868fa5fbd2934281a4570805d2f53, type: 3}
       propertyPath: m_Name
       value: Krodun
