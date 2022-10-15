@@ -1189,7 +1189,7 @@ Transform:
   - {fileID: 1600748264745097546}
   - {fileID: 2372503065309687452}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &919132149089431432
 CharacterController:
@@ -1208,7 +1208,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!114 &919132149089431433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   JumpTimeout: 0.5
   FallTimeout: 0.15
   Grounded: 1
-  GroundedOffset: -0.14
+  GroundedOffset: -0.2
   GroundedRadius: 0.28
   GroundLayers:
     serializedVersion: 2
