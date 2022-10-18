@@ -1,25 +1,0 @@
-
-|csharpsquid:S3776Œ"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(”¤Õ«ùÿÿÿÿ8É¤¯˜¾0
-Mcsharpsquid:S2933T"$Make '_terminalVelocity' 'readonly'.(ÂÜÈœøÿÿÿÿ8É¤¯˜¾0
-gcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¼ÒÊJ8É¤¯˜¾0
-hcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(©ù»È8É¤¯˜¾0
-mcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(£ëÙıøÿÿÿÿ8Ê¤¯˜¾0
-hcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÉåßÄ8Ê¤¯˜¾0
-mcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÆÚŠûÿÿÿÿ8Ê¤¯˜¾0
-mcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(À±™øÿÿÿÿ8Ê¤¯˜¾0
-hcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ã’‹¹8Ê¤¯˜¾0
-mcsharpsquid:S1104!"DMake this field 'private' and encapsulate it in a 'public' property.(é½æâıÿÿÿÿ8Ë¤¯˜¾0
-mcsharpsquid:S1104$"DMake this field 'private' and encapsulate it in a 'public' property.(öİ¯€øÿÿÿÿ8Ë¤¯˜¾0
-hcsharpsquid:S1104("DMake this field 'private' and encapsulate it in a 'public' property.(İğ³ˆ8Ë¤¯˜¾0
-mcsharpsquid:S1104+"DMake this field 'private' and encapsulate it in a 'public' property.(Ñ„ìªÿÿÿÿÿ8Ë¤¯˜¾0
-hcsharpsquid:S1104/"DMake this field 'private' and encapsulate it in a 'public' property.(âÏõ½8Ë¤¯˜¾0
-mcsharpsquid:S11042"DMake this field 'private' and encapsulate it in a 'public' property.(ê‘Æ©ûÿÿÿÿ8Ì¤¯˜¾0
-mcsharpsquid:S11045"DMake this field 'private' and encapsulate it in a 'public' property.(ÉóÇşÿÿÿÿ8Ì¤¯˜¾0
-hcsharpsquid:S11048"DMake this field 'private' and encapsulate it in a 'public' property.(ñÜş˜8Ì¤¯˜¾0
-gcsharpsquid:S1104<"DMake this field 'private' and encapsulate it in a 'public' property.(ùÙø%8Ì¤¯˜¾0
-mcsharpsquid:S1104?"DMake this field 'private' and encapsulate it in a 'public' property.(œë™´üÿÿÿÿ8Ì¤¯˜¾0
-mcsharpsquid:S1104B"DMake this field 'private' and encapsulate it in a 'public' property.(«õõ˜ÿÿÿÿÿ8Ì¤¯˜¾0
-mcsharpsquid:S1104E"DMake this field 'private' and encapsulate it in a 'public' property.(·›…®ùÿÿÿÿ8Í¤¯˜¾0
-mcsharpsquid:S1104H"DMake this field 'private' and encapsulate it in a 'public' property.(ƒòÙÿÿÿÿÿ8Í¤¯˜¾0
-Tcsharpsquid:S1066ê"/Merge this if statement with the enclosing one.(¢µí¸8Í¤¯˜¾0
-Hcsharpsquid:S125¸"Remove this commented out code.(Øƒ”›ÿÿÿÿÿ8Í¤¯˜¾0

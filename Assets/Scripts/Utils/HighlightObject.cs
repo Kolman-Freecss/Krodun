@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace StarterAssets.Utils
 {
@@ -10,7 +11,26 @@ namespace StarterAssets.Utils
         
         public void Highlight()
         {
-            gameObject.GetComponent<Renderer>().material.color = highlightColor;
+            if (gameObject.GetComponent<Renderer>() != null)
+            {
+                gameObject.GetComponent<Renderer>().material.color = highlightColor;
+            }
+            else
+            {
+                gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(r => r.material.color = highlightColor);
+            }
+        }
+        
+        public void UnHighlight()
+        {
+            if (gameObject.GetComponent<Renderer>() != null)
+            {
+                gameObject.GetComponent<Renderer>().material.color = defaultColor;
+            }
+            else
+            {
+                gameObject.GetComponentsInChildren<Renderer>().ToList().ForEach(r => r.material.color = defaultColor);
+            }
         }
         
     }

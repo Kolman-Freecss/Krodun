@@ -7,36 +7,53 @@ public class CursorManager : MonoBehaviour
 {
     
     public Texture2D cursorTexture; 
-    Camera currentCamera;
-       
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Camera _currentCamera;
+    GameObject _previousObject;
 
-    // Update is called once per frame
     void Update()
     {
-        if (!currentCamera)
+        if (!_currentCamera)
         {
-            currentCamera = Camera.main;
+            _currentCamera = Camera.main;
             return;
         }
         HighlightGameObject();
     }
     
+    /**
+     * Highlights the game object that the mouse is hovering over
+     */
     void HighlightGameObject()
     {
-        //highlight the object
         RaycastHit info;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("NPC")))
         {
-            if (info.collider.gameObject.GetComponent<HighlightObject>())
+            if (_previousObject != info.collider.gameObject)
             {
-                info.collider.gameObject.GetComponent<HighlightObject>().Highlight();
+                if (_previousObject)
+                {
+                    _previousObject.GetComponent<HighlightObject>().UnHighlight();
+                }
+                _previousObject = info.collider.gameObject;
             }
+            else
+            {
+                if (info.collider.gameObject.GetComponent<HighlightObject>())
+                {
+                    info.collider.gameObject.GetComponent<HighlightObject>().Highlight();
+                }
+            }
+            //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            if (_previousObject)
+            {
+                _previousObject.GetComponent<HighlightObject>().UnHighlight();
+            }
+            _previousObject = null;
+            //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
 }
