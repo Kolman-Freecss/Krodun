@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using StarterAssets.Utils;
@@ -5,10 +6,17 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
+    [Header("Cursor Settings")]
+    public Texture2D defaultCursor;
+    public Texture2D questCursor;
     
-    public Texture2D cursorTexture; 
     Camera _currentCamera;
     GameObject _previousObject;
+
+    private void Awake()
+    {
+        ResetCursor();
+    }
 
     void Update()
     {
@@ -17,43 +25,64 @@ public class CursorManager : MonoBehaviour
             _currentCamera = Camera.main;
             return;
         }
-        HighlightGameObject();
+        MousePosition();
     }
-    
-    /**
-     * Highlights the game object that the mouse is hovering over
-     */
-    void HighlightGameObject()
+
+    void MousePosition()
     {
         RaycastHit info;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("NPC")))
         {
-            if (_previousObject != info.collider.gameObject)
-            {
-                if (_previousObject)
-                {
-                    _previousObject.GetComponent<HighlightObject>().UnHighlight();
-                }
-                _previousObject = info.collider.gameObject;
-            }
-            else
-            {
-                if (info.collider.gameObject.GetComponent<HighlightObject>())
-                {
-                    info.collider.gameObject.GetComponent<HighlightObject>().Highlight();
-                }
-            }
-            //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+            HighlightGameObject(info);
+            SetCursor();
         }
         else
+        {
+            UnHighlightGameObject();
+            ResetCursor();
+        }
+    }
+
+    private void ResetCursor()
+    {
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    private void SetCursor()
+    {
+        Cursor.SetCursor(questCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    /**
+     * Highlights the game object that the mouse is hovering over
+     */
+    void HighlightGameObject(RaycastHit info)
+    {
+        if (_previousObject != info.collider.gameObject)
         {
             if (_previousObject)
             {
                 _previousObject.GetComponent<HighlightObject>().UnHighlight();
             }
-            _previousObject = null;
-            //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            _previousObject = info.collider.gameObject;
         }
+        else
+        {
+            HighlightObject infoHighlightObject = info.collider.gameObject.GetComponent<HighlightObject>();
+            if (infoHighlightObject)
+            {
+                infoHighlightObject.Highlight();
+            }
+        }
+    }
+    
+    void UnHighlightGameObject()
+    {
+        if (_previousObject)
+        {
+            _previousObject.GetComponent<HighlightObject>().UnHighlight();
+        }
+        _previousObject = null;
     }
 }
