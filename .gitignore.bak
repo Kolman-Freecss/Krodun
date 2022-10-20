@@ -27,7 +27,7 @@
 .vs/
 
 # Rider cache directory
-.idea/*
+.idea/
 
 # Gradle cache directory
 .gradle/
@@ -75,4 +75,4 @@ crashlytics-build.properties
 /[Aa]ssets/**/*.meta
 /[Aa]ssets/SampleScenes/*.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-/[Aa]ssets/AssetPacks
+/[Aa]ssets/Asset Packs
