@@ -75,4 +75,4 @@ crashlytics-build.properties
 /[Aa]ssets/**/*.meta
 /[Aa]ssets/SampleScenes/*.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-/[Aa]ssets/Asset Packs
+/[Aa]ssets/AssetPacks

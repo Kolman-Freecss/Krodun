@@ -11,7 +11,5 @@ K
 Packages/packages-lock.json,e\e\ee5c02414182ac2ee9793586b738cae04287b8bf
 F
 Packages/manifest.json,c\c\cc2c44fef6067b608c229f816ad03fa26e70a2f4
-V
-&Assets/Scripts/Player/CursorManager.cs,0\9\09f89e63dd5852d110cc1a07aef0f71fe677a768
 W
 'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f

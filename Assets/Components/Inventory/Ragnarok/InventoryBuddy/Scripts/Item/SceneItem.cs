@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Ragnarok;
 using UnityEngine;
-using TMPro;
-using Ragnarok;
 
 /**********************************************************
  * 
@@ -17,23 +14,17 @@ using Ragnarok;
 public class SceneItem : MonoBehaviour
 {
     [SerializeField]
-
-    
     private string itemName;  //CASE SENSITIVE - write in the name of the item that matches the name in the InventoryList so we find the right item.
     private InventoryItemList database;
     private bool hasRun;
     private GameObject inventoryFullText;
-
 
     // private CollectibleItemSet collectibleItemSet;
     // private UniqueID uniqueID;
     private void Awake()
     {
         inventoryFullText = GameObject.Find("InventoryFull");       //find the game object and make a local reference to it
-
-
         //  database = FindObjectOfType<InventoryItemList>();
-
     }
 
     void Start()
@@ -66,7 +57,7 @@ public class SceneItem : MonoBehaviour
                 //if (other.GetComponent<Inventory>().characterItems.Count < other.GetComponent<Inventory>().inventoryDisplay.numberOfSlots)
                 //{
                     other.GetComponent<Inventory>().AddItem(itemName);
-                    Destroy(gameObject);  //get rid of item in the game world
+                    Destroy(gameObject);
                 //}
                 //else if (other.GetComponent<Inventory>().characterItems.Count == other.GetComponent<Inventory>().inventoryDisplay.numberOfSlots)
 
