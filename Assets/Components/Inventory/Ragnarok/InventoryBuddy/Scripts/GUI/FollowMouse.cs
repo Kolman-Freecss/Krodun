@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class FollowMouse : MonoBehaviour
+namespace Ragnarok
 {
-    void Update()
+    public class FollowMouse : MonoBehaviour
     {
-        transform.position = Input.mousePosition; //keep the UI attached to the mouses position...soft parenting 
+        void Update()
+        {
+            transform.position = Input.mousePosition; //keep the UI attached to the mouses position...soft parenting 
+        }
     }
 }

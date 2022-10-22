@@ -1540,6 +1540,11 @@ Transform:
   m_Father: {fileID: 1677824271}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &572483098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 572483098, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
+  m_PrefabInstance: {fileID: 847066649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &579905712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2595,13 +2600,13 @@ PrefabInstance:
       propertyPath: CinemachineCameraTarget
       value: 
       objectReference: {fileID: 633311269}
+    - target: {fileID: 847066660, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
+      propertyPath: inventoryDisplay
+      value: 
+      objectReference: {fileID: 2055894332}
     - target: {fileID: 8260016957722957778, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
       propertyPath: m_Name
       value: Krodun
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260016957722957778, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8785019858882907496, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
       propertyPath: m_RootOrder
@@ -2655,26 +2660,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7367086488407818802, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
   m_PrefabInstance: {fileID: 847066649}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &847066651 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8260016957722957778, guid: 82096b5aea2ea2545add7e818180148e, type: 3}
-  m_PrefabInstance: {fileID: 847066649}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &847066660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847066651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748fb3cc145be3c44a5945d5645062a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterItems: []
-  database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
-  inventoryDisplay: {fileID: 2055894332}
 --- !u!1 &929960512
 GameObject:
   m_ObjectHideFlags: 0
@@ -6394,17 +6379,9 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2915971379822392197, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2957874059043919112, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957874059297538422, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: m_Text
-      value: Inventario de Krodun
       objectReference: {fileID: 0}
     - target: {fileID: 2957874059643569590, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6518,6 +6495,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2957874060516468676, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: dropSpawner
+      value: 
+      objectReference: {fileID: 572483098}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
