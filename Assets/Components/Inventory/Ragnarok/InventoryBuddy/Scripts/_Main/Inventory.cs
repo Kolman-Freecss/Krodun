@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Ragnarok //this creates a namespace for all of the IvyMoon scripts so they dont interfere with yours
+namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so they dont interfere with yours
 {
     /*******************************************************
      * 

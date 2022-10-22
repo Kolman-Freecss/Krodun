@@ -31,8 +31,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     void Awake()                                                                            //----------runs this once (will happen with the creation of the inventory display)------------
     {
-        tChest = GameObject.Find("TreasureChest").GetComponent<Inventory>();
-        player = GameObject.Find("FPSController").GetComponent<Inventory>();
+        GameObject gObject = GameObject.Find("TreasureChest");
+        if (gObject)
+            tChest = gObject.GetComponent<Inventory>();
+        gObject = GameObject.Find("Krodun");
+        if (gObject)
+            player = gObject.GetComponent<Inventory>();
 
         selectedItem = GameObject.Find("SelectedItem").GetComponent<InventorySlot>();       //find the game object named selectedItem and make a local reference to it
         spriteImage = GetComponent<Image>();                                                //setup a reference for our local image component 
@@ -90,7 +94,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
          //   if (!inventory)                                                   //----TREASURE CHEST SLOT----------//
          //   {
-                if (tChest.GetComponent<Inventory>().inventoryDisplay.isActiveAndEnabled == true)//Is the display active?
+         
+                if (tChest && tChest.GetComponent<Inventory>().inventoryDisplay.isActiveAndEnabled == true)//Is the display active?
                 {
                     if (this.item != null)                                        // is there an item in the slot?
                     {

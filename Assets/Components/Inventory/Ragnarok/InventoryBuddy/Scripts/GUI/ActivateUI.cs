@@ -1,33 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Ragnarok;
+﻿using UnityEngine;
 
 public class ActivateUI : MonoBehaviour
 {
-  //  public string buttonToPress = "I";
-    public KeyCode keyCode;
+    private readonly KeyCode _keyCode = KeyCode.I;
     public GameObject uIToToggle;
     bool waiting;
     public bool startOff;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (startOff)
         {
             uIToToggle.SetActive(false);
         }
-
-      //  keyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), buttonToPress);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!waiting)
         {
-            if (Input.GetKeyDown(keyCode))
+            if (Input.GetKeyDown(this._keyCode))
             {
                 uIToToggle.SetActive(!uIToToggle.activeSelf);
             }
