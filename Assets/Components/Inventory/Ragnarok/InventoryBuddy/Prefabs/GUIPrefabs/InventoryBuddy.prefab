@@ -205,7 +205,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7803701291770124130}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -389,7 +389,7 @@ RectTransform:
   - {fileID: 7803701292240121316}
   - {fileID: 1875674950664339845}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -688,10 +688,10 @@ RectTransform:
   m_Father: {fileID: 7803701293128547025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 103.6, y: -22.675}
+  m_SizeDelta: {x: 207.2, y: 45.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7803701292537014893
 CanvasRenderer:
@@ -869,9 +869,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Inventory Buddy
-
-'
+  m_Text: Inventario de Krodun
 --- !u!1 &7803701293128547026
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +909,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 112, y: 36}
-  m_SizeDelta: {x: 207.2, y: 0}
+  m_SizeDelta: {x: 207.2, y: 45.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7803701293128547029
 CanvasRenderer:
