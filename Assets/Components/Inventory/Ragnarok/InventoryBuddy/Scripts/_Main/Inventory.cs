@@ -56,7 +56,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         {
             InventoryItem itemToAdd = database.GetItem(itemName);
             characterItems.Add(itemToAdd);
-          //  Debug.Log("gave item:" + itemToAdd.itemName);
             inventoryDisplay.AddNewItem(itemToAdd);         //add the item to the inventory display
 
         }
