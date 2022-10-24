@@ -76,7 +76,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public void OnPointerClick(PointerEventData eventData)
     {
         //!!WARNING!!Do not have selectedItem highlighted in the Hierarchy window or it will not update!!WARNING!!
-        Debug.Log("OnPointerClick");
         if (eventData.button == PointerEventData.InputButton.Right) // button was right clicked
         {
             if (vendor && this.item != null) //-----------------VENDOR SLOT ------------------------//
@@ -135,17 +134,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             }
             else
             {
-                Debug.Log("1");
                 if (vendor)
                 {
-                    Debug.Log("2");
                     //-------check player can afford item here----------------------
                     return; //for now we just dont allow the click to do anything
                 }
 
                 if (this.item != null) //---This slot has an item loaded into it already ---
                 {
-                    Debug.Log("3");
                     if (selectedItem.item !=
                         null) //put item in here and take out item (swap) if there is one in the slot already
                     {
@@ -161,7 +157,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 }
                 else if (selectedItem.item != null) //we have a selected item and we clicked into an empty slot
                 {
-                    Debug.Log("4");
                     Setup(selectedItem.item); //put the selected items info into this slot
                     selectedItem.Setup(null); //remove the selected item from our selection
                 }
