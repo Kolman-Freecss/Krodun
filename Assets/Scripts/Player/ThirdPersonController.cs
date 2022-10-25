@@ -136,7 +136,7 @@ namespace StarterAssets
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
             _playerInput = GetComponent<PlayerInput>();
-            _menuManager.CloseMenu();
+            _menuManager.Init();
 
             AssignAnimationIDs();
 
