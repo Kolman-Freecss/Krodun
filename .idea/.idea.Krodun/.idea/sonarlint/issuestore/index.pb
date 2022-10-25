@@ -1,8 +1,6 @@
 
 P
  Assets/Scripts/NPC/QuestGiver.cs,5\0\505ef84adad8ab7b4124798a3ed1a08f84a57090
-^
-.Assets/Scripts/Player/ThirdPersonController.cs,e\b\eb21b0c42c7570fe92a3ecf2c5595cf89962b01d
 K
 Packages/packages-lock.json,e\e\ee5c02414182ac2ee9793586b738cae04287b8bf
 F
@@ -11,8 +9,6 @@ W
 'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f
 }
 MAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/ActivateUI.cs,9\8\987c6e46085682fbfe8ab7160fa1d58c2d54992f
-Y
-)Assets/InputSystem/StarterAssetsInputs.cs,0\f\0f46bd3658de60311c652c470a729e795edb98bb
 [
 +Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
 V
@@ -21,11 +17,3 @@ V
 NAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/FollowMouse.cs,0\1\0198c93602625ff8ed6e8a4bd77e73e3208924f9
 }
 MAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/ScrollInfo.cs,7\7\77b14f808fa3e2549cf7d5171d6f37c7016da275
-}
-MAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/Item/SceneItem.cs,c\e\ceb0bce4d2aac662b533f8a5957a69924c4bfe83
-ƒ
-SAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/InventoryDisplay.cs,9\a\9ae8bcc79accd9ec2e97a29dbd162422b53bece5
-~
-NAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/_Main/Inventory.cs,2\0\207873c63eb97711a6040a5d64d5023fb84cc566
-€
-PAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/InventorySlot.cs,5\d\5ddeb5b27710407f403e8747e541e4fc255de37c

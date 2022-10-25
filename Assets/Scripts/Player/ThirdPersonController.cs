@@ -99,6 +99,7 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
+        private MenuManager _menuManager;
 
         private const float _threshold = 0.01f;
 
@@ -120,6 +121,11 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            if (_menuManager == null)
+            {
+                _menuManager = FindObjectOfType<MenuManager>();
+            }
         }
 
         private void Start()
@@ -130,6 +136,7 @@ namespace StarterAssets
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
             _playerInput = GetComponent<PlayerInput>();
+            _menuManager.CloseMenu();
 
             AssignAnimationIDs();
 

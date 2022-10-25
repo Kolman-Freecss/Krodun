@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,16 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+
+		private MenuManager _menuManager;
+
+		private void Awake()
+		{
+			if (_menuManager == null)
+			{
+				_menuManager = FindObjectOfType<MenuManager>();
+			}
+		}
 
 		public void OnMove(InputValue value)
 		{
@@ -60,6 +71,14 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
+		}
+		
+		public void OnMenu(InputValue value)
+		{
+			if (value.isPressed)
+			{
+				_menuManager.ToggleMenu();
+			}
 		}
 
 		/*private void OnApplicationFocus(bool hasFocus)
