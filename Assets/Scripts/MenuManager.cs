@@ -4,7 +4,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     private GameObject _mainMenu;
-    private static MenuManager Instance;
+    private static MenuManager _instance;
     private bool _isPaused = false;
     private GameObject _creditsCanvas;
     private bool _showCredits = false;
@@ -40,14 +40,14 @@ public class MenuManager : MonoBehaviour
 
     void ManageSingleton()
     {
-        if (Instance != null)
+        if (_instance != null)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
