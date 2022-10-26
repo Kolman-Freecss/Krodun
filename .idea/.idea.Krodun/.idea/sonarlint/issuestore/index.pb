@@ -9,8 +9,6 @@ W
 'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f
 }
 MAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/ActivateUI.cs,9\8\987c6e46085682fbfe8ab7160fa1d58c2d54992f
-[
-+Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
 V
 &Assets/Scripts/Player/CursorManager.cs,0\9\09f89e63dd5852d110cc1a07aef0f71fe677a768
 ~
