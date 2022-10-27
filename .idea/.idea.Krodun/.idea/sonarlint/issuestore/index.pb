@@ -3,12 +3,8 @@ K
 Packages/packages-lock.json,e\e\ee5c02414182ac2ee9793586b738cae04287b8bf
 F
 Packages/manifest.json,c\c\cc2c44fef6067b608c229f816ad03fa26e70a2f4
-W
-'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f
 }
 MAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/ActivateUI.cs,9\8\987c6e46085682fbfe8ab7160fa1d58c2d54992f
-V
-&Assets/Scripts/Player/CursorManager.cs,0\9\09f89e63dd5852d110cc1a07aef0f71fe677a768
 ~
 NAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/GUI/FollowMouse.cs,0\1\0198c93602625ff8ed6e8a4bd77e73e3208924f9
 }
@@ -27,3 +23,9 @@ u
 EAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/Vendor.cs,6\4\64c93a306bd16bd6fc675bc348c859b3bc885905
 ~
 NAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/_Main/Inventory.cs,2\0\207873c63eb97711a6040a5d64d5023fb84cc566
+“
+cAssets/Components/Inventory/Ragnarok/InventoryBuddy/Scripts/_Main/Editor/CreateInventoryItemList.cs,0\3\0347e2549ed3b7ddb85c14cd4926ecd231418a33
+Y
+)Assets/InputSystem/StarterAssetsInputs.cs,0\f\0f46bd3658de60311c652c470a729e795edb98bb
+M
+Assets/Scripts/MenuManager.cs,8\b\8b817f7323f31e5ce91f056fba820d591323a334

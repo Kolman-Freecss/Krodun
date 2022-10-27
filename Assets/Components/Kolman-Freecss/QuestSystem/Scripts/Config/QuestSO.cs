@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -22,12 +23,28 @@ namespace Kolman_Freecss.QuestSystem
             get => _description;
         }
 
-        [FormerlySerializedAs("objectives")] [TextArea(2, 6)] [SerializeField]
-        string _objectives;
+        [FormerlySerializedAs("_objectives")] [FormerlySerializedAs("objectives")] [TextArea(2, 6)] [SerializeField]
+        string _objectiveText;
 
         public string ObjectivesValue
         {
+            get => _objectiveText;
+        }
+        
+        [FormerlySerializedAs("objectives")] [SerializeField]
+        List<Objective> _objectives;
+        
+        public List<Objective> Objectives
+        {
             get => _objectives;
+        }
+        
+        [FormerlySerializedAs("storyStep")] [SerializeField]
+        int _storyStep;
+        
+        public int StoryStep
+        {
+            get => _storyStep;
         }
 
         // Implement your rewards here. By default it will add Reward model inside the component
@@ -38,5 +55,7 @@ namespace Kolman_Freecss.QuestSystem
         {
             get => _reward;
         }
+        
+        
     }
 }
