@@ -107,7 +107,7 @@ namespace Kolman_Freecss.QuestSystem
          */
         public Quest UpdateStatusGiverByQuestId(int questId)
         {
-            return GetQuestGiverByQuestId(questId).CurrentQuest.UpdateStatus();
+            return GetQuestGiverByQuestId(questId).UpdateQuestStatus();
         }
         
         /**

@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Kolman_Freecss.QuestSystem;
 using StarterAssets;
+using StarterAssets.Utils;
 using UnityEngine;
-using HighlightObject = StarterAssets.Utils.HighlightObject;
 
 public class CursorManager : MonoBehaviour
 {

@@ -31,26 +31,11 @@ namespace Kolman_Freecss.QuestSystem
             CurrentQuest = Quests[0];
         }
 
-        public bool HasQuest(Quest quest)
+        public Quest UpdateQuestStatus()
         {
-            return Quests.Contains(quest);
-        }
-
-        public bool HasQuest(int questId)
-        {
-            return Quests.Exists(x => x.ID == questId);
-        }
-
-        public void FinishQuest()
-        {
-            CurrentQuest = null;
+            CurrentQuest.UpdateStatus();
             RefreshQuestMark();
-        }
-
-        public Quest CompleteQuest()
-        {
-            RefreshQuestMark();
-            return CurrentQuest.CompleteQuest();
+            return CurrentQuest;
         }
 
         /**
@@ -89,6 +74,28 @@ namespace Kolman_Freecss.QuestSystem
                         break;
                 }
             }
+        }
+        
+        public void FinishQuest()
+        {
+            CurrentQuest = null;
+            RefreshQuestMark();
+        }
+
+        public Quest CompleteQuest()
+        {
+            RefreshQuestMark();
+            return CurrentQuest.CompleteQuest();
+        }
+        
+        public bool HasQuest(Quest quest)
+        {
+            return Quests.Contains(quest);
+        }
+
+        public bool HasQuest(int questId)
+        {
+            return Quests.Exists(x => x.ID == questId);
         }
     }
 }
