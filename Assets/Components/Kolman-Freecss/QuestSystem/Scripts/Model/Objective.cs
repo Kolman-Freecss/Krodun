@@ -8,6 +8,11 @@ namespace Kolman_Freecss.QuestSystem
         public bool isCompleted;
 
         private int _currentAmount;
+        
+        public int CurrentAmount
+        {
+            get { return _currentAmount; }
+        }
 
         [SerializeField] private int _requiredAmount;
 
@@ -15,13 +20,34 @@ namespace Kolman_Freecss.QuestSystem
         {
             get => _requiredAmount;
         }
-
-        public void CheckCompletion()
+        
+        public Objective(Objective objective)
         {
-            if (_currentAmount >= RequiredAmount)
+            isCompleted = objective.isCompleted;
+            _currentAmount = 0;
+            _requiredAmount = objective._requiredAmount;
+        }
+        
+        /**
+         * returns true if the objective is completed
+         */
+        public bool UpdateAmount(int amount)
+        {
+            if (_currentAmount < _requiredAmount)
+            {
+                _currentAmount += amount;
+            }
+            else
             {
                 isCompleted = true;
             }
+
+            return isCompleted;
         }
+        
+        /*public void ResetAmount()
+        {
+            _currentAmount = 0;
+        }*/
     }
 }

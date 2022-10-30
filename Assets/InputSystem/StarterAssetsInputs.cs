@@ -7,6 +7,7 @@ namespace StarterAssets
 	public class StarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
+		public bool click;
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
@@ -49,6 +50,7 @@ namespace StarterAssets
 
 		public void OnSprint(InputValue value)
 		{
+			Debug.Log("Sprint, " + value.Get<float>());
 			SprintInput(value.isPressed);
 		}
 
@@ -79,6 +81,16 @@ namespace StarterAssets
 			{
 				_menuManager.ToggleMenu();
 			}
+		}
+		
+		public void OnFire(InputValue value)
+		{
+			FireInput(value.isPressed);
+		}
+
+		public void FireInput(bool newFireState)
+		{
+			click = newFireState;
 		}
 
 		/*private void OnApplicationFocus(bool hasFocus)

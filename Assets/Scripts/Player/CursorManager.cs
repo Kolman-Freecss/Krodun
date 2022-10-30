@@ -1,20 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using StarterAssets.Utils;
+using Kolman_Freecss.QuestSystem;
+using StarterAssets;
 using UnityEngine;
+using HighlightObject = StarterAssets.Utils.HighlightObject;
 
 public class CursorManager : MonoBehaviour
 {
-    [Header("Cursor Settings")]
-    public Texture2D defaultCursor;
-    public Texture2D questCursor;
-    
+    [Header("Cursor Settings")] public Texture2D defaultCursor;
+    public Texture2D questNotStartedCursor;
+    public Texture2D questStartedCursor;
+    public Texture2D questCompletedCursor;
+
+    [Header("Canvas Settings")] public GameObject questStartedCanvas;
+    public GameObject questNotStartedCanvas;
+    public GameObject questCompletedCanvas;
+
     Camera _currentCamera;
     GameObject _previousObject;
+    StarterAssetsInputs _inputs;
 
     private void Awake()
     {
+        questStartedCanvas.SetActive(false);
+        questNotStartedCanvas.SetActive(false);
+        questCompletedCanvas.SetActive(false);
+        _inputs = GetComponent<StarterAssetsInputs>();
         ResetCursor();
     }
 
@@ -25,6 +37,7 @@ public class CursorManager : MonoBehaviour
             _currentCamera = Camera.main;
             return;
         }
+
         MousePosition();
     }
 
@@ -35,7 +48,7 @@ public class CursorManager : MonoBehaviour
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("NPC")))
         {
             HighlightGameObject(info);
-            SetCursor();
+            SetCursor(info);
         }
         else
         {
@@ -49,9 +62,44 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
     }
 
-    private void SetCursor()
+    private void SetCursor(RaycastHit info)
     {
-        Cursor.SetCursor(questCursor, Vector2.zero, CursorMode.Auto);
+        QuestGiver qg = info.collider.gameObject.GetComponent<QuestGiver>();
+        if (qg && qg.CurrentQuest != null)
+        {
+            if (qg.CurrentQuest.IsStarted())
+            {
+                Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
+                if (_inputs.click)
+                {
+                    questStartedCanvas.SetActive(true);
+                }
+            }
+            else if (qg.CurrentQuest.IsCompleted())
+            {
+                Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
+                if (_inputs.click)
+                {
+                    questCompletedCanvas.SetActive(true);
+                }
+            }
+            else if (qg.CurrentQuest.IsNotStarted())
+            {
+                Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
+                if (_inputs.click)
+                {
+                    questNotStartedCanvas.SetActive(true);
+                }
+            }
+            else
+            {
+                Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+            }
+        }
+        else
+        {
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        }
     }
 
     /**
@@ -65,6 +113,7 @@ public class CursorManager : MonoBehaviour
             {
                 _previousObject.GetComponent<HighlightObject>().UnHighlight();
             }
+
             _previousObject = info.collider.gameObject;
         }
         else
@@ -76,13 +125,14 @@ public class CursorManager : MonoBehaviour
             }
         }
     }
-    
+
     void UnHighlightGameObject()
     {
         if (_previousObject)
         {
             _previousObject.GetComponent<HighlightObject>().UnHighlight();
         }
+
         _previousObject = null;
     }
 }
