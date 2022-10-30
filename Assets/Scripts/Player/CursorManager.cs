@@ -68,38 +68,41 @@ public class CursorManager : MonoBehaviour
         QuestGiver qg = target.GetComponent<QuestGiver>();
         if (qg && qg.CurrentQuest != null)
         {
-            if (qg.CurrentQuest.IsStarted())
-            {
-                Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click && isInsideAreaDistance(target))
-                {
-                    questStartedCanvas.SetActive(true);
-                }
-            }
-            else if (qg.CurrentQuest.IsCompleted())
-            {
-                Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click && isInsideAreaDistance(target))
-                {
-                    questCompletedCanvas.SetActive(true);
-                }
-            }
-            else if (qg.CurrentQuest.IsNotStarted())
-            {
-                Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click && isInsideAreaDistance(target))
-                {
-                    questNotStartedCanvas.SetActive(true);
-                }
-            }
-            else
-            {
-                Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
-            }
+            ActiveQuestionMarkByStatus(qg.CurrentQuest.Status, target);
         }
         else
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void ActiveQuestionMarkByStatus(QuestStatus qs, GameObject target)
+    {
+        switch (qs)
+        {
+            case QuestStatus.NotStarted:
+                Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
+                ActiveCanvasIfClick(target, questNotStartedCanvas);
+                break;
+            case QuestStatus.Started:
+                Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
+                ActiveCanvasIfClick(target, questStartedCanvas);
+                break;
+            case QuestStatus.Completed:
+                Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
+                ActiveCanvasIfClick(target, questCompletedCanvas);
+                break;
+            default:
+                Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                break;
+        }
+    }
+    
+    private void ActiveCanvasIfClick(GameObject target, GameObject canvas)
+    {
+        if (_inputs.click && isInsideAreaDistance(target))
+        {
+            canvas.SetActive(true);
         }
     }
     

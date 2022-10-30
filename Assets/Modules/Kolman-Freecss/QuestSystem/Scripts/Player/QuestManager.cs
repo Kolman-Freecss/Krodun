@@ -32,7 +32,6 @@ namespace Kolman_Freecss.QuestSystem
             RefreshQuestGivers();
         }
 
-        // ONLY!! Use it like hack to test the quest system
         /*private void Update()
         {
             // ONLY!! Use it like hack to test the quest system            
