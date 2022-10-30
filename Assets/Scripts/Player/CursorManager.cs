@@ -64,13 +64,14 @@ public class CursorManager : MonoBehaviour
 
     private void SetCursor(RaycastHit info)
     {
-        QuestGiver qg = info.collider.gameObject.GetComponent<QuestGiver>();
+        GameObject target = info.collider.gameObject;
+        QuestGiver qg = target.GetComponent<QuestGiver>();
         if (qg && qg.CurrentQuest != null)
         {
             if (qg.CurrentQuest.IsStarted())
             {
                 Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click)
+                if (_inputs.click && isInsideAreaDistance(target))
                 {
                     questStartedCanvas.SetActive(true);
                 }
@@ -78,7 +79,7 @@ public class CursorManager : MonoBehaviour
             else if (qg.CurrentQuest.IsCompleted())
             {
                 Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click)
+                if (_inputs.click && isInsideAreaDistance(target))
                 {
                     questCompletedCanvas.SetActive(true);
                 }
@@ -86,7 +87,7 @@ public class CursorManager : MonoBehaviour
             else if (qg.CurrentQuest.IsNotStarted())
             {
                 Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
-                if (_inputs.click)
+                if (_inputs.click && isInsideAreaDistance(target))
                 {
                     questNotStartedCanvas.SetActive(true);
                 }
@@ -100,6 +101,14 @@ public class CursorManager : MonoBehaviour
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         }
+    }
+    
+    /**
+     * @return bool true if the gameobject is inside the parameter gameobject area
+     */
+    bool isInsideAreaDistance(GameObject go)
+    {
+        return Vector3.Distance(go.transform.position, transform.position) < 5;
     }
 
     /**
