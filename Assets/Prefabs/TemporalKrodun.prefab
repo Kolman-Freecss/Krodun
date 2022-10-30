@@ -1740,8 +1740,9 @@ GameObject:
   - component: {fileID: 6252925173382894608}
   - component: {fileID: 6252925173382894609}
   - component: {fileID: 6252925173382894610}
+  - component: {fileID: 7724694385354334370}
   m_Layer: 8
-  m_Name: Krodun
+  m_Name: TemporalKrodun
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1765,7 +1766,7 @@ Transform:
   - {fileID: 2114091780}
   - {fileID: 458795872}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4464609626821494891
 Animator:
@@ -1777,7 +1778,7 @@ Animator:
   m_GameObject: {fileID: 4464609626829084543}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8c7460f96e8004b4f8ccca93f126e395, type: 3}
-  m_Controller: {fileID: 9100000, guid: d5f2274aa99bc834296c7b159fee5fc3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4ea45c920e171b84e87f8a5b3b429576, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1833,7 +1834,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultCursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
-  questCursor: {fileID: 2800000, guid: 88c059cd43878dd498ef70ddba8f6d48, type: 3}
+  questNotStartedCursor: {fileID: 2800000, guid: 68c95b538d41ffb4da03c8e477c52c33, type: 3}
+  questStartedCursor: {fileID: 2800000, guid: a8bda1bf7a15e0b488920a1eb443d006, type: 3}
+  questCompletedCursor: {fileID: 2800000, guid: 2b5d6bf9e1cf29a4d8e629c51d834ee4, type: 3}
+  questStartedCanvas: {fileID: 0}
+  questNotStartedCanvas: {fileID: 0}
+  questCompletedCanvas: {fileID: 0}
 --- !u!114 &6252925173382894606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1846,6 +1852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999ced9f8a2300d45a8d6eb106de8383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  click: 0
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
@@ -1934,6 +1941,20 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+--- !u!114 &7724694385354334370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4464609626829084543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36746f535c24578a50e6ab6522ceda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storiesSO:
+  - {fileID: 11400000, guid: 08e2a39d29fa50946b93000db5f3dcc1, type: 2}
 --- !u!1 &4464609626829084661
 GameObject:
   m_ObjectHideFlags: 0
