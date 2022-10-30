@@ -36,6 +36,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             GameObject.Find("SelectedItem")
                 .GetComponent<
                     InventorySlot>(); //find the game object named selectedItem and make a local reference to it
+        dropSpawner = GameObject.Find("DropSpawner");
         spriteImage = GetComponent<Image>(); //setup a reference for our local image component 
         Setup(null); //Lets setup the slot to be empty (null) by running the setup
         itemNameText = GetComponentInChildren<TextMeshProUGUI>();
