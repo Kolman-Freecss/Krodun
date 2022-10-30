@@ -485,9 +485,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3843615399318746067}
   - component: {fileID: 3843615399309168403}
-  - component: {fileID: 3843615399312666447}
-  - component: {fileID: 3843615399311878755}
   - component: {fileID: 3843615398182756986}
+  - component: {fileID: 2439673575862490216}
+  - component: {fileID: 8214305461228703830}
+  - component: {fileID: 7251797063334524217}
   m_Layer: 6
   m_Name: NPC_1
   m_TagString: Untagged
@@ -533,36 +534,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &3843615399312666447
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3843615399318425607}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.82
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &3843615399311878755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3843615399318425607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aaeb2d55bbe6d48be3787c2b9ecc4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3843615398182756986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +549,49 @@ MonoBehaviour:
   highlightColor: {r: 0.83137256, g: 0.83137256, b: 0.83137256, a: 0.5254902}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   highlightOnMouseOver: 1
+--- !u!114 &2439673575862490216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843615399318425607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701bf4627a174a6c97d48c2e54233a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestsSO: []
+--- !u!54 &8214305461228703830
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843615399318425607}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &7251797063334524217
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843615399318425607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.43284607
+  m_Height: 1.7614155
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9271002, z: 0.090164185}
 --- !u!1 &3843615399318425741
 GameObject:
   m_ObjectHideFlags: 0
