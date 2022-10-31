@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace StarterAssets.Utils
+namespace Kolman_Freecss.Krodun
 {
     public class HighlightObject : MonoBehaviour
     {

@@ -1,147 +1,148 @@
 using Kolman_Freecss.QuestSystem;
-using StarterAssets;
-using StarterAssets.Utils;
 using UnityEngine;
 
-public class CursorManager : MonoBehaviour
+namespace Kolman_Freecss.Krodun
 {
-    [Header("Cursor Settings")] public Texture2D defaultCursor;
-    public Texture2D questNotStartedCursor;
-    public Texture2D questStartedCursor;
-    public Texture2D questCompletedCursor;
-
-    [Header("Canvas Settings")] public GameObject questStartedCanvas;
-    public GameObject questNotStartedCanvas;
-    public GameObject questCompletedCanvas;
-
-    Camera _currentCamera;
-    GameObject _previousObject;
-    StarterAssetsInputs _inputs;
-
-    private void Awake()
+    public class CursorManager : MonoBehaviour
     {
-        questStartedCanvas.SetActive(false);
-        questNotStartedCanvas.SetActive(false);
-        questCompletedCanvas.SetActive(false);
-        _inputs = GetComponent<StarterAssetsInputs>();
-        ResetCursor();
-    }
+        [Header("Cursor Settings")] public Texture2D defaultCursor;
+        public Texture2D questNotStartedCursor;
+        public Texture2D questStartedCursor;
+        public Texture2D questCompletedCursor;
 
-    void Update()
-    {
-        if (!_currentCamera)
-        {
-            _currentCamera = Camera.main;
-            return;
-        }
+        [Header("Canvas Settings")] public GameObject questStartedCanvas;
+        public GameObject questNotStartedCanvas;
+        public GameObject questCompletedCanvas;
 
-        MousePosition();
-    }
+        Camera _currentCamera;
+        GameObject _previousObject;
+        RPGInputs _inputs;
 
-    void MousePosition()
-    {
-        RaycastHit info;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("NPC")))
+        private void Awake()
         {
-            HighlightGameObject(info);
-            SetCursor(info);
-        }
-        else
-        {
-            UnHighlightGameObject();
+            questStartedCanvas.SetActive(false);
+            questNotStartedCanvas.SetActive(false);
+            questCompletedCanvas.SetActive(false);
+            _inputs = GetComponent<RPGInputs>();
             ResetCursor();
         }
-    }
 
-    private void ResetCursor()
-    {
-        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
-    }
-
-    private void SetCursor(RaycastHit info)
-    {
-        GameObject target = info.collider.gameObject;
-        QuestGiver qg = target.GetComponent<QuestGiver>();
-        if (qg && qg.CurrentQuest != null)
+        void Update()
         {
-            ActiveQuestionMarkByStatus(qg.CurrentQuest.Status, target);
+            if (!_currentCamera)
+            {
+                _currentCamera = Camera.main;
+                return;
+            }
+
+            MousePosition();
         }
-        else
+
+        void MousePosition()
+        {
+            RaycastHit info;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("NPC")))
+            {
+                HighlightGameObject(info);
+                SetCursor(info);
+            }
+            else
+            {
+                UnHighlightGameObject();
+                ResetCursor();
+            }
+        }
+
+        private void ResetCursor()
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         }
-    }
 
-    private void ActiveQuestionMarkByStatus(QuestStatus qs, GameObject target)
-    {
-        switch (qs)
+        private void SetCursor(RaycastHit info)
         {
-            case QuestStatus.NotStarted:
-                Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
-                ActiveCanvasIfClick(target, questNotStartedCanvas);
-                break;
-            case QuestStatus.Started:
-                Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
-                ActiveCanvasIfClick(target, questStartedCanvas);
-                break;
-            case QuestStatus.Completed:
-                Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
-                ActiveCanvasIfClick(target, questCompletedCanvas);
-                break;
-            default:
+            GameObject target = info.collider.gameObject;
+            QuestGiver qg = target.GetComponent<QuestGiver>();
+            if (qg && qg.CurrentQuest != null)
+            {
+                ActiveQuestionMarkByStatus(qg.CurrentQuest.Status, target);
+            }
+            else
+            {
                 Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
-                break;
+            }
         }
-    }
-    
-    private void ActiveCanvasIfClick(GameObject target, GameObject canvas)
-    {
-        if (_inputs.click && isInsideAreaDistance(target))
+
+        private void ActiveQuestionMarkByStatus(QuestStatus qs, GameObject target)
         {
-            canvas.SetActive(true);
+            switch (qs)
+            {
+                case QuestStatus.NotStarted:
+                    Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
+                    ActiveCanvasIfClick(target, questNotStartedCanvas);
+                    break;
+                case QuestStatus.Started:
+                    Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
+                    ActiveCanvasIfClick(target, questStartedCanvas);
+                    break;
+                case QuestStatus.Completed:
+                    Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
+                    ActiveCanvasIfClick(target, questCompletedCanvas);
+                    break;
+                default:
+                    Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                    break;
+            }
         }
-    }
-    
-    /**
+
+        private void ActiveCanvasIfClick(GameObject target, GameObject canvas)
+        {
+            if (_inputs.click && isInsideAreaDistance(target))
+            {
+                canvas.SetActive(true);
+            }
+        }
+
+        /**
      * @return bool true if the gameobject is inside the parameter gameobject area
      */
-    bool isInsideAreaDistance(GameObject go)
-    {
-        return Vector3.Distance(go.transform.position, transform.position) < 5;
-    }
+        bool isInsideAreaDistance(GameObject go)
+        {
+            return Vector3.Distance(go.transform.position, transform.position) < 5;
+        }
 
-    /**
+        /**
      * Highlights the game object that the mouse is hovering over
      */
-    void HighlightGameObject(RaycastHit info)
-    {
-        if (_previousObject != info.collider.gameObject)
+        void HighlightGameObject(RaycastHit info)
+        {
+            if (_previousObject != info.collider.gameObject)
+            {
+                if (_previousObject)
+                {
+                    _previousObject.GetComponent<HighlightObject>().UnHighlight();
+                }
+
+                _previousObject = info.collider.gameObject;
+            }
+            else
+            {
+                HighlightObject infoHighlightObject = info.collider.gameObject.GetComponent<HighlightObject>();
+                if (infoHighlightObject)
+                {
+                    infoHighlightObject.Highlight();
+                }
+            }
+        }
+
+        void UnHighlightGameObject()
         {
             if (_previousObject)
             {
                 _previousObject.GetComponent<HighlightObject>().UnHighlight();
             }
 
-            _previousObject = info.collider.gameObject;
+            _previousObject = null;
         }
-        else
-        {
-            HighlightObject infoHighlightObject = info.collider.gameObject.GetComponent<HighlightObject>();
-            if (infoHighlightObject)
-            {
-                infoHighlightObject.Highlight();
-            }
-        }
-    }
-
-    void UnHighlightGameObject()
-    {
-        if (_previousObject)
-        {
-            _previousObject.GetComponent<HighlightObject>().UnHighlight();
-        }
-
-        _previousObject = null;
     }
 }

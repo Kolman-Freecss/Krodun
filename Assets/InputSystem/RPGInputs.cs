@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace StarterAssets
+namespace Kolman_Freecss.Krodun
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class RPGInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		public bool click;

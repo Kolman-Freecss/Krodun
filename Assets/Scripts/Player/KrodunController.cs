@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace Kolman_Freecss.Krodun
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
@@ -97,7 +97,7 @@ namespace StarterAssets
         private PlayerInput _playerInput;
         private Animator _animator;
         private CharacterController _controller;
-        private StarterAssetsInputs _input;
+        private RPGInputs _input;
         private GameObject _mainCamera;
         private MenuManager _menuManager;
 
@@ -134,7 +134,7 @@ namespace StarterAssets
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = GetComponent<RPGInputs>();
             _playerInput = GetComponent<PlayerInput>();
             _menuManager.Init();
 

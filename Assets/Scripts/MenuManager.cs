@@ -1,111 +1,114 @@
 using System;
 using UnityEngine;
 
-public class MenuManager : MonoBehaviour
+namespace Kolman_Freecss.Krodun
 {
-    private GameObject _mainMenu;
-    private static MenuManager _instance;
-    private bool _isPaused = false;
-    private GameObject _creditsCanvas;
-    private bool _showCredits = false;
-    private GameObject _settingsCanvas;
-    private bool _showSettings = false;
-
-    private void Awake()
+    public class MenuManager : MonoBehaviour
     {
-        if (_mainMenu == null)
+        private GameObject _mainMenu;
+        private static MenuManager _instance;
+        private bool _isPaused = false;
+        private GameObject _creditsCanvas;
+        private bool _showCredits = false;
+        private GameObject _settingsCanvas;
+        private bool _showSettings = false;
+
+        private void Awake()
         {
-            _mainMenu = GameObject.FindGameObjectWithTag("Menu");
+            if (_mainMenu == null)
+            {
+                _mainMenu = GameObject.FindGameObjectWithTag("Menu");
+            }
+
+            if (_creditsCanvas == null)
+            {
+                _creditsCanvas = GameObject.FindGameObjectWithTag("Credits");
+            }
+
+            if (_settingsCanvas == null)
+            {
+                _settingsCanvas = GameObject.FindGameObjectWithTag("Settings");
+            }
+
+            ManageSingleton();
         }
 
-        if (_creditsCanvas == null)
+        public void Init()
         {
-            _creditsCanvas = GameObject.FindGameObjectWithTag("Credits");
-        }
-        
-        if (_settingsCanvas == null)
-        {
-            _settingsCanvas = GameObject.FindGameObjectWithTag("Settings");
+            _mainMenu.SetActive(_isPaused);
+            _creditsCanvas.SetActive(_showCredits);
+            _settingsCanvas.SetActive(_showSettings);
         }
 
-        ManageSingleton();
-    }
-
-    public void Init()
-    {
-        _mainMenu.SetActive(_isPaused);
-        _creditsCanvas.SetActive(_showCredits);
-        _settingsCanvas.SetActive(_showSettings);
-    }
-
-    void ManageSingleton()
-    {
-        if (_instance != null)
+        void ManageSingleton()
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            if (_instance != null)
+            {
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
-        else
+
+        public void ExitGame()
         {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            Application.Quit();
         }
-    }
 
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
+        public void ContinueGame()
+        {
+            CloseMenu();
+            CloseCredits();
+            CloseSettings();
+        }
 
-    public void ContinueGame()
-    {
-        CloseMenu();
-        CloseCredits();
-        CloseSettings();
-    }
+        /**################## MENU ##################**/
+        public void ToggleMenu()
+        {
+            _isPaused = !_isPaused;
+            _mainMenu.SetActive(_isPaused);
+            CloseCredits();
+            CloseSettings();
+        }
 
-    /**################## MENU ##################**/
-    public void ToggleMenu()
-    {
-        _isPaused = !_isPaused;
-        _mainMenu.SetActive(_isPaused);
-        CloseCredits();
-        CloseSettings();
-    }
+        public void CloseMenu()
+        {
+            _isPaused = false;
+            _mainMenu.SetActive(_isPaused);
+        }
 
-    public void CloseMenu()
-    {
-        _isPaused = false;
-        _mainMenu.SetActive(_isPaused);
-    }
-    
-    /**################## CREDITS ##################**/
-    public void ToggleCredits()
-    {
-        _showCredits = !_showCredits;
-        _creditsCanvas.SetActive(_showCredits);
-        if (_showCredits) CloseMenu();
-        else ToggleMenu();
-    }
+        /**################## CREDITS ##################**/
+        public void ToggleCredits()
+        {
+            _showCredits = !_showCredits;
+            _creditsCanvas.SetActive(_showCredits);
+            if (_showCredits) CloseMenu();
+            else ToggleMenu();
+        }
 
-    private void CloseCredits()
-    {
-        _showCredits = false;
-        _creditsCanvas.SetActive(_showCredits);
-    }
-    
-    /**################## SETTINGS ##################**/
-    public void ToggleSettings()
-    {
-        _showSettings = !_showSettings;
-        _settingsCanvas.SetActive(_showSettings);
-        if (_showSettings) CloseMenu();
-        else ToggleMenu();
-    }
+        private void CloseCredits()
+        {
+            _showCredits = false;
+            _creditsCanvas.SetActive(_showCredits);
+        }
 
-    private void CloseSettings()
-    {
-        _showSettings = false;
-        _settingsCanvas.SetActive(_showSettings);
+        /**################## SETTINGS ##################**/
+        public void ToggleSettings()
+        {
+            _showSettings = !_showSettings;
+            _settingsCanvas.SetActive(_showSettings);
+            if (_showSettings) CloseMenu();
+            else ToggleMenu();
+        }
+
+        private void CloseSettings()
+        {
+            _showSettings = false;
+            _settingsCanvas.SetActive(_showSettings);
+        }
     }
 }
