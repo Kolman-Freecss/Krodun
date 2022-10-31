@@ -10,7 +10,7 @@ namespace Kolman_Freecss.QuestSystem
     {
         public List<StorySO> storiesSO = new List<StorySO>();
         private List<Story> stories = new List<Story>();
-        private static QuestManager _instance;
+        private static QuestManager Instance { get; set; }
         public Story currentStory;
         private List<QuestGiver> _questGivers = new List<QuestGiver>();
         
@@ -129,14 +129,14 @@ namespace Kolman_Freecss.QuestSystem
         
         void ManageSingleton()
         {
-            if (_instance != null)
+            if (Instance != null)
             {
                 gameObject.SetActive(false);
                 Destroy(gameObject);
             }
             else
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
         }

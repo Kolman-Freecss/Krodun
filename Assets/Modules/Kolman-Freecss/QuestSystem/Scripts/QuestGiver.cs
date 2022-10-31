@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Kolman_Freecss.Krodun;
 using UnityEngine;
 
 namespace Kolman_Freecss.QuestSystem
@@ -7,19 +8,23 @@ namespace Kolman_Freecss.QuestSystem
     public class QuestGiver : MonoBehaviour
     {
         [Header("Quest Info")] public List<QuestSO> QuestsSO = new List<QuestSO>();
-        private List<Quest> Quests = new List<Quest>();
-
+        [SerializeField] float turnSpeed = 5f;
+        
         public Quest CurrentQuest;
-
         public List<GameObject> QuestMarkers;
 
+        private List<Quest> Quests = new List<Quest>();
+        
         // Auxiliar variables
         private GameObject _notStarted;
         private GameObject _inProgress;
         private GameObject _completed;
 
+        KrodunController _player;
+
         private void Awake()
         {
+            _player = FindObjectOfType<KrodunController>();
             QuestsSO.ForEach(x => Quests.Add(new Quest(x, x.StoryStep)));
             _notStarted = QuestMarkers.Find(g => g.name == "ExclamationNotStarted");
             _inProgress = QuestMarkers.Find(g => g.name == "ExclamationStarted");
@@ -74,6 +79,16 @@ namespace Kolman_Freecss.QuestSystem
                         break;
                 }
             }
+        }
+        
+        /**
+         * Face the quest giver to the player
+         */
+        public void FaceTarget()
+        {
+            Vector3 direction = (_player.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
         }
         
         public void FinishQuest()

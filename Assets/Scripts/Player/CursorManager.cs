@@ -79,15 +79,15 @@ namespace Kolman_Freecss.Krodun
             {
                 case QuestStatus.NotStarted:
                     Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
-                    ActiveCanvasIfClick(target, questNotStartedCanvas);
+                    OnClickWhenHover(target, questNotStartedCanvas);
                     break;
                 case QuestStatus.Started:
                     Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
-                    ActiveCanvasIfClick(target, questStartedCanvas);
+                    OnClickWhenHover(target, questStartedCanvas);
                     break;
                 case QuestStatus.Completed:
                     Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
-                    ActiveCanvasIfClick(target, questCompletedCanvas);
+                    OnClickWhenHover(target, questCompletedCanvas);
                     break;
                 default:
                     Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
@@ -95,10 +95,11 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
-        private void ActiveCanvasIfClick(GameObject target, GameObject canvas)
+        private void OnClickWhenHover(GameObject target, GameObject canvas)
         {
             if (_inputs.click && isInsideAreaDistance(target))
             {
+                target.GetComponent<QuestGiver>().FaceTarget();
                 canvas.SetActive(true);
             }
         }

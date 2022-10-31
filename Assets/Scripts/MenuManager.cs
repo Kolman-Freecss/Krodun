@@ -6,7 +6,7 @@ namespace Kolman_Freecss.Krodun
     public class MenuManager : MonoBehaviour
     {
         private GameObject _mainMenu;
-        private static MenuManager _instance;
+        private static MenuManager Instance { get; set; }
         private bool _isPaused = false;
         private GameObject _creditsCanvas;
         private bool _showCredits = false;
@@ -42,14 +42,14 @@ namespace Kolman_Freecss.Krodun
 
         void ManageSingleton()
         {
-            if (_instance != null)
+            if (Instance != null)
             {
                 gameObject.SetActive(false);
                 Destroy(gameObject);
             }
             else
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
         }
