@@ -926,6 +926,8 @@ GameObject:
   - component: {fileID: 8536925555675344548}
   - component: {fileID: 7144359125272185803}
   - component: {fileID: 1401697899526563263}
+  - component: {fileID: 5777734914248811784}
+  - component: {fileID: 6930280552987103042}
   m_Layer: 6
   m_Name: TemporalEnemy
   m_TagString: Untagged
@@ -947,7 +949,7 @@ Transform:
   m_Children:
   - {fileID: 2294391299140329670}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &3661725646488760801
 Animator:
@@ -1021,6 +1023,34 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5777734914248811784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3661725646481370869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9a640bd1bd4565bca823165a8dec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseRange: 10
+  turnSpeed: 5
+--- !u!114 &6930280552987103042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3661725646481370869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5052109864db4cd58641de022e599a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 40
+  health: 100
 --- !u!1 &3661725646481371617
 GameObject:
   m_ObjectHideFlags: 0

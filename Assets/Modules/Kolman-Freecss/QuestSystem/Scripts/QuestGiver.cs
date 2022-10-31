@@ -8,7 +8,6 @@ namespace Kolman_Freecss.QuestSystem
     public class QuestGiver : MonoBehaviour
     {
         [Header("Quest Info")] public List<QuestSO> QuestsSO = new List<QuestSO>();
-        [SerializeField] float turnSpeed = 5f;
         
         public Quest CurrentQuest;
         public List<GameObject> QuestMarkers;
@@ -88,7 +87,7 @@ namespace Kolman_Freecss.QuestSystem
         {
             Vector3 direction = (_player.transform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
+            transform.rotation = lookRotation;
         }
         
         public void FinishQuest()

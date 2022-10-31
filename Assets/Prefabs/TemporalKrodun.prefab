@@ -1741,6 +1741,7 @@ GameObject:
   - component: {fileID: 6252925173382894609}
   - component: {fileID: 6252925173382894610}
   - component: {fileID: 7724694385354334370}
+  - component: {fileID: 2349556779720253434}
   m_Layer: 8
   m_Name: TemporalKrodun
   m_TagString: Player
@@ -1766,7 +1767,7 @@ Transform:
   - {fileID: 2114091780}
   - {fileID: 458795872}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4464609626821494891
 Animator:
@@ -1955,6 +1956,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storiesSO:
   - {fileID: 11400000, guid: 08e2a39d29fa50946b93000db5f3dcc1, type: 2}
+--- !u!114 &2349556779720253434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4464609626829084543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78d90f986e4b4f81e19c920695b065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverCanvas: {fileID: 0}
+  health: 100
 --- !u!1 &4464609626829084661
 GameObject:
   m_ObjectHideFlags: 0

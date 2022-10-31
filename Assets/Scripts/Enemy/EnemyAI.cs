@@ -12,13 +12,13 @@ namespace Kolman_Freecss.Krodun
         float distanceToTarget = Mathf.Infinity;
         bool isProvoked = false;
         EnemyBehaviour health;
-        Transform target;
+        Transform _player;
 
         void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<EnemyBehaviour>();
-            target = FindObjectOfType<PlayerBehaviour>().transform;
+            _player = FindObjectOfType<KrodunController>().transform;
         }
 
         void Update()
@@ -29,7 +29,7 @@ namespace Kolman_Freecss.Krodun
                 navMeshAgent.enabled = false;
             }
 
-            distanceToTarget = Vector3.Distance(target.position, transform.position);
+            distanceToTarget = Vector3.Distance(_player.position, transform.position);
 
             if (isProvoked)
             {
@@ -67,7 +67,7 @@ namespace Kolman_Freecss.Krodun
 
         void FaceTarget()
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            Vector3 direction = (_player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
         }
@@ -76,7 +76,7 @@ namespace Kolman_Freecss.Krodun
         {
             GetComponent<Animator>().SetBool("attack", false);
             GetComponent<Animator>().SetTrigger("move");
-            navMeshAgent.SetDestination(target.position);
+            navMeshAgent.SetDestination(_player.position);
         }
 
         void OnDrawGizmosSelected()
