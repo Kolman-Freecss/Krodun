@@ -13,12 +13,28 @@ namespace Kolman_Freecss.Krodun
         bool isProvoked = false;
         EnemyBehaviour health;
         Transform _player;
+        
+        // Animator
+        private Animator _animator;
+        private bool _hasAnimator;
+        
+        // animation IDs
+        private int _animIDMoving;
+        private int _animIDIdle;
 
         void Start()
         {
+            _hasAnimator = TryGetComponent(out _animator);
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<EnemyBehaviour>();
             _player = FindObjectOfType<KrodunController>().transform;
+            AssignAnimationIDs();
+        }
+        
+        private void AssignAnimationIDs()
+        {
+            _animIDMoving = Animator.StringToHash("moving");
+            _animIDIdle = Animator.StringToHash("battle");
         }
 
         void Update()
@@ -27,6 +43,13 @@ namespace Kolman_Freecss.Krodun
             {
                 enabled = false;
                 navMeshAgent.enabled = false;
+            }
+            
+            // Idle State by default
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDMoving, 0); // Stop animation
+                _animator.SetInteger(_animIDIdle, 1); // Idle animation
             }
 
             distanceToTarget = Vector3.Distance(_player.position, transform.position);
@@ -62,7 +85,10 @@ namespace Kolman_Freecss.Krodun
 
         void AttackTarget()
         {
-            GetComponent<Animator>().SetBool("attack", true);
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDMoving, 5); // Attack animation
+            }
         }
 
         void FaceTarget()
@@ -74,8 +100,10 @@ namespace Kolman_Freecss.Krodun
 
         void ChaseTarget()
         {
-            GetComponent<Animator>().SetBool("attack", false);
-            GetComponent<Animator>().SetTrigger("move");
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDMoving, 2); // Run animation
+            }
             navMeshAgent.SetDestination(_player.position);
         }
 

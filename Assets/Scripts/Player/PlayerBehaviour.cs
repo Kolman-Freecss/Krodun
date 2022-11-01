@@ -6,7 +6,7 @@ namespace Kolman_Freecss.Krodun
     public class PlayerBehaviour : MonoBehaviour
     {
         [SerializeField] private Canvas gameOverCanvas;
-        [SerializeField] float health = 100f;
+        [SerializeField] float health = 1000f;
         int _experience = 0;
         private static PlayerBehaviour Instance { get; set; }
 

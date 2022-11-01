@@ -10,9 +10,20 @@ namespace Kolman_Freecss.Krodun
         bool _isDead = false;
         PlayerBehaviour _player;
         
+        // animation IDs
+        private int _animIDMoving;
+        private int _animIDIdle;
+        
         void Start()
         {
             _player = FindObjectOfType<PlayerBehaviour>();
+            AssignAnimationIDs();
+        }
+        
+        private void AssignAnimationIDs()
+        {
+            _animIDMoving = Animator.StringToHash("moving");
+            _animIDIdle = Animator.StringToHash("battle");
         }
         
         public void TakeDamage(float damage)
@@ -35,11 +46,13 @@ namespace Kolman_Freecss.Krodun
             Destroy(gameObject);
         }
         
+        // Method assigned to the animation event
         public void AttackHitEvent()
         {
+            Debug.Log("Hit");
             if (_player == null) return;
             _player.TakeDamage(damage);
-            _player.GetComponent<DisplayDamage>().ShowDamageImpact();
+            //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
         }
         
         public bool IsDead()

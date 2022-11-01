@@ -89,10 +89,7 @@ namespace Kolman_Freecss.Krodun
         // animation IDs
         private int _animIDMoving;
         private int _animIDIdle;
-        //private int _animIDGrounded;
         private int _animIDJump;
-        //private int _animIDFreeFall;
-        //private int _animIDMotionSpeed;
 
         private PlayerInput _playerInput;
         private Animator _animator;
@@ -144,6 +141,13 @@ namespace Kolman_Freecss.Krodun
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
+        
+        private void AssignAnimationIDs()
+        {
+            _animIDMoving = Animator.StringToHash("moving");
+            _animIDIdle = Animator.StringToHash("battle");
+            _animIDJump = Animator.StringToHash("Jump");
+        }
 
         private void Update()
         {
@@ -157,13 +161,6 @@ namespace Kolman_Freecss.Krodun
         private void LateUpdate()
         {
             CameraRotation();
-        }
-
-        private void AssignAnimationIDs()
-        {
-            _animIDMoving = Animator.StringToHash("moving");
-            _animIDIdle = Animator.StringToHash("battle");
-            _animIDJump = Animator.StringToHash("Jump");
         }
 
         private void GroundedCheck()
