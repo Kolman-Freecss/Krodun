@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Kolman_Freecss.HitboxHurtboxSystem;
+using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
 {
@@ -14,8 +15,15 @@ namespace Kolman_Freecss.Krodun
         private int _animIDMoving;
         private int _animIDIdle;
         
+        private bool _hasAnimator;
+        private Animator _animator;
+        
+        private EnemyHitbox _hitbox;
+        
         void Start()
         {
+            _hitbox = GetComponentInChildren<EnemyHitbox>();
+            _hasAnimator = TryGetComponent(out _animator);
             _player = FindObjectOfType<PlayerBehaviour>();
             AssignAnimationIDs();
         }
@@ -26,7 +34,7 @@ namespace Kolman_Freecss.Krodun
             _animIDIdle = Animator.StringToHash("battle");
         }
         
-        public void TakeDamage(float damage)
+        public void TakeDamage(int damage)
         {
             BroadcastMessage("OnDamageTaken");
             health -= damage;
@@ -41,18 +49,26 @@ namespace Kolman_Freecss.Krodun
             if (_isDead) return;
             _isDead = true;
             _player.AddExperience(10);
-            //GetComponent<Animator>().SetTrigger("die");
-            //TODO death vfx and Invoke to Die animation
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDMoving, 9);
+            }
+            Invoke("Destroy", 3f);
+        }
+        
+        void Destroy()
+        {
             Destroy(gameObject);
         }
         
         // Method assigned to the animation event
         public void AttackHitEvent()
         {
-            Debug.Log("Hit");
-            if (_player == null) return;
-            _player.TakeDamage(damage);
-            //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
+            if (_hitbox.InHitbox)
+            {
+                if (_player == null) return;
+                _player.TakeDamage(damage);
+            }
         }
         
         public bool IsDead()

@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 namespace Kolman_Freecss.Krodun
 {
-    [RequireComponent(typeof(EnemyHitbox))]
-    [RequireComponent(typeof(EnemyHurtbox))]
     public class EnemyAI : MonoBehaviour, IHitboxResponder, IHurtboxResponder
     {
         [SerializeField] float chaseRange = 10f;
@@ -86,6 +84,7 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
+        // Called by Unity when the enemy is hit by a weapon (TakeDamage)
         public void OnDamageTaken()
         {
             isProvoked = true;

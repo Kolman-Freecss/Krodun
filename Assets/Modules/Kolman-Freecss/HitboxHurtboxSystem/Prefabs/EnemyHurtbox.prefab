@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2499900498249060042}
   - component: {fileID: 2114169245229624283}
   - component: {fileID: 3444130972159555268}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EnemyHurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2114169245229624283
 BoxCollider:

@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using Kolman_Freecss.Krodun;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -11,37 +13,29 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
      */
     public class EnemyHitbox : BasicBehaviourHitbox
     {
-        
-        
-        public void OnTriggerEnter(Collider other)
+        public bool InHitbox { get; private set; }
+
+        private void Start()
         {
-            if (LayerMask.GetMask("PlayerHitbox") == other.gameObject.layer)
+            InHitbox = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (LayerMask.NameToLayer("PlayerHurtbox") == other.gameObject.layer)
             {
-                Debug.Log("Hitbox: " + gameObject.name + " has hit " + other.gameObject.name);
-                Hurtbox hurtbox = other.GetComponent<Hurtbox>();
-                hurtbox?.OnHit(this);
+                InHitbox = true;
+                //_enemyBehaviour.OnHitboxEnter(other);
             }
         }
 
-        public void OnTriggerStay(Collider other)
+        private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Hitbox: " + gameObject.name + " is still hitting " + other.gameObject.name);
-            /*if (LayerMask.GetMask("Enemy") == other.gameObject.layer)
+            if (LayerMask.NameToLayer("PlayerHurtbox") == other.gameObject.layer)
             {
-                Debug.Log("Hitbox: " + gameObject.name + " has hit " + other.gameObject.name);
-                Hurtbox hurtbox = other.GetComponent<Hurtbox>();
-                hurtbox?.OnHit(this);
-            }*/
-        }
-
-        public void OnTriggerExit(Collider other)
-        {
-            Debug.Log("Hitbox: " + gameObject.name + " has exited " + other.gameObject.name);
-            /*if (other.CompareTag("Hurtbox"))
-            {
-                Hurtbox hurtbox = other.GetComponent<Hurtbox>();
-                hurtbox.OnExitHit(this);
-            }*/
+                InHitbox = false;
+                //_enemyBehaviour.OnHitboxEnter(other);
+            }
         }
         
         [Conditional("DEBUG")]

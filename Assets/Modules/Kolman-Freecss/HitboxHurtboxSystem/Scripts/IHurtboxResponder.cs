@@ -9,7 +9,5 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
         public delegate void FacingDirectionChanged(Transform target);
         public event FacingDirectionChanged OnFacingDirectionChangedHurtbox;
         
-        //void OnHurt(Hurtbox hurtbox, Collider collider, Vector3 hitPoint);
-        
     }
 }

@@ -8,7 +8,7 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
         
         public virtual void OnFacingDirectionChangedHandler(Transform target)
         {
-            transform.localPosition = new Vector3(target.localPosition.x, transform.localPosition.y, transform.localPosition.z) * offset;
+            //transform.localPosition = new Vector3(target.localPosition.x, transform.localPosition.y, transform.localPosition.z) * offset;
         }
     }
 }

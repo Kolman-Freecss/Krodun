@@ -5,7 +5,7 @@ namespace Kolman_Freecss.Krodun
 {
     public class RPGInputs : MonoBehaviour
     {
-        [Header("Character Input Values")] public bool click;
+        [Header("Character Input Values")] public bool click; //Attack, fire, etc.
         public Vector2 move;
         public Vector2 look;
         public bool jump;

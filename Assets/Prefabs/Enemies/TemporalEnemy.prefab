@@ -928,8 +928,6 @@ GameObject:
   - component: {fileID: 1401697899526563263}
   - component: {fileID: 5777734914248811784}
   - component: {fileID: 6930280552987103042}
-  - component: {fileID: 9219940381065921499}
-  - component: {fileID: 786143764933351031}
   m_Layer: 0
   m_Name: TemporalEnemy
   m_TagString: Untagged
@@ -1055,30 +1053,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 40
   health: 100
---- !u!114 &9219940381065921499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3661725646481370869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 668eb9b6400243b3b056c705afb28ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &786143764933351031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3661725646481370869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a80f2a4a8b485f979e7a5a680b2260, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3661725646481371617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2298,10 @@ PrefabInstance:
     - target: {fileID: 8492480670879326008, guid: bf651b06e7e30e34280289736a86ecf7, type: 3}
       propertyPath: m_Name
       value: EnemyHurtbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492480670879326008, guid: bf651b06e7e30e34280289736a86ecf7, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

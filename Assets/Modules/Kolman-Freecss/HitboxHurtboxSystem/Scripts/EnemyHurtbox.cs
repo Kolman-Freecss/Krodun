@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Kolman_Freecss.Krodun;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -11,9 +12,16 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
      */
     public class EnemyHurtbox : BasicBehaviourHitbox
     {
-        public void OnHit(Hitbox hitbox)
+        private EnemyBehaviour _enemyBehaviour;
+
+        private void Start()
+        {
+            _enemyBehaviour = GetComponentInParent<EnemyBehaviour>();
+        }
+        
+        public void OnHit(int damage)
         {  
-            Debug.Log("EnemyHurtbox.OnHit");
+            _enemyBehaviour.TakeDamage(damage);
         }
         
         [Conditional("DEBUG")]

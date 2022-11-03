@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Kolman_Freecss.Krodun;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -11,37 +12,44 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
      */
     public class Hitbox : BasicBehaviourHitbox
     {
-        
-        
-        public void OnTriggerEnter(Collider other)
+
+        public bool InHitbox { get; private set; }
+        public Collider CurrentCollider { get; private set; }
+
+        private PlayerBehaviour _playerBehaviour;
+
+        private void Start()
         {
-            if (LayerMask.GetMask("EnemyHurtbox") == other.gameObject.layer)
+            _playerBehaviour = FindObjectOfType<PlayerBehaviour>();
+        }
+
+        public void Attack()
+        {
+            if (InHitbox)
             {
-                Debug.Log("Hitbox: " + gameObject.name + " has hit " + other.gameObject.name);
-                EnemyHurtbox hurtbox = other.GetComponent<EnemyHurtbox>();
-                hurtbox?.OnHit(this);
+                EnemyHurtbox hurtbox = CurrentCollider.GetComponent<EnemyHurtbox>();
+                hurtbox?.OnHit(_playerBehaviour.damage);
+            }
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (LayerMask.NameToLayer("EnemyHurtbox") == other.gameObject.layer)
+            {
+                InHitbox = true;
+                CurrentCollider = other;
+                //_enemyBehaviour.OnHitboxEnter(other);
             }
         }
 
-        public void OnTriggerStay(Collider other)
+        private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Hitbox: " + gameObject.name + " is still hitting " + other.gameObject.name);
-            /*if (LayerMask.GetMask("Enemy") == other.gameObject.layer)
+            if (LayerMask.NameToLayer("EnemyHurtbox") == other.gameObject.layer)
             {
-                Debug.Log("Hitbox: " + gameObject.name + " has hit " + other.gameObject.name);
-                Hurtbox hurtbox = other.GetComponent<Hurtbox>();
-                hurtbox?.OnHit(this);
-            }*/
-        }
-
-        public void OnTriggerExit(Collider other)
-        {
-            Debug.Log("Hitbox: " + gameObject.name + " has exited " + other.gameObject.name);
-            /*if (other.CompareTag("Hurtbox"))
-            {
-                Hurtbox hurtbox = other.GetComponent<Hurtbox>();
-                hurtbox.OnExitHit(this);
-            }*/
+                InHitbox = false;
+                CurrentCollider = null;
+                //_enemyBehaviour.OnHitboxEnter(other);
+            }
         }
         
         [Conditional("DEBUG")]

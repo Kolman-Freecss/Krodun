@@ -7,8 +7,17 @@ namespace Kolman_Freecss.Krodun
     {
         [SerializeField] private Canvas gameOverCanvas;
         [SerializeField] float health = 1000f;
+        public int damage = 100;
         int _experience = 0;
         private static PlayerBehaviour Instance { get; set; }
+        private KrodunController _krodunController;
+        public KrodunController KrodunController
+        {
+            get
+            {
+                return _krodunController;
+            }
+        }
 
         private void Awake()
         {
@@ -17,6 +26,7 @@ namespace Kolman_Freecss.Krodun
 
         private void Start()
         {
+            _krodunController = GetComponent<KrodunController>();
             Init();
         }
         
@@ -30,6 +40,7 @@ namespace Kolman_Freecss.Krodun
         public void TakeDamage(float damage)
         {
             health -= damage;
+            //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
             if (health <= 0)
             {
                 HandleDeath();

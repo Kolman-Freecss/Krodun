@@ -9,8 +9,6 @@ namespace Kolman_Freecss.Krodun
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
-    [RequireComponent(typeof(Hitbox))]
-    [RequireComponent(typeof(Hurtbox))]
     public class KrodunController : MonoBehaviour, IHitboxResponder, IHurtboxResponder
     {
         [Header("Player")]
@@ -98,6 +96,7 @@ namespace Kolman_Freecss.Krodun
         private Animator _animator;
         private CharacterController _controller;
         private RPGInputs _input;
+        public RPGInputs Input => _input;
         private GameObject _mainCamera;
         private MenuManager _menuManager;
         private Hitbox _hitbox;
@@ -175,23 +174,24 @@ namespace Kolman_Freecss.Krodun
             JumpAndGravity();
             GroundedCheck();
             Move();
+            Attack();
         }
         
         private void Attack()
         {
-            if (_hasAnimator)
+            if (_input.click)
             {
-                _animator.SetInteger(_animIDIdle, 5);
+                if (_hasAnimator)
+                {
+                    _animator.SetInteger(_animIDMoving, 4);
+                }
             }
         }
         
         // Method assigned to the animation event
-        private void AttackHitEvent()
+        private void AttackPlayerHitEvent()
         {
-            if (_hasAnimator)
-            {
-                _animator.SetTrigger("attack");
-            }
+            _hitbox.Attack();
         }
 
         private void LateUpdate()
