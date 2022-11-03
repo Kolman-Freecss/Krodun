@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Kolman_Freecss.HitboxHurtboxSystem;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -8,7 +9,9 @@ namespace Kolman_Freecss.Krodun
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
-    public class KrodunController : MonoBehaviour
+    [RequireComponent(typeof(Hitbox))]
+    [RequireComponent(typeof(Hurtbox))]
+    public class KrodunController : MonoBehaviour, IHitboxResponder, IHurtboxResponder
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -97,11 +100,14 @@ namespace Kolman_Freecss.Krodun
         private RPGInputs _input;
         private GameObject _mainCamera;
         private MenuManager _menuManager;
+        private Hitbox _hitbox;
+        private Hurtbox _hurtbox;
 
         private const float _threshold = 0.01f;
-
+        
         private bool _hasAnimator;
-
+        
+        
         private bool IsCurrentDeviceMouse
         {
             get
@@ -123,7 +129,16 @@ namespace Kolman_Freecss.Krodun
             {
                 _menuManager = FindObjectOfType<MenuManager>();
             }
+
+            _hitbox = GetComponentInChildren<Hitbox>();
+            _hurtbox = GetComponentInChildren<Hurtbox>();
+            
+            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
+            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+            
         }
+        public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
+        public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
 
         private void Start()
         {
@@ -140,6 +155,10 @@ namespace Kolman_Freecss.Krodun
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            
+            // set our initial facing direction hitbox
+            OnFacingDirectionChangedHitbox?.Invoke(transform);
+            OnFacingDirectionChangedHurtbox?.Invoke(transform);
         }
         
         private void AssignAnimationIDs()
@@ -156,6 +175,23 @@ namespace Kolman_Freecss.Krodun
             JumpAndGravity();
             GroundedCheck();
             Move();
+        }
+        
+        private void Attack()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDIdle, 5);
+            }
+        }
+        
+        // Method assigned to the animation event
+        private void AttackHitEvent()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetTrigger("attack");
+            }
         }
 
         private void LateUpdate()
@@ -246,6 +282,9 @@ namespace Kolman_Freecss.Krodun
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                // set our facing direction hitbox
+                OnFacingDirectionChangedHitbox?.Invoke(transform);
+                OnFacingDirectionChangedHurtbox?.Invoke(transform);
             }
 
 

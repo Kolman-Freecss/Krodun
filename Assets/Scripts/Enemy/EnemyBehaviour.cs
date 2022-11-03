@@ -57,6 +57,7 @@ namespace Kolman_Freecss.Krodun
         
         public bool IsDead()
         {
+            
             return _isDead;
         }
         

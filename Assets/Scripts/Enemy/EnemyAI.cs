@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using Kolman_Freecss.HitboxHurtboxSystem;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Kolman_Freecss.Krodun
 {
-    public class EnemyAI : MonoBehaviour
+    [RequireComponent(typeof(EnemyHitbox))]
+    [RequireComponent(typeof(EnemyHurtbox))]
+    public class EnemyAI : MonoBehaviour, IHitboxResponder, IHurtboxResponder
     {
         [SerializeField] float chaseRange = 10f;
         [SerializeField] float turnSpeed = 5f;
@@ -21,6 +25,20 @@ namespace Kolman_Freecss.Krodun
         // animation IDs
         private int _animIDMoving;
         private int _animIDIdle;
+        
+        private EnemyHitbox _hitbox;
+        private EnemyHurtbox _hurtbox;
+        
+        public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
+        public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
+
+        private void Awake()
+        {
+            _hitbox = GetComponentInChildren<EnemyHitbox>();
+            _hurtbox = GetComponentInChildren<EnemyHurtbox>();
+            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
+            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+        }
 
         void Start()
         {
@@ -29,6 +47,10 @@ namespace Kolman_Freecss.Krodun
             health = GetComponent<EnemyBehaviour>();
             _player = FindObjectOfType<KrodunController>().transform;
             AssignAnimationIDs();
+            
+            // set our initial facing direction hitbox
+            OnFacingDirectionChangedHitbox?.Invoke(transform);
+            OnFacingDirectionChangedHurtbox?.Invoke(transform);
         }
         
         private void AssignAnimationIDs()
@@ -105,6 +127,9 @@ namespace Kolman_Freecss.Krodun
                 _animator.SetInteger(_animIDMoving, 2); // Run animation
             }
             navMeshAgent.SetDestination(_player.position);
+            // set our facing direction hitbox
+            OnFacingDirectionChangedHitbox?.Invoke(transform);
+            OnFacingDirectionChangedHurtbox?.Invoke(transform);
         }
 
         void OnDrawGizmosSelected()

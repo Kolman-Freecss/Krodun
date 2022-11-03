@@ -19,9 +19,7 @@ DAssets/Modules/Kolman-Freecss/QuestSystem/Scripts/UI/DisplayQuest.cs,3\3\33c9c
 +Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
 W
 'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f
-x
-HAssets/Modules/Kolman-Freecss/QuestSystem/Scripts/Player/QuestManager.cs,3\2\32250c2b987f31efaaf66f31e960c9dcf148906c
 M
 Assets/Scripts/MenuManager.cs,8\b\8b817f7323f31e5ce91f056fba820d591323a334
-o
-?Assets/Modules/Kolman-Freecss/QuestSystem/Scripts/QuestGiver.cs,f\7\f7a75df9404b0691b9bdd983372f7b04f65c8c3b
+R
+"Assets/Scripts/UI/DisplayDamage.cs,b\d\bd84ae2c9c36dedc67973c24ab942c645a77f557

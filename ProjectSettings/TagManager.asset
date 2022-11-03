@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - QuestMark
+  - Credits
+  - Menu
+  - Settings
   layers:
   - Default
   - TransparentFX
@@ -15,10 +19,10 @@ TagManager:
   - 
   - Character
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - EnemyHurtbox
+  - EnemyHitbox
+  - PlayerHitbox
+  - PlayerHurtbox
   - 
   - 
   - 
