@@ -9,7 +9,6 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
      *   This class is used to associate it to a box collider that will be the hitbox.
      * </summary>
      */
-    [RequireComponent(typeof(BoxCollider))]
     public class EnemyHitbox : BasicBehaviourHitbox
     {
         

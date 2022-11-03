@@ -1742,7 +1742,6 @@ GameObject:
   - component: {fileID: 6252925173382894610}
   - component: {fileID: 7724694385354334370}
   - component: {fileID: 2349556779720253434}
-  - component: {fileID: 7724694385354334372}
   - component: {fileID: 7724694385354334371}
   - component: {fileID: 5735878997560847972}
   m_Layer: 8
@@ -1772,7 +1771,7 @@ Transform:
   - {fileID: 3531741304519216377}
   - {fileID: 1163123989655215050}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4464609626821494891
 Animator:
@@ -1974,20 +1973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverCanvas: {fileID: 0}
-  health: 100
---- !u!65 &7724694385354334372
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4464609626829084543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  health: 1000
 --- !u!114 &7724694385354334371
 MonoBehaviour:
   m_ObjectHideFlags: 0
