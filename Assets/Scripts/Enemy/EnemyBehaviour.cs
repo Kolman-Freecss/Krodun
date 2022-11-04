@@ -14,6 +14,7 @@ namespace Kolman_Freecss.Krodun
         // animation IDs
         private int _animIDMoving;
         private int _animIDIdle;
+        private int _animIDDeath;
         
         private bool _hasAnimator;
         private Animator _animator;
@@ -32,15 +33,19 @@ namespace Kolman_Freecss.Krodun
         {
             _animIDMoving = Animator.StringToHash("moving");
             _animIDIdle = Animator.StringToHash("battle");
+            _animIDDeath = Animator.StringToHash("death");
         }
         
         public void TakeDamage(int damage)
         {
-            BroadcastMessage("OnDamageTaken");
             health -= damage;
             if (health <= 0)
             {
                 Die();
+            }
+            else
+            {
+                BroadcastMessage("OnDamageTaken");
             }
         }
         
@@ -51,7 +56,7 @@ namespace Kolman_Freecss.Krodun
             _player.AddExperience(10);
             if (_hasAnimator)
             {
-                _animator.SetInteger(_animIDMoving, 9);
+                _animator.SetTrigger(_animIDDeath);
             }
             Invoke("Destroy", 3f);
         }

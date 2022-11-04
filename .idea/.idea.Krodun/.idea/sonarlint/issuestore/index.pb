@@ -13,8 +13,6 @@ y
 IAssets/Modules/Kolman-Freecss/InventoryBuddy/Scripts/GUI/InventorySlot.cs,2\5\253565c6997f4e62ee67b1605804418594cb0f8c
 p
 @Assets/Modules/Kolman-Freecss/QuestSystem/Scripts/Model/Story.cs,f\9\f93c72ac4442f66c09598a5a2891c856a8b98c51
-t
-DAssets/Modules/Kolman-Freecss/QuestSystem/Scripts/UI/DisplayQuest.cs,3\3\33c9c704efb13b770e148dd630b02ff7011d7c8e
 [
 +Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
 W
@@ -23,3 +21,7 @@ M
 Assets/Scripts/MenuManager.cs,8\b\8b817f7323f31e5ce91f056fba820d591323a334
 R
 "Assets/Scripts/UI/DisplayDamage.cs,b\d\bd84ae2c9c36dedc67973c24ab942c645a77f557
+w
+GAssets/Modules/Kolman-Freecss/InventoryBuddy/Scripts/_Main/Inventory.cs,c\d\cd7a8721602bff361e8786331e03f8e98a551fdd
+}
+MAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/IHitboxResponder.cs,e\5\e59cb53af9ce3f5f07720fe15fb50290a9d75d1e
