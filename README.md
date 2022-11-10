@@ -12,6 +12,7 @@ RPG Adventure Genre Video game built with Unity 3D
   - Fantasy Cursor Pack
   - TextMesh Pro
   - Watchtower
+  - Fantasy Forest Environment Free Sample
 
 ## Installation steps:
 
