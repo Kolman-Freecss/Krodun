@@ -13,8 +13,6 @@ y
 IAssets/Modules/Kolman-Freecss/InventoryBuddy/Scripts/GUI/InventorySlot.cs,2\5\253565c6997f4e62ee67b1605804418594cb0f8c
 p
 @Assets/Modules/Kolman-Freecss/QuestSystem/Scripts/Model/Story.cs,f\9\f93c72ac4442f66c09598a5a2891c856a8b98c51
-[
-+Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
 W
 'Assets/Scripts/Utils/HighlightObject.cs,c\a\caab07bd4f07421bacd10ac8ce9c9d6db8029e9f
 M
@@ -25,3 +23,33 @@ w
 GAssets/Modules/Kolman-Freecss/InventoryBuddy/Scripts/_Main/Inventory.cs,c\d\cd7a8721602bff361e8786331e03f8e98a551fdd
 }
 MAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/IHitboxResponder.cs,e\5\e59cb53af9ce3f5f07720fe15fb50290a9d75d1e
+s
+CAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/Hitbox.cs,9\e\9ee16d989c8dda839e0f083df969cabc9cb9118d
+o
+?Assets/Modules/Kolman-Freecss/QuestSystem/Scripts/QuestGiver.cs,f\7\f7a75df9404b0691b9bdd983372f7b04f65c8c3b
+t
+DAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/Hurtbox.cs,8\d\8d2acfaa014f77617be52e6b714a678d1474f9b3
+X
+(Assets/Scripts/Player/PlayerBehaviour.cs,0\7\079362aa6b192b83b7b366271a301262064b1c23
+t
+DAssets/Modules/Kolman-Freecss/QuestSystem/Scripts/UI/DisplayQuest.cs,3\3\33c9c704efb13b770e148dd630b02ff7011d7c8e
+~
+NAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/IHurtboxResponder.cs,6\8\6838f9a741c8d7770ce6a4439ef087757bbd1d09
+x
+HAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/EnemyHitbox.cs,9\5\9521950482ddf49027a914ca017d9cbbf8993c53
+y
+IAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/EnemyHurtbox.cs,1\9\19824c57f19f60d3c0e21d7989e92fd401cd4650
+Å
+QAssets/Modules/Kolman-Freecss/HitboxHurtboxSystem/Scripts/BasicBehaviourHitbox.cs,2\0\20581b953ece66f7fad72d47909aff248898868b
+V
+&Assets/Scripts/Enemy/EnemyBehaviour.cs,d\5\d5b9afee3e1d51dc9bfe56b48bfb23f257407689
+Y
+)Assets/Scripts/Player/KrodunController.cs,4\6\46cdef9f5e5feb3f215a9d429aefb27cc3eccbe9
+O
+Assets/InputSystem/RPGInputs.cs,f\a\fab30f9baab056ae22b1473838b12944bd3793a3
+M
+Assets/Scripts/GameManager.cs,c\f\cf1d1156c85841abda524f1e26a86c4c3bc30473
+[
++Assets/Scripts/Player/BasicRigidBodyPush.cs,b\e\be9a477fdda3bb28f7be640169a7a28db67c581d
+O
+Assets/Scripts/Enemy/EnemyAI.cs,1\7\17b4e13705afec5b5d6f3e929614c3a0ac607944
