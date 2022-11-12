@@ -17,6 +17,8 @@ RPG Adventure Genre Video game built with Unity 3D
 ## Installation steps:
 
 - Clone this repo
+- Import all the packages from Unity Asset Store inside the AssetPacks folder 
+  - Set cursor images from Fantasy Cursor Pack as Cursor Texture Type
 
 ---
 
