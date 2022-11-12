@@ -75,8 +75,13 @@ namespace Kolman_Freecss.QuestSystem
         {
             objectives[objectiveId].UpdateAmount(amount);
         }*/
-    
+
         public Quest UpdateStatus()
+        {
+            return UpdateStatus(this);
+        }
+    
+        public Quest UpdateStatus(Quest quest)
         {
             if (_status.Equals(QuestStatus.NotStarted))
             {
@@ -94,7 +99,7 @@ namespace Kolman_Freecss.QuestSystem
             }
             else if (_status == QuestStatus.Started)
             {
-                if (CheckEndCondition())
+                if (CheckEndCondition(quest))
                 {
                     CompleteQuest();
                 }
@@ -107,10 +112,10 @@ namespace Kolman_Freecss.QuestSystem
             return _questSo.StartCondition.CheckCondition();
         }*/
         
-        private bool CheckEndCondition()
+        private bool CheckEndCondition(Quest quest)
         {
             bool endCondition = true;
-            objectives.ForEach(o =>
+            quest.objectives.ForEach(o =>
             {
                 if (!o.isCompleted)
                 {

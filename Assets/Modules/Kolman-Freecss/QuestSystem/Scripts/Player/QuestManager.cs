@@ -32,10 +32,10 @@ namespace Kolman_Freecss.QuestSystem
             RefreshQuestGivers();
         }
 
-        /*private void Update()
+        private void Update()
         {
             // ONLY!! Use it like hack to test the quest system            
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 Debug.Log(currentStory.CurrentQuest.objectives[0].isCompleted);
                 if (currentStory.CurrentQuest.objectives[0].isCompleted)
@@ -49,12 +49,15 @@ namespace Kolman_Freecss.QuestSystem
                     if (currentStory.UpdateQuestObjectiveAmount(1))
                     {
                         Debug.Log("Complete quest");
+                        // First we update the quest status in quest giver
+                        UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
+                        // Then we complete the quest
                         CompleteStatusGiverByQuestId(currentStory.CurrentQuest.ID);
                     }
                     Debug.Log("Update -> " + currentStory.CurrentQuest.objectives[0].isCompleted);
                 }
             }
-        }*/
+        }
 
         /**
          * Finish the current quest and start the next one
@@ -78,7 +81,7 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void AcceptQuest()
         {
-            UpdateStatusGiverByQuestId(currentStory.CurrentQuest.ID);
+            UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
             currentStory.AcceptQuest();
         }
 
@@ -87,7 +90,7 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void NextQuest()
         {
-            UpdateStatusGiverByQuestId(currentStory.CurrentQuest.ID);
+            UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
             currentStory.NextQuest();
             RefreshQuestGivers();
         }
@@ -105,9 +108,9 @@ namespace Kolman_Freecss.QuestSystem
         /**
          * Update the current quest of the quest givers
          */
-        public Quest UpdateStatusGiverByQuestId(int questId)
+        public Quest UpdateStatusGiverByQuestId(Quest quest)
         {
-            return GetQuestGiverByQuestId(questId).UpdateQuestStatus();
+            return GetQuestGiverByQuestId(quest.ID).UpdateQuestStatus(quest);
         }
         
         /**

@@ -33,15 +33,13 @@ namespace Kolman_Freecss.QuestSystem
          */
         public bool UpdateAmount(int amount)
         {
-            if (_currentAmount < _requiredAmount)
-            {
-                _currentAmount += amount;
-            }
-            else
+            if (isCompleted)
+                return true;
+            _currentAmount += amount;
+            if (_currentAmount >= _requiredAmount)
             {
                 isCompleted = true;
             }
-
             return isCompleted;
         }
         

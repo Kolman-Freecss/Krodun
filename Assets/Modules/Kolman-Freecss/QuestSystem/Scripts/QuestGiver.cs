@@ -35,9 +35,9 @@ namespace Kolman_Freecss.QuestSystem
             CurrentQuest = Quests[0];
         }
 
-        public Quest UpdateQuestStatus()
+        public Quest UpdateQuestStatus(Quest quest)
         {
-            CurrentQuest.UpdateStatus();
+            CurrentQuest.UpdateStatus(quest);
             RefreshQuestMark();
             return CurrentQuest;
         }
@@ -62,9 +62,7 @@ namespace Kolman_Freecss.QuestSystem
         {
             if (CurrentQuest != null)
             {
-                _notStarted.SetActive(false);
-                _inProgress.SetActive(false);
-                _completed.SetActive(false);
+                HideQuestMarks();
                 switch (CurrentQuest.Status)
                 {
                     case QuestStatus.NotStarted:
@@ -78,6 +76,17 @@ namespace Kolman_Freecss.QuestSystem
                         break;
                 }
             }
+            else
+            {
+                HideQuestMarks();
+            }
+        }
+
+        private void HideQuestMarks()
+        {
+            _notStarted.SetActive(false);
+            _inProgress.SetActive(false);
+            _completed.SetActive(false);
         }
         
         /**

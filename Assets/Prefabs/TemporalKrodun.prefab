@@ -1737,7 +1737,6 @@ GameObject:
   - component: {fileID: 6252925173382894604}
   - component: {fileID: 6252925173382894605}
   - component: {fileID: 6252925173382894606}
-  - component: {fileID: 6252925173382894608}
   - component: {fileID: 6252925173382894609}
   - component: {fileID: 6252925173382894610}
   - component: {fileID: 7724694385354334370}
@@ -1769,7 +1768,7 @@ Transform:
   - {fileID: 3531741304519216377}
   - {fileID: 1163123989655215050}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4464609626821494891
 Animator:
@@ -1863,23 +1862,6 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &6252925173382894608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4464609626829084543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf14942b89c74a48a2a1901fa49ed0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  canPush: 0
-  strength: 1.1
 --- !u!114 &6252925173382894609
 MonoBehaviour:
   m_ObjectHideFlags: 0
