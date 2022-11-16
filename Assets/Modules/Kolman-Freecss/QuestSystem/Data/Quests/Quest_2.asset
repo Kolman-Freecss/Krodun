@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Quest_2
   m_EditorClassIdentifier: 
   _title: Default quest 2
-  _description: Default description quest
-  _objectiveText: "Default objective quest\t"
+  _description: Limpieza
+  _objectiveText: (INSERT Objective text HERE)
   _objectives:
   - isCompleted: 0
     _requiredAmount: 6
   _storyStep: 1
   _reward:
-    _gold: 0
-    _exp: 0
+    _gold: 30
+    _exp: 100
   storyId: 0

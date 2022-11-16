@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Quest_3
   m_EditorClassIdentifier: 
   _title: Default quest 3
-  _description: Default description quest
-  _objectiveText: "Default objective quest\t"
+  _description: (INSERT Description text HERE)
+  _objectiveText: (INSERT Objective text HERE)
   _objectives:
   - isCompleted: 0
     _requiredAmount: 2

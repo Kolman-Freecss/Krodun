@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Quest_1
   m_EditorClassIdentifier: 
   _title: Default quest 1
-  _description: Default description quest
-  _objectiveText: "Default objective quest\t"
+  _description: Investiga la zona (INSERT - NAME)
+  _objectiveText: "Bienvenido Krodun, hac\xEDa tiempo que no te ve\xEDamos por aqu\xED,
+    te noto extra\xF1o...\n\nBueno, quer\xEDa pedirte algo ya que est\xE1s aqu\xED,
+    podr\xEDas recogerme unas manzanas para mi hijo porfavor, me est\xE1 costando
+    conseguirlas en la situaci\xF3n en la que estamos...\n\nSuerte!"
   _objectives:
   - isCompleted: 0
     _requiredAmount: 12
   _storyStep: 0
   _reward:
-    _gold: 2
-    _exp: 34
+    _gold: 10
+    _exp: 21
   storyId: 0
