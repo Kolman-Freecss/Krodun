@@ -179,7 +179,7 @@ namespace Kolman_Freecss.Krodun
         
         private void Attack()
         {
-            if (_input.click)
+            if (_input.action1)
             {
                 if (_hasAnimator)
                 {

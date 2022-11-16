@@ -138,7 +138,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 if (vendor)
                 {
                     //-------check player can afford item here----------------------
-                    return; //for now we just dont allow the click to do anything
+                    return; //for now we just dont allow the action1 to do anything
                 }
 
                 if (this.item != null) //---This slot has an item loaded into it already ---

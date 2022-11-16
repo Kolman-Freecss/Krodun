@@ -5,11 +5,13 @@ namespace Kolman_Freecss.Krodun
 {
     public class RPGInputs : MonoBehaviour
     {
-        [Header("Character Input Values")] public bool click; //Attack, fire, etc.
+        [Header("Character Input Values")] public bool action1; //Attack, fire, etc.
         public Vector2 move;
         public Vector2 look;
         public bool jump;
         public bool sprint;
+        public bool leftClick;
+        public bool rightClick;
 
         [Header("Movement Settings")] public bool analogMovement;
 
@@ -78,14 +80,34 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
-        public void OnFire(InputValue value)
+        public void OnAction1(InputValue value)
         {
-            FireInput(value.isPressed);
+            Action1Input(value.isPressed);
         }
 
-        public void FireInput(bool newFireState)
+        public void Action1Input(bool newAction1State)
         {
-            click = newFireState;
+            action1 = newAction1State;
+        }
+        
+        public void OnLeftClick(InputValue value)
+        {
+            LeftClickInput(value.isPressed);
+        }
+        
+        public void LeftClickInput(bool newLeftClickState)
+        {
+            leftClick = newLeftClickState;
+        }
+        
+        public void OnRightClick(InputValue value)
+        {
+            RightClickInput(value.isPressed);
+        }
+        
+        public void RightClickInput(bool newRightClickState)
+        {
+            rightClick = newRightClickState;
         }
 
         /*private void OnApplicationFocus(bool hasFocus)

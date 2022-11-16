@@ -1,5 +1,5 @@
 {
-    "name": "StarterAssets",
+    "name": "RPGInputs",
     "maps": [
         {
             "name": "Player",
@@ -51,9 +51,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire",
+                    "name": "Action1",
                     "type": "Button",
                     "id": "c7bdf79c-30c1-4043-9e20-15d0595401e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightClick",
+                    "type": "Button",
+                    "id": "10205fe5-2b40-4551-b148-f746faf189f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "a94f8295-5a6b-42e4-9d9f-67e1a6464d27",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
@@ -250,23 +268,34 @@
                 },
                 {
                     "name": "",
-                    "id": "b8df4167-37d8-40a5-b428-b153fd894d99",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "id": "d7da8c6f-42f2-41f4-89fe-bc27d2ffb086",
+                    "path": "<Keyboard>/1",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Fire",
+                    "action": "Action1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1551c465-311c-4bf8-92fd-8e79c10387cc",
+                    "id": "ef072c34-1d30-43e8-bca1-d60ee6c5a754",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b79babdc-b56e-44a7-a854-586a0a8c9cf9",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Fire",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -97,7 +97,7 @@ namespace Kolman_Freecss.Krodun
 
         private void OnClickWhenHover(GameObject target, GameObject canvas)
         {
-            if (_inputs.click && isInsideAreaDistance(target))
+            if (_inputs.leftClick && isInsideAreaDistance(target))
             {
                 target.GetComponent<QuestGiver>().FaceTarget();
                 canvas.SetActive(true);
