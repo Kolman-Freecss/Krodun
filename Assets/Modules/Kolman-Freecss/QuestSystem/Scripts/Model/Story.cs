@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Kolman_Freecss.QuestSystem
 {
@@ -53,9 +54,9 @@ namespace Kolman_Freecss.QuestSystem
             IsCompleted = true;
         }
         
-        public bool UpdateQuestObjectiveAmount(int amount)
+        public bool UpdateQuestObjectiveAmount(EventQuestType eventQuestType, AmountType amountType)
         {
-            return CurrentQuest.UpdateQuestObjectiveAmount(amount);
+            return CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType);
         }
         
         /*public bool UpdateQuestObjectiveAmount(int questId, int amount)

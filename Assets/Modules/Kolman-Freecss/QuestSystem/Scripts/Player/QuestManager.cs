@@ -35,7 +35,7 @@ namespace Kolman_Freecss.QuestSystem
         private void Update()
         {
             // ONLY!! Use it like hack to test the quest system            
-            if (Input.GetKeyDown(KeyCode.L))
+            /*if (Input.GetKeyDown(KeyCode.L))
             {
                 Debug.Log(currentStory.CurrentQuest.objectives[0].isCompleted);
                 if (currentStory.CurrentQuest.objectives[0].isCompleted)
@@ -56,9 +56,24 @@ namespace Kolman_Freecss.QuestSystem
                     }
                     Debug.Log("Update -> " + currentStory.CurrentQuest.objectives[0].isCompleted);
                 }
-            }
+            }*/
         }
 
+        /*
+         * This method is used to update the quest objetive
+         * @param eventQuestType : The type of the event
+         * @param eventEnum : The enum of the event
+         */
+        public void EventTriggered(EventQuestType eventQuestType, AmountType amountType)
+        {
+            if (currentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType))
+            {
+                Debug.Log("Objetive progress");
+                // We update the quest status in quest giver
+                UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
+            }
+        }
+        
         /**
          * Finish the current quest and start the next one
          */

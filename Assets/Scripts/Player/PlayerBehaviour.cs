@@ -1,4 +1,5 @@
 ﻿using System;
+using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -11,6 +12,7 @@ namespace Kolman_Freecss.Krodun
         int _experience = 0;
         private static PlayerBehaviour Instance { get; set; }
         private KrodunController _krodunController;
+        private QuestManager _questManager;
         public KrodunController KrodunController
         {
             get
@@ -27,9 +29,10 @@ namespace Kolman_Freecss.Krodun
         private void Start()
         {
             _krodunController = GetComponent<KrodunController>();
+            _questManager = GetComponent<QuestManager>();
             Init();
         }
-        
+
         public void Init()
         {
             _experience = 0;
@@ -47,11 +50,6 @@ namespace Kolman_Freecss.Krodun
             }
         }
         
-        public void AddExperience(int experience)
-        {
-            _experience += experience;
-        }
-        
         public void HandleDeath()
         {
             gameOverCanvas.enabled = true;
@@ -60,6 +58,25 @@ namespace Kolman_Freecss.Krodun
             Cursor.visible = true;
         }
 
+        public void EventQuest(EventQuestType eventQuestType, AmountType amountType)
+        {
+            switch (eventQuestType)
+            {
+                case EventQuestType.KILL:
+                    AddExperience(10);
+                    _questManager.EventTriggered(EventQuestType.KILL, amountType);                    
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        
+        private void AddExperience(int experience)
+        {
+            _experience += experience;
+        }
+        
         void ManageSingleton()
         {
             if (Instance != null)
@@ -73,6 +90,5 @@ namespace Kolman_Freecss.Krodun
                 DontDestroyOnLoad(gameObject);
             }
         }
-        
     }
 }

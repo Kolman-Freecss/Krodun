@@ -1,4 +1,5 @@
 ﻿using Kolman_Freecss.HitboxHurtboxSystem;
+using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -7,6 +8,7 @@ namespace Kolman_Freecss.Krodun
     {
         [SerializeField] float damage = 40f;
         [SerializeField] float health = 100f;
+        [SerializeField] AmountType enemyType = AmountType.TROLL;
         
         bool _isDead = false;
         PlayerBehaviour _player;
@@ -53,7 +55,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (_isDead) return;
             _isDead = true;
-            _player.AddExperience(10);
+            _player.EventQuest(EventQuestType.KILL, enemyType);
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDeath);

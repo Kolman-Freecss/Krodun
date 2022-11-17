@@ -115,7 +115,9 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
-
+        public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
+        public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
+        
         private void Awake()
         {
             // get a reference to our main camera
@@ -136,8 +138,6 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
             
         }
-        public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
-        public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
 
         private void Start()
         {
@@ -160,13 +160,6 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
         }
         
-        private void AssignAnimationIDs()
-        {
-            _animIDMoving = Animator.StringToHash("moving");
-            _animIDIdle = Animator.StringToHash("battle");
-            _animIDJump = Animator.StringToHash("Jump");
-        }
-
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
@@ -177,6 +170,13 @@ namespace Kolman_Freecss.Krodun
             Attack();
         }
         
+        private void AssignAnimationIDs()
+        {
+            _animIDMoving = Animator.StringToHash("moving");
+            _animIDIdle = Animator.StringToHash("battle");
+            _animIDJump = Animator.StringToHash("Jump");
+        }
+
         private void Attack()
         {
             if (_input.action1)

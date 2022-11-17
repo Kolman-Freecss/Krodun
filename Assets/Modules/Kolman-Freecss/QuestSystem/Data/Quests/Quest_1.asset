@@ -19,8 +19,10 @@ MonoBehaviour:
     podr\xEDas recogerme unas manzanas para mi hijo porfavor, me est\xE1 costando
     conseguirlas en la situaci\xF3n en la que estamos...\n\nSuerte!"
   _objectives:
-  - isCompleted: 0
-    _requiredAmount: 12
+  - _eventQuestType: 0
+    _requiredAmount: 2
+    _amountType: 0
+    isCompleted: 0
   _storyStep: 0
   _reward:
     _gold: 10

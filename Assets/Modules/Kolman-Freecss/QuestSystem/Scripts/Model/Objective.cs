@@ -1,24 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kolman_Freecss.QuestSystem
 {
     [System.Serializable]
     public class Objective
     {
+        [SerializeField] private EventQuestType _eventQuestType;
+        public EventQuestType EventQuestType => _eventQuestType;
+        
+        [SerializeField] private int _requiredAmount;
+        public int RequiredAmount
+        {
+            get => _requiredAmount;
+        }
+        
+        [SerializeField] private AmountType _amountType;
+        public AmountType AmountType => _amountType;
+        
         public bool isCompleted;
-
+        
         private int _currentAmount;
         
         public int CurrentAmount
         {
             get { return _currentAmount; }
-        }
-
-        [SerializeField] private int _requiredAmount;
-
-        public int RequiredAmount
-        {
-            get => _requiredAmount;
         }
         
         public Objective(Objective objective)
@@ -31,11 +37,11 @@ namespace Kolman_Freecss.QuestSystem
         /**
          * returns true if the objective is completed
          */
-        public bool UpdateAmount(int amount)
+        public bool UpdateAmount()
         {
             if (isCompleted)
                 return true;
-            _currentAmount += amount;
+            _currentAmount ++;
             if (_currentAmount >= _requiredAmount)
             {
                 isCompleted = true;
