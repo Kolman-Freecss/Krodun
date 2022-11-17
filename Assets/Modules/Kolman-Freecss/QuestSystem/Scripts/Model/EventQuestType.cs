@@ -2,6 +2,7 @@
 {
     public enum EventQuestType
     {
-        KILL
+        Kill,
+        Collect
     }
 }

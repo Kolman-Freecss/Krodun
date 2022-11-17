@@ -55,7 +55,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (_isDead) return;
             _isDead = true;
-            _player.EventQuest(EventQuestType.KILL, enemyType);
+            _player.EventQuest(EventQuestType.Kill, enemyType);
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDeath);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Kolman_Freecss.QuestSystem
 {
@@ -67,6 +68,7 @@ namespace Kolman_Freecss.QuestSystem
         {
             objectives.ForEach(x =>
             {
+                Debug.Log(x.EventQuestType + " " + eventQuestType + " " + x.AmountType + " " + amountType);
                 if (x.EventQuestType == eventQuestType && x.AmountType == amountType)
                 {
                     if (x.UpdateAmount())

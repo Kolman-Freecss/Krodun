@@ -16,8 +16,10 @@ MonoBehaviour:
   _description: Limpieza
   _objectiveText: (INSERT Objective text HERE)
   _objectives:
-  - isCompleted: 0
+  - _eventQuestType: 1
     _requiredAmount: 6
+    _amountType: 1
+    isCompleted: 0
   _storyStep: 1
   _reward:
     _gold: 30

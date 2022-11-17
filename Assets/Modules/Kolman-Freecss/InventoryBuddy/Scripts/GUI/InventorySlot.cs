@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Image spriteImage;             //our image inside the slot
-    public InventoryItem item;                              //our item inside the slot
-    public InventorySlot selectedItem;                      //reference for our game object "SelectedItem" - so we can change it -
-    private TextMeshProUGUI itemNameText;                   //ref to our slot text
+    [SerializeField] private Image spriteImage; //our image inside the slot
+    public InventoryItem item; //our item inside the slot
+    public InventorySlot selectedItem; //reference for our game object "SelectedItem" - so we can change it -
+    private TextMeshProUGUI itemNameText; //ref to our slot text
     public bool dropScreen;
     public GameObject dropSpawner;
 
@@ -45,7 +45,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /**
      * Run this when an inventory slot needs to be updated
      */
-    public void Setup(InventoryItem item) 
+    public void Setup(InventoryItem item)
     {
         this.item = item; //this slot will now hold the constructor(InventoryItem item) as its new item
 
@@ -89,6 +89,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                 }
             }
+
             if (tChest && tChest.GetComponent<Inventory>().inventoryDisplay.isActiveAndEnabled) //Is the display active?
             {
                 if (this.item != null) // is there an item in the slot?
@@ -164,7 +165,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             }
         }
     }
-
 
     public void OnPointerEnter(PointerEventData eventData)
     {

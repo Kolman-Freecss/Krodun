@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
 namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so they dont interfere with yours
@@ -22,34 +22,11 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         public List<InventoryItem> characterItems = new List<InventoryItem>();  //create a new list called items                                                                             
         public InventoryItemList database;                                      //pick the list we want to get info from
         public InventoryDisplay inventoryDisplay;
+        private QuestManager questManager;
 
-
-        private void Start()
+        private void Awake()
         {
-
-            //    GiveItem("Red Ball");
-            //    GiveItem("Orange Ball");
-            //GiveItem("Red Ball");
-            //GiveItem("Orange Ball");
-            //GiveItem("Red Ball");
-            //GiveItem("Red Ball");
-            //GiveItem("Orange Ball");
-            //GiveItem("Orange Ball");
-            //InventoryEvents.SaveInitiated += Save;
-            //Load();
-        }
-
-        private void Update()
-        {
-            //--------fill up the whole inventory-----------------------//
-            //if (characterItems.Count < inventoryDisplay.numberOfSlots)
-            //{
-            //    Debug.Log(characterItems.Count);
-            //    GiveItem("Red Ball");
-            //}
-            //---------------------------------------------------------//
-
-            //  Debug.Log("char inventory - items count: " + characterItems.Count);
+            questManager = FindObjectOfType<QuestManager>();
         }
 
         public void GiveItem(string itemName)
@@ -57,7 +34,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             InventoryItem itemToAdd = database.GetItem(itemName);
             characterItems.Add(itemToAdd);
             inventoryDisplay.AddNewItem(itemToAdd);         //add the item to the inventory display
-
         }
 
         public void AddItem(string itemName)
@@ -65,6 +41,7 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             InventoryItem itemToAdd = database.GetItem(itemName);   //get reference to our listed item
             characterItems.Add(itemToAdd);                                   //add reference to our local items list
             inventoryDisplay.AddNewItem(itemToAdd);
+            questManager.EventTriggered(EventQuestType.Collect, itemToAdd.amountType);
             //     InventoryEvents.OnItemAddedToInventory(itemToAdd);      //call event using our referenced item, the event will tell the display to show it.
             //   Debug.Log("Item addded: " + itemToAdd.itemName);
         }
@@ -74,6 +51,7 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             foreach (InventoryItem item in items)
             {
                 AddItem(item.itemName);
+                questManager.EventTriggered(EventQuestType.Collect, item.amountType);
             }
         }
 
@@ -81,7 +59,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         {
             return characterItems.Find(InventoryItem => InventoryItem.itemName == itemName);
         }
-
 
         public void RemoveItem(string itemName)
         {

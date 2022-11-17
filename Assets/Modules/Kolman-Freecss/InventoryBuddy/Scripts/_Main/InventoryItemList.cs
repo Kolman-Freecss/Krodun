@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Ragnarok;
 
+// Database for all the items in the game
 [CreateAssetMenu(fileName = "ItemList", menuName = "New Item List", order = 1)]
 public class InventoryItemList : ScriptableObject
 {

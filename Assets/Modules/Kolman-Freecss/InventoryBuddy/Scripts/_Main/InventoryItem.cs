@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Kolman_Freecss.QuestSystem;
 using Ragnarok;
 
 [System.Serializable]                         //    Our Representation of an InventoryItem
@@ -11,6 +12,7 @@ public class InventoryItem
     public Sprite itemIcon = null;         //    What the item will look like in the inventory
     public GameObject itemObject;
     public bool isUnique = false;             //    Optional checkbox to indicate that there should only be one of these items per game
+    public AmountType amountType = AmountType.APPLE;
 
     //public bool isIndestructible = false;     //    Optional checkbox to prevent an item from being destroyed by the player (unimplemented)
     //public bool isQuestItem = false;          //    Examples of additional information that could be held in InventoryItem

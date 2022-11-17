@@ -62,9 +62,9 @@ namespace Kolman_Freecss.Krodun
         {
             switch (eventQuestType)
             {
-                case EventQuestType.KILL:
+                case EventQuestType.Kill:
                     AddExperience(10);
-                    _questManager.EventTriggered(EventQuestType.KILL, amountType);                    
+                    _questManager.EventTriggered(EventQuestType.Kill, amountType);                    
                     break;
                 default:
                     break;
