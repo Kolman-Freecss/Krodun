@@ -32,6 +32,8 @@ namespace Kolman_Freecss.QuestSystem
             isCompleted = objective.isCompleted;
             _currentAmount = 0;
             _requiredAmount = objective._requiredAmount;
+            _eventQuestType = objective._eventQuestType;
+            _amountType = objective._amountType;
         }
         
         /**

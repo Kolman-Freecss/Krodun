@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Kolman_Freecss.Krodun;
 using UnityEngine;
 

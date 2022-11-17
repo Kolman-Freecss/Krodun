@@ -8,7 +8,6 @@ public class InventoryDisplay : MonoBehaviour
     //  public readonly List<InventoryRecord> InventoryRecords = new List<InventoryRecord>();
 
     [SerializeField]
-    // private InventorySlot uiItem;
     public List<InventorySlot> uIItems = new List<InventorySlot>();
 
     public GameObject slotPrefab;

@@ -68,7 +68,6 @@ namespace Kolman_Freecss.QuestSystem
         {
             objectives.ForEach(x =>
             {
-                Debug.Log(x.EventQuestType + " " + eventQuestType + " " + x.AmountType + " " + amountType);
                 if (x.EventQuestType == eventQuestType && x.AmountType == amountType)
                 {
                     if (x.UpdateAmount())

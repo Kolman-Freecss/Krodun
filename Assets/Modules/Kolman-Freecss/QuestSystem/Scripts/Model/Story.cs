@@ -59,15 +59,6 @@ namespace Kolman_Freecss.QuestSystem
             return CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType);
         }
         
-        /*public bool UpdateQuestObjectiveAmount(int questId, int amount)
-        {
-        }*/
-
-        /*public void UpdateQuestObjectiveAmount(int objectiveId, int amount)
-        {
-            
-        }*/
-        
         /**
          * Active the next quest by index of the story steps
          */
