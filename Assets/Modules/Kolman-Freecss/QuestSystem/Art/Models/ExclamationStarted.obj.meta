@@ -3,12 +3,22 @@ guid: 015c2ea68609b414e8f83ca04d2e7d24
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Exclamation_of_Mision_Nulo__Nulo_1_NURBS_ForroMat
+    second: {fileID: 2100000, guid: 2142f2e1e7b3ea1459cfc57faabc29f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Exclamation_of_Mision_Nulo__Nulo_1_NURBS_Forro_1Mat
+    second: {fileID: 2100000, guid: 8678282a41262c84baf8049e87499f5e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 1
     materialSearch: 2
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
