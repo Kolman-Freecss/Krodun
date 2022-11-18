@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Default quest 2
   _description: Limpieza
-  _objectiveText: (INSERT Objective text HERE)
+  _objectiveText: "Krodun! Que raro verte por estos lares!\n\nOye hazme un favor
+    y aplasta unos cuantos de esta gentuza que se ha adue\xF1ado de nuestros parajes!!!"
   _objectives:
   - _eventQuestType: 1
-    _requiredAmount: 6
+    _requiredAmount: 3
     _amountType: 1
+    isCompleted: 0
+  - _eventQuestType: 0
+    _requiredAmount: 1
+    _amountType: 0
     isCompleted: 0
   _storyStep: 1
   _reward:
