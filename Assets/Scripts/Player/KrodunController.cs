@@ -180,6 +180,7 @@ namespace Kolman_Freecss.Krodun
 
         private void Attack()
         {
+            _animator.ResetTrigger(_animIDAttack01);
             if (_input.action1)
             {
                 if (_hasAnimator)
