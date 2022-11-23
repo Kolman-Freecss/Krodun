@@ -88,8 +88,9 @@ namespace Kolman_Freecss.Krodun
         private float _fallTimeoutDelta;
 
         // animation IDs
-        private int _animIDMoving;
-        private int _animIDIdle;
+        private int _animIDWalk;
+        private int _animIDRun;
+        private int _animIDAttack01;
         private int _animIDJump;
 
         private PlayerInput _playerInput;
@@ -105,7 +106,6 @@ namespace Kolman_Freecss.Krodun
         private const float _threshold = 0.01f;
         
         private bool _hasAnimator;
-        
         
         private bool IsCurrentDeviceMouse
         {
@@ -164,7 +164,7 @@ namespace Kolman_Freecss.Krodun
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
+            //JumpAndGravity(); TODO - Set animation
             GroundedCheck();
             Move();
             Attack();
@@ -172,8 +172,9 @@ namespace Kolman_Freecss.Krodun
         
         private void AssignAnimationIDs()
         {
-            _animIDMoving = Animator.StringToHash("moving");
-            _animIDIdle = Animator.StringToHash("battle");
+            _animIDWalk = Animator.StringToHash("Walk");
+            _animIDRun = Animator.StringToHash("Run");
+            _animIDAttack01 = Animator.StringToHash("Attack01");
             _animIDJump = Animator.StringToHash("Jump");
         }
 
@@ -183,7 +184,7 @@ namespace Kolman_Freecss.Krodun
             {
                 if (_hasAnimator)
                 {
-                    _animator.SetInteger(_animIDMoving, 4);
+                    _animator.SetTrigger(_animIDAttack01);
                 }
             }
         }
@@ -238,8 +239,8 @@ namespace Kolman_Freecss.Krodun
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
             if (_hasAnimator)
             {
-                _animator.SetInteger(_animIDMoving, 0);
-                _animator.SetInteger(_animIDIdle, 1);
+                _animator.SetBool(_animIDWalk, false);
+                _animator.SetBool(_animIDRun, false);
             }
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
@@ -300,11 +301,11 @@ namespace Kolman_Freecss.Krodun
             {
                 if (_input.sprint && _input.move != Vector2.zero)
                 {
-                    _animator.SetInteger(_animIDMoving, 2);
+                    _animator.SetBool(_animIDRun, true);
                 }
                 else if (_input.move != Vector2.zero)
                 {
-                    _animator.SetInteger(_animIDMoving, 1);
+                    _animator.SetBool(_animIDWalk, true);
                 }
             }
         }
@@ -318,7 +319,7 @@ namespace Kolman_Freecss.Krodun
                 
                 if (_hasAnimator)
                 {
-                    _animator.SetBool(_animIDJump, false); //Jump
+                    _animator.SetTrigger(_animIDJump);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -333,7 +334,7 @@ namespace Kolman_Freecss.Krodun
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDJump, true); //Jump
+                        _animator.SetTrigger(_animIDJump);
                     }
                     
                     // the square root of H * -2 * G = how much velocity needed to reach desired height

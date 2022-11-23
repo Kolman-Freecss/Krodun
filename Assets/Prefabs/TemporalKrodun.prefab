@@ -1747,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4464609626828715179
 Transform:
   m_ObjectHideFlags: 0
@@ -1768,7 +1768,7 @@ Transform:
   - {fileID: 3531741304519216377}
   - {fileID: 1163123989655215050}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4464609626821494891
 Animator:
@@ -1836,9 +1836,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultCursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
-  questNotStartedCursor: {fileID: 2800000, guid: 68c95b538d41ffb4da03c8e477c52c33, type: 3}
-  questStartedCursor: {fileID: 2800000, guid: a8bda1bf7a15e0b488920a1eb443d006, type: 3}
-  questCompletedCursor: {fileID: 2800000, guid: 2b5d6bf9e1cf29a4d8e629c51d834ee4, type: 3}
+  questNotStartedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
+  questStartedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
+  questCompletedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
   questStartedCanvas: {fileID: 0}
   questNotStartedCanvas: {fileID: 0}
   questCompletedCanvas: {fileID: 0}
@@ -1854,11 +1854,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999ced9f8a2300d45a8d6eb106de8383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  click: 0
+  action1: 0
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  leftClick: 0
+  rightClick: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
