@@ -92,6 +92,8 @@ namespace Kolman_Freecss.Krodun
         private int _animIDRun;
         private int _animIDAttack01;
         private int _animIDJump;
+        private int _animIDOnGround;
+        private int _animIDJumpVelocity;
 
         private PlayerInput _playerInput;
         private Animator _animator;
@@ -176,6 +178,8 @@ namespace Kolman_Freecss.Krodun
             _animIDRun = Animator.StringToHash("Run");
             _animIDAttack01 = Animator.StringToHash("Attack01");
             _animIDJump = Animator.StringToHash("Jump");
+            _animIDOnGround = Animator.StringToHash("OnGround");
+            _animIDJumpVelocity = Animator.StringToHash("JumpVelocity");
         }
 
         private void Attack()
@@ -208,7 +212,7 @@ namespace Kolman_Freecss.Krodun
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-
+            _animator.SetBool(_animIDOnGround, Grounded);
         }
 
         private void CameraRotation()
@@ -320,7 +324,7 @@ namespace Kolman_Freecss.Krodun
                 
                 if (_hasAnimator)
                 {
-                    _animator.SetTrigger(_animIDJump);
+                    _animator.ResetTrigger(_animIDJump);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -358,7 +362,7 @@ namespace Kolman_Freecss.Krodun
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
                 }
-
+                
                 // if we are not grounded, do not jump
                 _input.jump = false;
             }
@@ -366,6 +370,7 @@ namespace Kolman_Freecss.Krodun
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
+                _animator.SetFloat(_animIDJumpVelocity, _verticalVelocity);
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
