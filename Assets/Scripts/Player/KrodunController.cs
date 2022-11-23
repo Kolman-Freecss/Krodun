@@ -164,7 +164,7 @@ namespace Kolman_Freecss.Krodun
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            //JumpAndGravity(); TODO - Set animation
+            JumpAndGravity();
             GroundedCheck();
             Move();
             Attack();
