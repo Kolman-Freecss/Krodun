@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,6 @@ namespace Kolman_Freecss.Krodun
         private GameObject _settingsCanvas;
         private bool _showSettings = false;
         private KrodunController _krodunController;
-        private GameObject _backgroundMusic;
 
         private void Awake()
         {
@@ -37,11 +35,6 @@ namespace Kolman_Freecss.Krodun
                 _settingsCanvas = GameObject.FindGameObjectWithTag("Settings");
             }
 
-            if (_backgroundMusic == null)
-            {
-                _backgroundMusic = GameObject.FindGameObjectWithTag("BackgroundMusic");
-            }
-
             ManageSingleton();
         }
 
@@ -49,8 +42,11 @@ namespace Kolman_Freecss.Krodun
         {
             if (_krodunController == null)
             {
-                _krodunController = GetComponent<KrodunController>();
+                _krodunController = FindObjectOfType<KrodunController>();
             }
+
+            _musicSlider.value = SoundManager.instance.MusicAudioVolume;
+            _soundSlider.value = SoundManager.instance.EffectsAudioVolume;
         }
 
         public void Init()
@@ -58,8 +54,6 @@ namespace Kolman_Freecss.Krodun
             _mainMenu.SetActive(_isPaused);
             _creditsCanvas.SetActive(_showCredits);
             _settingsCanvas.SetActive(_showSettings);
-            _musicSlider.value = _backgroundMusic.GetComponent<AudioSource>().volume;
-            _soundSlider.value = _krodunController.GetSoundVolume();
         }
 
         void ManageSingleton()
@@ -121,12 +115,14 @@ namespace Kolman_Freecss.Krodun
         /**################## SETTINGS ##################**/
         public void OnMusicVolumeChange(float value)
         {
-            this._backgroundMusic.GetComponent<AudioSource>().volume = value;
+            Debug.Log(this._musicSlider.value);
+            SoundManager.instance.SetMusicVolume(this._musicSlider.value);
         }
 
         public void OnSoundVolumeChange(float volume)
         {
-            this._krodunController.SetEffectsVolume(volume);
+            Debug.Log(this._soundSlider.value);
+            SoundManager.instance.SetEffectsVolume(this._soundSlider.value);
         }
 
         public void ToggleSettings()

@@ -11,6 +11,7 @@ namespace Kolman_Freecss.Krodun
     [RequireComponent(typeof(PlayerInput))]
     public class KrodunController : MonoBehaviour, IHitboxResponder, IHurtboxResponder
     {
+        #region Inspector Variables
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -29,7 +30,6 @@ namespace Kolman_Freecss.Krodun
         public AudioClip[] FootstepAudioClips;
         public AudioClip RunAudioClip;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
-        [Range(0, 1)] public float EffectsAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -73,6 +73,8 @@ namespace Kolman_Freecss.Krodun
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+        
+        #endregion
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -404,7 +406,7 @@ namespace Kolman_Freecss.Krodun
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), EffectsAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
                 }
             }
         }
@@ -413,7 +415,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), EffectsAudioVolume);
+                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
             }
         }
 
@@ -421,19 +423,9 @@ namespace Kolman_Freecss.Krodun
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), EffectsAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
             }
         }
         
-        public void SetEffectsVolume(float volume)
-        {
-            EffectsAudioVolume = volume;
-        }
-        
-        public float GetSoundVolume()
-        {
-            return EffectsAudioVolume;
-            //EffectsAudioVolume = PlayerPrefs.GetFloat("EffectsVolume", 1f);
-        }
     }
 }
