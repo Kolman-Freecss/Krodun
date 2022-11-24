@@ -8,6 +8,7 @@ TagManager:
   - Credits
   - Menu
   - Settings
+  - BackgroundMusic
   layers:
   - Default
   - TransparentFX

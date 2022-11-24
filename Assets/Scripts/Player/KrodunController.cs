@@ -27,7 +27,9 @@ namespace Kolman_Freecss.Krodun
 
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
+        public AudioClip RunAudioClip;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+        [Range(0, 1)] public float EffectsAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -299,7 +301,6 @@ namespace Kolman_Freecss.Krodun
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
             
             // update animator if using character
             if (_hasAnimator)
@@ -403,8 +404,16 @@ namespace Kolman_Freecss.Krodun
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), EffectsAudioVolume);
                 }
+            }
+        }
+        
+        private void OnRun(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            {
+                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), EffectsAudioVolume);
             }
         }
 
@@ -412,8 +421,19 @@ namespace Kolman_Freecss.Krodun
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), EffectsAudioVolume);
             }
+        }
+        
+        public void SetEffectsVolume(float volume)
+        {
+            EffectsAudioVolume = volume;
+        }
+        
+        public float GetSoundVolume()
+        {
+            return EffectsAudioVolume;
+            //EffectsAudioVolume = PlayerPrefs.GetFloat("EffectsVolume", 1f);
         }
     }
 }
