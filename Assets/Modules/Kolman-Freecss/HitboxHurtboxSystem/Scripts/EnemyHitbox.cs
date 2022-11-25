@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using Kolman_Freecss.Krodun;
+﻿using System.Diagnostics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Kolman_Freecss.HitboxHurtboxSystem
 {

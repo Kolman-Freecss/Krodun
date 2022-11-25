@@ -115,13 +115,11 @@ namespace Kolman_Freecss.Krodun
         /**################## SETTINGS ##################**/
         public void OnMusicVolumeChange(float value)
         {
-            Debug.Log(this._musicSlider.value);
             SoundManager.instance.SetMusicVolume(this._musicSlider.value);
         }
 
         public void OnSoundVolumeChange(float volume)
         {
-            Debug.Log(this._soundSlider.value);
             SoundManager.instance.SetEffectsVolume(this._soundSlider.value);
         }
 
