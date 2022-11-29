@@ -1451,7 +1451,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6414848549013692615, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
       propertyPath: m_StoppingDistance
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8753619234690991415, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
       propertyPath: m_RootOrder
@@ -2232,7 +2232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233964166999568978, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -433.9396
+      value: -433.93964
       objectReference: {fileID: 0}
     - target: {fileID: 2248400193158198747, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3478,7 +3478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3954980263721222787, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.13212937
+      value: -0.13212939
       objectReference: {fileID: 0}
     - target: {fileID: 3954980263721222787, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
       propertyPath: m_LocalRotation.y
@@ -3533,7 +3533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4070583550962802520, guid: ae44a768852ccf64792270eb38596fc7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.13212937
+      value: -0.13212939
       objectReference: {fileID: 0}
     - target: {fileID: 4070583550962802520, guid: ae44a768852ccf64792270eb38596fc7, type: 3}
       propertyPath: m_LocalRotation.y
