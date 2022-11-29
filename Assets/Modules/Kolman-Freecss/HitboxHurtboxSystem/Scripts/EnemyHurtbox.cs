@@ -27,8 +27,15 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
         [Conditional("DEBUG")]
         public void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(transform.position, transform.localScale);
+            Gizmos.color = Color.blue;
+            if (this.GetComponent<Collider>() is BoxCollider boxCollider)
+            {
+                Gizmos.DrawWireCube(boxCollider.bounds.center, boxCollider.bounds.size);
+            }
+            else if (this.GetComponent<Collider>() is SphereCollider sphereCollider)
+            {
+                Gizmos.DrawWireSphere(sphereCollider.bounds.center, sphereCollider.radius);
+            }
         }
     }
 }

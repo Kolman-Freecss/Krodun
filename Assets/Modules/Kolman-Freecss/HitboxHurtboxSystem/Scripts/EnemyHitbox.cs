@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kolman_Freecss.HitboxHurtboxSystem
 {
@@ -39,7 +40,14 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
         public void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position, transform.localScale);
+            if (this.GetComponent<Collider>() is BoxCollider boxCollider)
+            {
+                Gizmos.DrawWireCube(boxCollider.bounds.center, boxCollider.bounds.size);
+            }
+            else if (this.GetComponent<Collider>() is SphereCollider sphereCollider)
+            {
+                Gizmos.DrawWireSphere(sphereCollider.bounds.center, sphereCollider.radius);
+            }
         }
         
     }

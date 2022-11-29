@@ -6,24 +6,26 @@ namespace Kolman_Freecss.Krodun
 {
     public abstract class AbstractEnemyAI : MonoBehaviour
     {
-        [SerializeField] float chaseRange = 10f;
-        [SerializeField] float turnSpeed = 5f;
-        NavMeshAgent navMeshAgent;
-        float distanceToTarget = Mathf.Infinity;
-        bool isProvoked = false;
-        EnemyBehaviour health;
-        Transform _player;
+        [SerializeField] protected float chaseRange = 10f;
+        [SerializeField] protected float turnSpeed = 5f;
+        protected NavMeshAgent navMeshAgent;
+        protected float distanceToTarget = Mathf.Infinity;
+        protected bool isProvoked = false;
+        protected EnemyBehaviour health;
+        protected Transform _player;
         
         // Animator
-        private Animator _animator;
-        private bool _hasAnimator;
+        protected Animator _animator;
+        protected bool _hasAnimator;
         
         // animation IDs
-        private int _animIDMoving;
-        private int _animIDIdle;
+        protected int _animIDMoving;
+        protected int _animIDIdle;
         
-        private EnemyHitbox _hitbox;
-        private EnemyHurtbox _hurtbox;
+        protected EnemyHitbox _hitbox;
+        protected EnemyHurtbox _hurtbox;
+        
+        private bool _isAttacking;
         
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
@@ -48,39 +50,12 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
         }
+
+        protected abstract void AssignAnimationIDs();
+
+        protected abstract void Update();
         
-        private void AssignAnimationIDs()
-        {
-            _animIDMoving = Animator.StringToHash("moving");
-            _animIDIdle = Animator.StringToHash("battle");
-        }
-
-        void Update()
-        {
-            if (health.IsDead())
-            {
-                enabled = false;
-                navMeshAgent.enabled = false;
-            }
-            
-            // Idle State by default
-            if (_hasAnimator)
-            {
-                _animator.SetInteger(_animIDMoving, 0); // Stop animation
-                _animator.SetInteger(_animIDIdle, 1); // Idle animation
-            }
-
-            distanceToTarget = Vector3.Distance(_player.position, transform.position);
-
-            if (isProvoked)
-            {
-                EngageTarget();
-            }
-            else if (distanceToTarget <= chaseRange)
-            {
-                isProvoked = true;
-            }
-        }
+        protected abstract void AttackTarget();
 
         // Called by Unity when the enemy is hit by a weapon (TakeDamage)
         public void OnDamageTaken()
@@ -88,9 +63,14 @@ namespace Kolman_Freecss.Krodun
             isProvoked = true;
         }
 
-        void EngageTarget()
+        protected void EngageTarget()
         {
             FaceTarget();
+            if (_isAttacking)
+            {
+                StopAttack();
+            }
+
             if (distanceToTarget >= navMeshAgent.stoppingDistance)
             {
                 ChaseTarget();
@@ -98,19 +78,12 @@ namespace Kolman_Freecss.Krodun
 
             if (distanceToTarget <= navMeshAgent.stoppingDistance)
             {
+                _isAttacking = true;
                 AttackTarget();
             }
         }
 
-        void AttackTarget()
-        {
-            if (_hasAnimator)
-            {
-                _animator.SetInteger(_animIDMoving, 5); // Attack animation
-            }
-        }
-
-        void FaceTarget()
+        protected void FaceTarget()
         {
             Vector3 direction = (_player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -119,10 +92,7 @@ namespace Kolman_Freecss.Krodun
 
         void ChaseTarget()
         {
-            if (_hasAnimator)
-            {
-                _animator.SetInteger(_animIDMoving, 2); // Run animation
-            }
+            TriggerAnimationMove();
             navMeshAgent.SetDestination(_player.position);
             // set our facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
@@ -135,6 +105,30 @@ namespace Kolman_Freecss.Krodun
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
         }
+        
+        protected abstract void StopAttack();
+        
+        protected abstract void TriggerAnimationMove();
+        
+        protected abstract void TriggerAnimationIdle();
+        
+        protected abstract void TriggerAnimationHit2();
+        
+        protected abstract void TriggerAnimationDeath();
+        
+        protected abstract void TriggerAnimationHit();
+        
+        //protected abstract void TriggerAnimationStunned();
 
+        protected abstract void StopAnimationMove();
+        
+        protected abstract void StopAnimationIdle();
+        
+        protected abstract void StopAnimationHit2();
+        
+        protected abstract void StopAnimationDeath();
+        
+        protected abstract void StopAnimationHit();
+        
     }
 }
