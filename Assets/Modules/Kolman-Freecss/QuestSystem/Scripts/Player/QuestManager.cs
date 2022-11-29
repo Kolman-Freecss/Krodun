@@ -11,7 +11,7 @@ namespace Kolman_Freecss.QuestSystem
         private static QuestManager Instance { get; set; }
         public Story currentStory;
         private List<QuestGiver> _questGivers = new List<QuestGiver>();
-        
+
         void Awake()
         {
             ManageSingleton();
@@ -20,42 +20,39 @@ namespace Kolman_Freecss.QuestSystem
         private void Start()
         {
             _questGivers = FindObjectsOfType<QuestGiver>().ToList();
-            storiesSO.ForEach(storySO =>
-            {
-                stories.Add(new Story(storySO));
-            });
+            storiesSO.ForEach(storySO => { stories.Add(new Story(storySO)); });
             //TODO : Add a way to choose the story
             currentStory = stories[0];
             currentStory.StartStory();
             RefreshQuestGivers();
         }
 
-        private void Update()
+        /*private void Update()
         {
             // ONLY!! Use it like hack to test the quest system            
-            /*if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L))
             {
-                Debug.Log(currentStory.CurrentQuest.objectives[0].isCompleted);
+                if (currentStory.UpdateQuestObjectiveAmount(currentStory.CurrentQuest.objectives[0].EventQuestType,
+                        currentStory.CurrentQuest.objectives[0].AmountType))
+                {
+                    Debug.Log("Complete quest -> " + currentStory.CurrentQuest.storyStep);
+                    // First we update the quest status in quest giver
+                    UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
+                    // Then we complete the quest
+                    CompleteStatusGiverByQuestId(currentStory.CurrentQuest.ID);
+                }
+
+                Debug.Log("Update objective -> " + currentStory.CurrentQuest.objectives[0].CurrentAmount + " / " +
+                          currentStory.CurrentQuest.objectives[0].RequiredAmount);
+                Debug.Log("isCompleted -> " + currentStory.CurrentQuest.objectives[0].isCompleted);
                 if (currentStory.CurrentQuest.objectives[0].isCompleted)
                 {
-                    Debug.Log("Complete quest");
+                    Debug.Log("Complete quest -> " + currentStory.CurrentQuest.storyStep);
+                    Debug.Log("Name quest -> " + currentStory.CurrentQuest.title);
                     CompleteQuest();
                 }
-                else
-                {
-                    Debug.Log("Update objective");
-                    if (currentStory.UpdateQuestObjectiveAmount(1))
-                    {
-                        Debug.Log("Complete quest");
-                        // First we update the quest status in quest giver
-                        UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
-                        // Then we complete the quest
-                        CompleteStatusGiverByQuestId(currentStory.CurrentQuest.ID);
-                    }
-                    Debug.Log("Update -> " + currentStory.CurrentQuest.objectives[0].isCompleted);
-                }
-            }*/
-        }
+            }
+        }*/
 
         /*
          * This method is used to update the quest objetive
@@ -71,7 +68,7 @@ namespace Kolman_Freecss.QuestSystem
                 UpdateStatusGiverByQuestId(currentStory.CurrentQuest);
             }
         }
-        
+
         /**
          * Finish the current quest and start the next one
          */
@@ -107,17 +104,17 @@ namespace Kolman_Freecss.QuestSystem
             currentStory.NextQuest();
             RefreshQuestGivers();
         }
-        
+
         public void FinishStatusGiverByQuestId(int questId)
         {
             GetQuestGiverByQuestId(questId).FinishQuest();
         }
-        
+
         public Quest CompleteStatusGiverByQuestId(int questId)
         {
             return GetQuestGiverByQuestId(questId).CompleteQuest();
         }
-        
+
         /**
          * Update the current quest of the quest givers
          */
@@ -125,7 +122,7 @@ namespace Kolman_Freecss.QuestSystem
         {
             return GetQuestGiverByQuestId(quest.ID).UpdateQuestStatus(quest);
         }
-        
+
         /**
          * Refresh the quest givers that are on the current steps in the current story 
          */
@@ -137,12 +134,12 @@ namespace Kolman_Freecss.QuestSystem
                 qg.RefreshQuest(currentStory.CurrentQuest.ID);
             }
         }
-        
+
         QuestGiver GetQuestGiverByQuestId(int questId)
         {
             return _questGivers.Find(q => q.HasQuest(questId));
         }
-        
+
         void ManageSingleton()
         {
             if (Instance != null)
@@ -156,6 +153,5 @@ namespace Kolman_Freecss.QuestSystem
                 DontDestroyOnLoad(gameObject);
             }
         }
-        
     }
 }

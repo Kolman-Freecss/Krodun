@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
+  m_Name: Quest_7
+  m_EditorClassIdentifier: 
+  _title: Default quest 7
+  _description: Bienvenido a Kolman
+  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
+    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
+    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
+    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
+    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _objectives:
+  - _eventQuestType: 1
+    _requiredAmount: 1
+    _amountType: 1
+    isCompleted: 0
+  _storyStep: 6
+  _reward:
+    _gold: 4
+    _exp: 5
+  storyId: 0

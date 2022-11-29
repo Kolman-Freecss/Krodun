@@ -4,5 +4,6 @@
     {
         TROLL,
         APPLE,
+        AYMON
     }
 }

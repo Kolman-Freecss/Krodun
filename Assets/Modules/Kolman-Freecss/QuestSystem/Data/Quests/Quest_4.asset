@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
-  m_Name: Quest_2
+  m_Name: Quest_4
   m_EditorClassIdentifier: 
-  _title: Default quest 2
-  _description: Limpieza
-  _objectiveText: "Krodun! Que raro verte por estos lares!\n\nOye hazme un favor
-    y aplasta unos cuantos de esta gentuza que se ha adue\xF1ado de nuestros parajes!!!"
+  _title: Default quest 4
+  _description: Bienvenido a Kolman
+  _objectiveText: objective text
   _objectives:
-  - _eventQuestType: 1
-    _requiredAmount: 3
-    _amountType: 1
+  - _eventQuestType: 0
+    _requiredAmount: 1
+    _amountType: 0
     isCompleted: 0
-  _storyStep: 1
+  _storyStep: 3
   _reward:
-    _gold: 30
-    _exp: 100
+    _gold: 4
+    _exp: 5
   storyId: 0
