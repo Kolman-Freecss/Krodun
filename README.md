@@ -7,12 +7,16 @@ RPG Adventure Genre Video game built with Unity 3D
 
 ## Requirements:
 
+### Packages:
 - Packages from Unity Asset Store to install:
   - Troll Cannibal
   - Fantasy Cursor Pack
   - TextMesh Pro
   - Watchtower
   - Fantasy Forest Environment Free Sample
+
+### Editor version:
+- Unity 2022.1.20f1
 
 ## Installation steps:
 
