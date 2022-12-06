@@ -337,10 +337,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 781687060431452743, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1300454921556473164, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -360,22 +356,6 @@ PrefabInstance:
     - target: {fileID: 1300454921556473164, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2678652902235374671, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1424862907}
-    - target: {fileID: 2678652902235374671, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnMultiplayerPressed
-      objectReference: {fileID: 0}
-    - target: {fileID: 2678652902235374671, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Kolman_Freecss.Krodun.MainMenuManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2678652902235374671, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3028564752272002943, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchorMax.y
@@ -416,14 +396,6 @@ PrefabInstance:
     - target: {fileID: 3373088363531002772, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587212492347754284, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587212492650869956, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3587212492932513492, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_Pivot.x
@@ -553,10 +525,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7089518242120171374, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -13.758179
-      objectReference: {fileID: 0}
     - target: {fileID: 7151759903594141646, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -596,10 +564,6 @@ PrefabInstance:
     - target: {fileID: 7165501934279502874, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8298482182752518351, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8937735914614221265, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchorMax.y
@@ -640,17 +604,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
---- !u!114 &1424862907 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6077171103134995309, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
-  m_PrefabInstance: {fileID: 1424862906}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2076ec454cb1bc2419db14aeb4c5b8ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1611563765
 GameObject:
   m_ObjectHideFlags: 0
