@@ -1,5 +1,6 @@
 ﻿using System;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun.ConnectionManagement
@@ -9,20 +10,15 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         
         public void StartHost(string playerName, string ipAddress, int port)
         {
-            NetworkManager.Singleton.ip = ipAddress;
-            NetworkManager.singleton.networkPort = port;
-            NetworkManager.singleton.StartHost();
-
-            try
-            {
-                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+            NetworkManager.Singleton.StartHost();
         }
+        
+        public void StartClient(string playerName, string ipAddress, int port)
+        {
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+            NetworkManager.Singleton.StartClient();
+        }
+        
     }
 }

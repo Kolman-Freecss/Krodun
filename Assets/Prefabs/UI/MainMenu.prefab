@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 758.9443, y: 288.70377}
-  m_SizeDelta: {x: -1517.8885, y: -577.4075}
+  m_AnchoredPosition: {x: 758.9443, y: 355.65}
+  m_SizeDelta: {x: -1517.9, y: -711.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5353927435567001068
 CanvasRenderer:
@@ -627,7 +627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Buscar partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1096,8 +1096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -41.056, y: 242.5983}
-  m_SizeDelta: {x: -122.11, y: -582.9441}
+  m_AnchoredPosition: {x: -41.056, y: 331.21}
+  m_SizeDelta: {x: -122.11, y: -760.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5228507546545847697
 MonoBehaviour:
@@ -1513,7 +1513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8555700203041889097
 CanvasRenderer:
@@ -1596,7 +1596,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2437797905383237488}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7152572726580275337}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPUIMediator, Assembly-CSharp
+        m_MethodName: ToggleJoinIPUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2750054473623497116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,7 +2009,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5492059718341167852
 CanvasRenderer:
@@ -2080,7 +2092,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4683928811978588474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7152572726580275337}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPUIMediator, Assembly-CSharp
+        m_MethodName: ToggleCreateIPUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3544759671919816912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,8 +3079,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.257, y: -3.419}
+  m_SizeDelta: {x: 20.5138, y: 6.838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4918457120244786367
 CanvasRenderer:
@@ -3086,7 +3110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Hostear partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3554,8 +3578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 30.262573, y: -212.72803}
-  m_SizeDelta: {x: -793.9763, y: -463.774}
+  m_AnchoredPosition: {x: 0, y: -171}
+  m_SizeDelta: {x: -1100, y: -548}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4661963811895560702
 CanvasRenderer:
@@ -4196,8 +4220,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 30.262573, y: -212.72801}
-  m_SizeDelta: {x: -793.9763, y: -463.774}
+  m_AnchoredPosition: {x: 0, y: -171}
+  m_SizeDelta: {x: -1100, y: -548}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1324485174670342274
 CanvasRenderer:
@@ -4663,8 +4687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -22.118}
-  m_SizeDelta: {x: -40, y: -244.09}
+  m_AnchoredPosition: {x: -0.8178711, y: -9.375092}
+  m_SizeDelta: {x: -41.6359, y: -269.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8017631253599842978
 GameObject:
