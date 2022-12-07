@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 8214305461228703830}
   - component: {fileID: 7251797063334524217}
   m_Layer: 6
-  m_Name: TemporalNPC
+  m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
