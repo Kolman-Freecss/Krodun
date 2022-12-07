@@ -7,6 +7,19 @@ namespace Kolman_Freecss.Krodun
 {
     public class IPUIMediator : MonoBehaviour
     {
+        
+        
+        
+        public void ToggleJoinIPUI()
+        {
+            
+        }
+        
+        public void ToggleCreateIPUI()
+        {
+            
+        }
+        
         public void OnExitMenu()
         {
             gameObject.SetActive(false);
