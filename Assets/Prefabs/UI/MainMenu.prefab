@@ -1607,6 +1607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858530565616587143}
   - component: {fileID: 4185728820706360696}
+  - component: {fileID: 2059463989605773814}
   m_Layer: 0
   m_Name: IPHostMenu
   m_TagString: Untagged
@@ -1649,6 +1650,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2059463989605773814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750054473623497116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7334bf8b6a240909e0da5f45b8e6968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInput: {fileID: 2325614012541694725}
+  portInput: {fileID: 7447971845916245356}
+  _mediator: {fileID: 7152572726580275337}
 --- !u!1 &2852954504533062940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,6 +4756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4260420379120199279}
   - component: {fileID: 7395101170865513935}
+  - component: {fileID: 1601628123356973825}
   m_Layer: 0
   m_Name: IPJoinMenu
   m_TagString: Untagged
@@ -4782,6 +4799,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1601628123356973825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8891627156122724480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027380ea00e04fc5a6ba71fa25f6c3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInput: {fileID: 4604044061928732937}
+  portInput: {fileID: 7209421769031273812}
+  _mediator: {fileID: 7152572726580275337}
 --- !u!1 &9055496016093359203
 GameObject:
   m_ObjectHideFlags: 0
