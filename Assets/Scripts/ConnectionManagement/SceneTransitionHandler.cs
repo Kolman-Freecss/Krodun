@@ -8,6 +8,9 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
     {
         static public SceneTransitionHandler sceneTransitionHandler { get; internal set; }
         
+        [SerializeField]
+        public string DefaultMainMenu = "MainMenu";
+        
         [HideInInspector]
         public delegate void ClientLoadedSceneDelegateHandler(ulong clientId);
         [HideInInspector]
@@ -39,6 +42,14 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             sceneTransitionHandler = this;
             SetSceneState(SceneStates.Init);
             DontDestroyOnLoad(this);
+        }
+        
+        private void Start()
+        {
+            if(m_SceneState == SceneStates.Init)
+            {
+                SceneManager.LoadScene(DefaultMainMenu);
+            }
         }
         
         public void SetSceneState(SceneStates sceneState)
