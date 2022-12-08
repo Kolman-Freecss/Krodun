@@ -50,6 +50,7 @@ namespace Kolman_Freecss.Krodun
             
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             
+            ConnectionManager.Instance.StartClient(playerName, ip, portInt);
             
         }
 

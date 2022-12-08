@@ -64,9 +64,10 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         public void StartClient(string playerName, string ipAddress, int port)
         {
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
-            //StartGame();
             if (NetworkManager.Singleton.StartClient())
             {
+                SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
+                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
                 Debug.Log("Client started");
             }
             else
@@ -74,11 +75,5 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 Debug.Log("Client failed to start");
             }
         }
-
-        public void StartGame()
-        {
-            _mainMenuManager.StartGame();
-        }
-
     }
 }
