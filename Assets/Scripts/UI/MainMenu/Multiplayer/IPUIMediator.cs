@@ -6,7 +6,6 @@ namespace Kolman_Freecss.Krodun
 {
     public class IPUIMediator : MonoBehaviour
     {
-        
         public const string DefaultIp = "127.0.0.1";
         public string Ip => DefaultIp;
         
@@ -16,13 +15,11 @@ namespace Kolman_Freecss.Krodun
         
         IPJoinUI _joinUI;
         IPHostUI _hostUI;
-        ConnectionManager _connectionManagement;
 
         private void Awake()
         {
             _joinUI = FindObjectOfType<IPJoinUI>();
             _hostUI = FindObjectOfType<IPHostUI>();
-            _connectionManagement = FindObjectOfType<ConnectionManager>();
         }
 
         private void Start()
@@ -66,7 +63,7 @@ namespace Kolman_Freecss.Krodun
 
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             
-            _connectionManagement.StartHost(playerName, ip, portInt);
+            ConnectionManager.Instance.StartHost(playerName, ip, portInt);
             
         }
 

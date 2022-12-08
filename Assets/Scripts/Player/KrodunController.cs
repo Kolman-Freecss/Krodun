@@ -1,6 +1,9 @@
 ﻿using Kolman_Freecss.HitboxHurtboxSystem;
+using Kolman_Freecss.Krodun.ConnectionManagement;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -9,7 +12,7 @@ namespace Kolman_Freecss.Krodun
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
-    public class KrodunController : MonoBehaviour, IHitboxResponder, IHurtboxResponder
+    public class KrodunController : NetworkBehaviour, IHitboxResponder, IHurtboxResponder
     {
         #region Inspector Variables
         [Header("Player")]
@@ -113,6 +116,9 @@ namespace Kolman_Freecss.Krodun
         
         private bool _hasAnimator;
         
+        // Multiplayer variables
+        private bool _gameLoaded;
+        
         private bool IsCurrentDeviceMouse
         {
             get
@@ -123,8 +129,24 @@ namespace Kolman_Freecss.Krodun
 
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
+
+        public override void OnNetworkSpawn()
+        {
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += InitData;
+            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
+        }
         
-        private void Awake()
+        private void CheckInGame(SceneTransitionHandler.SceneStates state)
+        {
+            if (state == SceneTransitionHandler.SceneStates.Kolman)
+            {
+                _gameLoaded = true;
+            }
+        }
+
+        // summary
+        // This is called when the object is spawned
+        public void InitData(ulong clientId)
         {
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -144,13 +166,18 @@ namespace Kolman_Freecss.Krodun
 
             _hitbox = GetComponentInChildren<Hitbox>();
             _hurtbox = GetComponentInChildren<Hurtbox>();
-            
-            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
-            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
-            
+
+            RegisterCallbacks();
+            GetReferences();
         }
 
-        private void Start()
+        private void RegisterCallbacks()
+        {
+            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
+            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+        }
+        
+        private void GetReferences()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -169,16 +196,22 @@ namespace Kolman_Freecss.Krodun
             // set our initial facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
+            
+            // Set Scene loaded to true
+            SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
         }
         
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+            if (_gameLoaded)
+            {
+                _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
-            Attack();
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                Attack();
+            }
         }
         
         private void AssignAnimationIDs()
@@ -211,7 +244,10 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if (_gameLoaded)
+            {
+                CameraRotation();
+            }
         }
 
         private void GroundedCheck()

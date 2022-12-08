@@ -8,16 +8,31 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
 {
     public class ConnectionManager : MonoBehaviour
     {
+        public static ConnectionManager Instance { get; internal set; }
         private MainMenuManager _mainMenuManager;
         
         private string _gameSceneName = "Kolman";
         
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            ManageSingleton();
             if (_mainMenuManager == null)
             {
                 _mainMenuManager = FindObjectOfType<MainMenuManager>();
+            }
+        }
+        
+        private void ManageSingleton()
+        {
+            if (Instance != null)
+            {
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
         }
 

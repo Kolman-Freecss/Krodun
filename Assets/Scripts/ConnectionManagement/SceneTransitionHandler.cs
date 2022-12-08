@@ -28,7 +28,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             Init,
             Start,
             Lobby,
-            Ingame
+            Kolman
         }
         
         private SceneStates m_SceneState;
@@ -42,6 +42,20 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             sceneTransitionHandler = this;
             SetSceneState(SceneStates.Init);
             DontDestroyOnLoad(this);
+        }
+
+        private void ManageSingleton()
+        {
+            if (sceneTransitionHandler != null)
+            {
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+            else
+            {
+                sceneTransitionHandler = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
         
         private void Start()
@@ -66,7 +80,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             return m_SceneState;
         }
         
-        public override void OnNetworkSpawn()
+        /*public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
@@ -77,6 +91,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 sceneTransitionHandler = this;
             }
         }
+        */
         
         public void ExitAndLoadStartMenu()
         {
