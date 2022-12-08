@@ -131,6 +131,11 @@ namespace Kolman_Freecss.Krodun
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            
+            if (CinemachineCameraTarget == null)
+            {
+                CinemachineCameraTarget = GameObject.FindGameObjectWithTag("KrodunFollowCamera");
+            }
 
             if (_menuManager == null)
             {

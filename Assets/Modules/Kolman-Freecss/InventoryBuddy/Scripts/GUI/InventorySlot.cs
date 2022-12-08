@@ -30,12 +30,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (gObject)
             tChest = gObject.GetComponent<Inventory>();
         
-        gObject = GameObject.Find("Krodun");
+        gObject = GameObject.Find("Player");
         if (gObject)
             player = gObject.GetComponent<Inventory>();
         else
         {
-            Debug.Log("Krodun not found");
             gObject = GameObject.FindWithTag("Player");
             if (gObject)
                 player = gObject.GetComponent<Inventory>();

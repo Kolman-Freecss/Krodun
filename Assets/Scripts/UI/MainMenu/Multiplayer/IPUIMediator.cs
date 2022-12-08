@@ -1,4 +1,5 @@
 using System;
+using Kolman_Freecss.Krodun.ConnectionManagement;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -11,14 +12,17 @@ namespace Kolman_Freecss.Krodun
         
         public const int DefaultPort = 9998;
         public int Port => DefaultPort;
+        public string playerName = "Player";
         
         IPJoinUI _joinUI;
         IPHostUI _hostUI;
+        ConnectionManager _connectionManagement;
 
         private void Awake()
         {
             _joinUI = FindObjectOfType<IPJoinUI>();
             _hostUI = FindObjectOfType<IPHostUI>();
+            _connectionManagement = FindObjectOfType<ConnectionManager>();
         }
 
         private void Start()
@@ -41,7 +45,7 @@ namespace Kolman_Freecss.Krodun
         
         public void JoinWithIp(string ip, string port)
         {
-            Int64.TryParse(port, out var portInt);
+            Int32.TryParse(port, out var portInt);
             if (portInt <= 0)
             {
                 portInt = DefaultPort;
@@ -54,7 +58,7 @@ namespace Kolman_Freecss.Krodun
 
         public void HostIpRequest(string ip, string port)
         {
-            Int64.TryParse(port, out var portInt);
+            Int32.TryParse(port, out var portInt);
             if (portInt <= 0)
             {
                 portInt = DefaultPort;
@@ -62,6 +66,7 @@ namespace Kolman_Freecss.Krodun
 
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             
+            _connectionManagement.StartHost(playerName, ip, portInt);
             
         }
 
