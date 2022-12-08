@@ -139,22 +139,9 @@ namespace Kolman_Freecss.Krodun
             //and when their lobby scenes are finished loading.
             if (IsServer)
             {
-
-                //Server will be notified when a client connects
-                NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
                 RegisterServerCallbacks();
             }
             
-            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += OnSceneTransitionComplete;
-        }
-
-        public void OnSceneTransitionComplete(SceneTransitionHandler.SceneStates state)
-        {
-            Debug.Log("OnSceneTransitionComplete " + state);
-            if (state == SceneTransitionHandler.SceneStates.Kolman)
-            {
-                _gameLoaded = true;
-            }
         }
 
         // This is called when a client connects to the server
@@ -169,7 +156,7 @@ namespace Kolman_Freecss.Krodun
                     ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
                 }
             }
-
+            SendClientInitDataClientRpc(clientId);
         }
 
         private void OnClientConnectedCallback(ulong clientId)
@@ -242,6 +229,8 @@ namespace Kolman_Freecss.Krodun
 
         private void RegisterServerCallbacks()
         {
+            //Server will be notified when a client connects
+            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
             SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
         }
