@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         private MainMenuManager _mainMenuManager;
         
         private string _gameSceneName = "Kolman";
-        
+        public Dictionary<ulong, bool> PlayersInGame = new Dictionary<ulong, bool>();
+
         private void Awake()
         {
             ManageSingleton();
@@ -66,8 +68,6 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
             if (NetworkManager.Singleton.StartClient())
             {
-                SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
-                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
                 Debug.Log("Client started");
             }
             else

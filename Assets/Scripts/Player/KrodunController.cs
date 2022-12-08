@@ -132,8 +132,41 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnNetworkSpawn()
         {
-            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += InitData;
-            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
+            //Always add ourselves to the list at first
+            ConnectionManager.Instance.PlayersInGame.Add(NetworkManager.LocalClientId, false);
+            //If we are hosting, then handle the server side for detecting when clients have connected
+            //and when their lobby scenes are finished loading.
+            if (IsServer)
+            {
+
+                //Server will be notified when a client connects
+                NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+            }
+            RegisterPreCallbacks();
+        }
+
+        // This is called when a client connects to the server
+        // Invoked when a client has loaded this scene
+        private void ClientLoadedScene(ulong clientId)
+        {
+            if (IsServer)
+            {
+                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                {
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                }
+            }
+
+            if (IsClient)
+            {
+                RegisterPreCallbacks();
+            }
+        }
+
+        private void OnClientConnectedCallback(ulong clientId)
+        {
+            Debug.Log($"Client {clientId} connected");
         }
         
         private void CheckInGame(SceneTransitionHandler.SceneStates state)
@@ -148,6 +181,7 @@ namespace Kolman_Freecss.Krodun
         // This is called when the object is spawned
         public void InitData(ulong clientId)
         {
+            Debug.Log("InitData called to clientId -> " + clientId);
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -167,14 +201,20 @@ namespace Kolman_Freecss.Krodun
             _hitbox = GetComponentInChildren<Hitbox>();
             _hurtbox = GetComponentInChildren<Hurtbox>();
 
-            RegisterCallbacks();
+            RegisterPostCallbacks();
             GetReferences();
         }
 
-        private void RegisterCallbacks()
+        private void RegisterPostCallbacks()
         {
             OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
             OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+        }
+
+        private void RegisterPreCallbacks()
+        {
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += InitData;
+            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
         }
         
         private void GetReferences()

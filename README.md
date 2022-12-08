@@ -8,12 +8,15 @@ RPG Adventure Genre Video game built with Unity 3D
 ## Requirements:
 
 ### Packages:
-- Packages from Unity Asset Store to install:
+- Minimal Free Packages from Unity Asset Store to install:
   - Troll Cannibal
   - Fantasy Cursor Pack
   - TextMesh Pro
   - Watchtower
   - Fantasy Forest Environment Free Sample
+  - Meshtint Free Barbarian
+  - Siuniaev Characters
+  - Monster_Orc
 
 ### Editor version:
 - Unity 2022.1.20f1
@@ -22,7 +25,15 @@ RPG Adventure Genre Video game built with Unity 3D
 
 - Clone this repo
 - Import all the packages from Unity Asset Store inside the AssetPacks folder 
-  - Set cursor images from Fantasy Cursor Pack as Cursor Texture Type
+
+## Extra packages:
+
+- ParrelSync package to test multiplayer feature in the same computer
+
+## Notes:
+
+- The game is not finished yet, so there are some bugs and missing features.
+- The game includes a payment assets, so you'll need to have them installed or the game won't work properly.
 
 ---
 
