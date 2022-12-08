@@ -142,8 +142,18 @@ namespace Kolman_Freecss.Krodun
 
                 //Server will be notified when a client connects
                 NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
-                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
                 RegisterServerCallbacks();
+            }
+            
+            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += OnSceneTransitionComplete;
+        }
+
+        public void OnSceneTransitionComplete(SceneTransitionHandler.SceneStates state)
+        {
+            Debug.Log("OnSceneTransitionComplete " + state);
+            if (state == SceneTransitionHandler.SceneStates.Kolman)
+            {
+                _gameLoaded = true;
             }
         }
 
@@ -232,7 +242,7 @@ namespace Kolman_Freecss.Krodun
 
         private void RegisterServerCallbacks()
         {
-            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += InitData;
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
             SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
         }
         
