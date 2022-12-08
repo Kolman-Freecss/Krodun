@@ -186,13 +186,13 @@ namespace Kolman_Freecss.Krodun
             }
             else
             {
-                SendClientInitData(clientId);
+                SendClientInitDataClientRpc(clientId);
             }
             
         }
         
         [ClientRpc]
-        private void SendClientInitData(ulong clientId)
+        private void SendClientInitDataClientRpc(ulong clientId)
         {
             Debug.Log("SendClientInitData called to clientId -> " + clientId);
             AwakeData(clientId);
