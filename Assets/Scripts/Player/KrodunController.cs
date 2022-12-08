@@ -132,6 +132,7 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnNetworkSpawn()
         {
+            Debug.Log("OnNetworkSpawn");
             //Always add ourselves to the list at first
             ConnectionManager.Instance.PlayersInGame.Add(NetworkManager.LocalClientId, false);
             //If we are hosting, then handle the server side for detecting when clients have connected
@@ -142,14 +143,15 @@ namespace Kolman_Freecss.Krodun
                 //Server will be notified when a client connects
                 NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
                 SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+                RegisterServerCallbacks();
             }
-            RegisterPreCallbacks();
         }
 
         // This is called when a client connects to the server
         // Invoked when a client has loaded this scene
         private void ClientLoadedScene(ulong clientId)
         {
+            Debug.Log("Client loaded scene");
             if (IsServer)
             {
                 if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
@@ -158,10 +160,6 @@ namespace Kolman_Freecss.Krodun
                 }
             }
 
-            if (IsClient)
-            {
-                RegisterPreCallbacks();
-            }
         }
 
         private void OnClientConnectedCallback(ulong clientId)
@@ -179,9 +177,30 @@ namespace Kolman_Freecss.Krodun
 
         // summary
         // This is called when the object is spawned
-        public void InitData(ulong clientId)
+        private void InitData(ulong clientId)
         {
-            Debug.Log("InitData called to clientId -> " + clientId);
+            if (IsServer)
+            {
+                Debug.Log("InitData called to clientId -> " + clientId);
+                AwakeData(clientId);
+            }
+            else
+            {
+                SendClientInitData(clientId);
+            }
+            
+        }
+        
+        [ClientRpc]
+        private void SendClientInitData(ulong clientId)
+        {
+            Debug.Log("SendClientInitData called to clientId -> " + clientId);
+            AwakeData(clientId);
+        }
+
+        public void AwakeData(ulong clientId)
+        {
+            Debug.Log("AwakeData called to clientId -> " + clientId);
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -211,7 +230,7 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
         }
 
-        private void RegisterPreCallbacks()
+        private void RegisterServerCallbacks()
         {
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += InitData;
             SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
