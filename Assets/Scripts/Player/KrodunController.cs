@@ -134,7 +134,8 @@ namespace Kolman_Freecss.Krodun
         {
             Debug.Log("OnNetworkSpawn");
             //Always add ourselves to the list at first
-            ConnectionManager.Instance.PlayersInGame.Add(NetworkManager.LocalClientId, false);
+            Debug.Log(NetworkManager.LocalClientId);
+            //ConnectionManager.Instance.PlayersInGame.Add(NetworkManager.LocalClientId, false);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
             if (IsServer)
