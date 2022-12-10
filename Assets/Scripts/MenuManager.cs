@@ -10,7 +10,6 @@ namespace Kolman_Freecss.Krodun
         [SerializeField] private Slider _soundSlider;
         
         private GameObject _mainMenu;
-        private static MenuManager Instance { get; set; }
         private bool _isPaused = false;
         private GameObject _creditsCanvas;
         private bool _showCredits = false;
@@ -35,7 +34,6 @@ namespace Kolman_Freecss.Krodun
                 _settingsCanvas = GameObject.FindGameObjectWithTag("Settings");
             }
 
-            ManageSingleton();
         }
 
         private void Start()
@@ -54,20 +52,6 @@ namespace Kolman_Freecss.Krodun
             _mainMenu.SetActive(_isPaused);
             _creditsCanvas.SetActive(_showCredits);
             _settingsCanvas.SetActive(_showSettings);
-        }
-
-        void ManageSingleton()
-        {
-            if (Instance != null)
-            {
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
         }
 
         public void ExitGame()

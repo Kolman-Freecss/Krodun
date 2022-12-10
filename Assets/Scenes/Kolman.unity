@@ -3941,18 +3941,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: KrodunFollowCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 3954980263721222785, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
-      propertyPath: m_TagString
-      value: KrodunFollowCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 3954980263721222786, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3954980263721222786, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
-      propertyPath: m_LookAt
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3954980263721222787, guid: 2bed721f10aa7b64d8137de63205fdda, type: 3}
       propertyPath: m_RootOrder
       value: -1

@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 8513965869898875970}
   - component: {fileID: 8513965869898875971}
   - component: {fileID: 8513965869898875972}
-  - component: {fileID: 342947732}
   - component: {fileID: 3380401506969291358}
   m_Layer: 8
   m_Name: Player
@@ -298,14 +297,6 @@ MonoBehaviour:
   characterItems: []
   database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
   inventoryDisplay: {fileID: 0}
---- !u!81 &342947732
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
 --- !u!114 &3380401506969291358
 MonoBehaviour:
   m_ObjectHideFlags: 0

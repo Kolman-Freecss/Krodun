@@ -132,10 +132,7 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("OnNetworkSpawn");
-            //Always add ourselves to the list at first
-            Debug.Log(NetworkManager.LocalClientId);
-            //ConnectionManager.Instance.PlayersInGame.Add(NetworkManager.LocalClientId, false);
+            Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
             if (IsServer)
