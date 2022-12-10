@@ -132,6 +132,10 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnNetworkSpawn()
         {
+            /*if (!IsOwner)
+            {
+                Destroy(this);
+            }*/
             Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
