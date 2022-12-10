@@ -61,6 +61,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         private void Start()
         {
             if(m_SceneState == SceneStates.Init)
+                
             {
                 SceneManager.LoadScene(DefaultMainMenu);
             }
