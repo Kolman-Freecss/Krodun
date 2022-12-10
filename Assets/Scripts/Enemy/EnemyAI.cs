@@ -28,7 +28,7 @@ namespace Kolman_Freecss.Krodun
                 _animator.SetInteger(_animIDMoving, 0); // Stop animation
                 _animator.SetInteger(_animIDIdle, 1); // Idle animation
             }
-
+            
             distanceToTarget = Vector3.Distance(_player.position, transform.position);
 
             if (isProvoked)
