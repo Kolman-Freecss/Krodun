@@ -16,12 +16,21 @@ namespace Kolman_Freecss.Krodun
             NetworkVariableReadPermission.Everyone, 
             NetworkVariableWritePermission.Server);
         
+        [HideInInspector]
+        public delegate void IsSceneLoadedDelegateHandler(bool isLoaded);
+        
+        [HideInInspector]
+        public event IsSceneLoadedDelegateHandler OnSceneLoadedChanged;
+
+        [HideInInspector] public bool isSceneLoadedValue;
+        
         internal static event Action OnSingletonReady;
     
         private void Awake()
         {
             Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
             Instance = this;
+            DontDestroyOnLoad(this);
             
             OnSingletonReady?.Invoke();
             if (IsServer)
@@ -56,6 +65,9 @@ namespace Kolman_Freecss.Krodun
         private void OnClientConnectedCallbackClientRpc(ulong clientId)
         {
             Debug.Log("------------------SEND Client Loaded Scene------------------");
+            OnSceneLoadedChanged?.Invoke(true);
+            isSceneLoadedValue = true;
+            Debug.Log("IsSceneLoaded -> " + GameManager.Instance.isSceneLoadedValue);
             StartGame();
         }
 
@@ -69,7 +81,7 @@ namespace Kolman_Freecss.Krodun
 
         private void StartGame()
         {
-            if (!isGameStarted.Value)
+            if (!isGameStarted.Value && SceneTransitionHandler.sceneTransitionHandler.GetCurrentSceneState() == SceneTransitionHandler.SceneStates.Kolman)
             {
                 Debug.Log("------------------START GAME------------------");
                 isGameStarted.Value = true;

@@ -22,7 +22,12 @@ namespace Kolman_Freecss.Krodun
 
         private void Awake()
         {
-            if (_menuManager == null)
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        private void OnGameStarted(bool isLoaded)
+        {
+            if (_menuManager == null && isLoaded)
             {
                 _menuManager = FindObjectOfType<MenuManager>();
             }

@@ -220,7 +220,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -296,7 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748fb3cc145be3c44a5945d5645062a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterItems: []
+  characterItems:
+  - itemName: Apple
+    itemDescription: Apple
+    itemIcon: {fileID: 21300000, guid: 4a89a0b790ba24846a3faf5b376110ba, type: 3}
+    itemObject: {fileID: 2102061714738248673, guid: 781ead7e00428564cac24ee4ca4c3b1c, type: 3}
+    isUnique: 0
+    amountType: 1
   database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
   inventoryDisplay: {fileID: 0}
 --- !u!114 &3380401506969291358
