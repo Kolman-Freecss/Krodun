@@ -133,6 +133,8 @@ namespace Kolman_Freecss.Krodun
 
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
+        
+        
 
         public override void OnNetworkSpawn()
         {
@@ -183,38 +185,23 @@ namespace Kolman_Freecss.Krodun
         
         private void CheckInGame(SceneTransitionHandler.SceneStates state)
         {
+            Debug.Log("CheckInGame -> We are in the game -> " + state);
             if (state == SceneTransitionHandler.SceneStates.Kolman)
             {
                 _gameLoaded = true;
             }
-        }
-
-        // summary
-        // This is called when the object is spawned
-        private void InitData(ulong clientId)
-        {
-            if (IsServer)
-            {
-                Debug.Log("InitData called to clientId -> " + clientId);
-                AwakeData(clientId);
-            }
-            else
-            {
-                SendClientInitDataClientRpc(clientId);
-            }
-            
         }
         
         [ClientRpc]
         private void SendClientInitDataClientRpc(ulong clientId)
         {
             Debug.Log("SendClientInitData called to clientId -> " + clientId);
-            AwakeData(clientId);
+            AwakeData();
         }
 
-        public void AwakeData(ulong clientId)
+        public void AwakeData()
         {
-            Debug.Log("AwakeData called to clientId -> " + clientId);
+            Debug.Log("AwakeData");
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -276,15 +263,17 @@ namespace Kolman_Freecss.Krodun
         
         private void Update()
         {
-            if (_gameLoaded)
+            Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
+            if (!IsOwner || !_gameLoaded)
             {
-                _hasAnimator = TryGetComponent(out _animator);
-
-                /*JumpAndGravity();
-                GroundedCheck();
-                Move();
-                Attack();*/
+                return;
             }
+            _hasAnimator = TryGetComponent(out _animator);
+
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
+            Attack();
         }
         
         private void AssignAnimationIDs()
@@ -317,10 +306,11 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
-            if (_gameLoaded)
+            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || IsServer)
             {
-                /*CameraRotation();*/
+                return;
             }
+            CameraRotation();
         }
 
         private void GroundedCheck()
