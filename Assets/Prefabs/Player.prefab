@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 8513965869898875972}
   - component: {fileID: 3380401506969291358}
   - component: {fileID: 8902645350318365970}
+  - component: {fileID: 2437887853147575325}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -238,7 +239,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: KeyboardMouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -340,6 +341,44 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &2437887853147575325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592880286225764589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: -1481439722
+    TransitionDuration: 0
+    TriggerNameHash: 125937960
+    TransitionIndex: 2
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: -1238576965
+    TransitionDuration: 0.25
+    TriggerNameHash: 1331344109
+    TransitionIndex: 4
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 790987009
+    TransitionDuration: 0.25
+    TriggerNameHash: -699145385
+    TransitionIndex: 5
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 1523721793
+    TransitionDuration: 0.25
+    TriggerNameHash: 1654612129
+    TransitionIndex: 6
+  m_Animator: {fileID: 8513965869898875974}
 --- !u!1001 &464685576659718819
 PrefabInstance:
   m_ObjectHideFlags: 0

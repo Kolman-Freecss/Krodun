@@ -1,27 +1,91 @@
-﻿using UnityEngine;
+﻿using System;
+using Kolman_Freecss.Krodun.ConnectionManagement;
+using Unity.Netcode;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Kolman_Freecss.Krodun
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : NetworkBehaviour
     {
         public static GameManager Instance { get; private set; }
         
+        [HideInInspector]
+        public NetworkVariable<bool> isGameStarted = new NetworkVariable<bool>(false, 
+            NetworkVariableReadPermission.Everyone, 
+            NetworkVariableWritePermission.Server);
+        
+        internal static event Action OnSingletonReady;
+    
         private void Awake()
         {
-            ManageSingleton();
+            Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
+            Instance = this;
+            
+            OnSingletonReady?.Invoke();
+            if (IsServer)
+            {
+                isGameStarted.Value = false;
+            }
         }
         
-        void ManageSingleton()
+        public override void OnNetworkSpawn()
         {
-            if (Instance != null)
+            /*if (IsClient && IsServer)
+            }*/
+            
+            if (IsServer)
             {
-                gameObject.SetActive(false);
-                Destroy(gameObject);
+                //Server will be notified when a client connects
+                NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
             }
-            else
+            
+        }
+        
+        private void ClientLoadedScene(ulong clientId)
+        {
+            if (IsServer)
             {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
+                OnClientConnectedCallbackClientRpc(clientId);
+            }
+        }
+        
+        [ClientRpc]
+        private void OnClientConnectedCallbackClientRpc(ulong clientId)
+        {
+            Debug.Log("------------------SEND Client Loaded Scene------------------");
+            StartGame();
+        }
+
+        public void Update()
+        {
+            Debug.Log("Update GameManager" + nameof(IsServer) + " " + IsServer + " " + nameof(isGameStarted) + " " + isGameStarted.Value);
+            if (IsServer)
+            {
+                StartGame();
+            }
+        }
+
+        private void StartGame()
+        {
+            Debug.Log("------------------START GAME------------------");
+            if (!isGameStarted.Value)
+            {
+                isGameStarted.Value = true;
+            }
+        }
+
+        private void OnClientConnectedCallback(ulong clientId)
+        {
+            Debug.Log($"Client {clientId} connected");
+            if (IsServer)
+            {
+                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                {
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                }
             }
         }
     }

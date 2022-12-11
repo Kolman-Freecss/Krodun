@@ -135,16 +135,15 @@ namespace Kolman_Freecss.Krodun
 
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
-        
-        
+
+        private void Awake()
+        {
+            _gameLoaded = false;
+        }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            /*if (!IsOwner)
-            {
-                Destroy(this);
-            }*/
             Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
@@ -153,9 +152,26 @@ namespace Kolman_Freecss.Krodun
                 transform.position = new Vector3(120, 25, 127);
                 RegisterServerCallbacks();
             }
+            if (!GameManager.Instance)
+                GameManager.OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
+            else
+                SubscribeToDelegatesAndUpdateValues();
             
             // Set Scene loaded to true
             SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
+        }
+
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.isGameStarted.OnValueChanged += OnGameStarted;
+        }
+        
+        private void OnGameStarted(bool previousValue, bool newValue)
+        {
+            if (newValue)
+            {
+                _gameLoaded = true;
+            }
         }
 
         // This is called when a client connects to the server
@@ -172,37 +188,37 @@ namespace Kolman_Freecss.Krodun
             }
             SendClientInitDataClientRpc(clientId);
         }
-
-        private void OnClientConnectedCallback(ulong clientId)
-        {
-            Debug.Log($"Client {clientId} connected");
-            if (IsServer)
-            {
-                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
-                {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
-                }
-            }
-        }
         
-        private void CheckInGame(SceneTransitionHandler.SceneStates state)
+        /*private void CheckInGame(SceneTransitionHandler.SceneStates state)
         {
             Debug.Log("CheckInGame -> We are in the game -> " + state);
             if (state == SceneTransitionHandler.SceneStates.Kolman)
             {
                 _gameLoaded = true;
             }
-        }
+        }*/
         
         [ClientRpc]
         private void SendClientInitDataClientRpc(ulong clientId)
         {
             Debug.Log("SendClientInitData called to clientId -> " + clientId);
+            Debug.Log("SendClientInitData -> " + nameof(IsOwner) + " -> " + IsOwner);
             AwakeData();
         }
 
         public void AwakeData()
         {
+            if (!IsLocalPlayer || !IsOwner)
+            {
+                GetComponent<PlayerInput>().enabled = false;
+                enabled = false;
+                return;
+            }
+            if (GameManager.Instance.isGameStarted.Value)
+            {
+                _gameLoaded = true;
+            }
+            enabled = true;
             Debug.Log("AwakeData");
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -236,9 +252,8 @@ namespace Kolman_Freecss.Krodun
         private void RegisterServerCallbacks()
         {
             //Server will be notified when a client connects
-            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
-            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
+            /*SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;*/
         }
         
         private void GetReferences()
@@ -249,6 +264,9 @@ namespace Kolman_Freecss.Krodun
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<RPGInputs>();
             _playerInput = GetComponent<PlayerInput>();
+            _playerInput.enabled = true;
+            _playerInput.SwitchCurrentControlScheme("KeyboardMouse");
+            
             _menuManager.Init();
 
             AssignAnimationIDs();
@@ -263,14 +281,35 @@ namespace Kolman_Freecss.Krodun
             
         }
         
+        [ServerRpc]
+        public void RandomTeleportServerRpc()
+        {
+            var oldPosition = transform.position;
+            transform.position = GetRandomPositionOnXYPlane();
+            var newPosition = transform.position;
+            print($"{nameof(RandomTeleportServerRpc)}() -> {nameof(OwnerClientId)}: {OwnerClientId} --- {nameof(oldPosition)}: {oldPosition} --- {nameof(newPosition)}: {newPosition}");
+        }
+        
+        private static Vector3 GetRandomPositionOnXYPlane()
+        {
+            return new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0f);
+        }
+        
         private void Update()
         {
             Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
-            if (!IsOwner || !_gameLoaded || _input == null)
+            print($"{nameof(OwnerClientId)}: {OwnerClientId}");
+            if (_input != null && _input.leftClick)
             {
+                RandomTeleportServerRpc();
+            }
+            Debug.Log("Update-> " + nameof(IsLocalPlayer) + " -> " + IsLocalPlayer + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + nameof(_gameLoaded)+ " -> " + _gameLoaded + nameof(_input) + " -> " + _input);
+            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || _input == null)
+            {
+                Debug.Log("Return");
                 return;
             }
-
+            Debug.Log("Start Update");
             _hasAnimator = TryGetComponent(out _animator);
             JumpAndGravity();
             GroundedCheck();
@@ -290,7 +329,10 @@ namespace Kolman_Freecss.Krodun
 
         private void Attack()
         {
-            _animator.ResetTrigger(_animIDAttack01);
+            if (_hasAnimator)
+            {
+                _animator.ResetTrigger(_animIDAttack01);
+            }
             if (_input.action1)
             {
                 if (_hasAnimator)
@@ -309,7 +351,7 @@ namespace Kolman_Freecss.Krodun
         private void LateUpdate()
         {
             Debug.Log("LateUpdate, LocalClientId -> " + NetworkManager.LocalClientId);
-            if (!IsOwner || !_gameLoaded || _input == null)
+            if (!IsLocalPlayer || IsOwner || !_gameLoaded || _input == null)
             {
                 return;
             }
@@ -323,7 +365,10 @@ namespace Kolman_Freecss.Krodun
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-            _animator.SetBool(_animIDOnGround, Grounded);
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDOnGround, Grounded);
+            }
         }
 
         private void CameraRotation()
@@ -407,6 +452,8 @@ namespace Kolman_Freecss.Krodun
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
+            
+            
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
@@ -480,7 +527,10 @@ namespace Kolman_Freecss.Krodun
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
-                _animator.SetFloat(_animIDJumpVelocity, _verticalVelocity);
+                if (_hasAnimator)
+                {
+                    _animator.SetFloat(_animIDJumpVelocity, _verticalVelocity);
+                }
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
