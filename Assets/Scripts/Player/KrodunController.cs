@@ -1,9 +1,11 @@
-﻿using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System;
+using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -264,12 +266,12 @@ namespace Kolman_Freecss.Krodun
         private void Update()
         {
             Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
-            if (!IsOwner || !_gameLoaded)
+            if (!IsOwner || !_gameLoaded || _input == null)
             {
                 return;
             }
-            _hasAnimator = TryGetComponent(out _animator);
 
+            _hasAnimator = TryGetComponent(out _animator);
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -306,7 +308,8 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
-            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || IsServer)
+            Debug.Log("LateUpdate, LocalClientId -> " + NetworkManager.LocalClientId);
+            if (!IsOwner || !_gameLoaded || _input == null)
             {
                 return;
             }
