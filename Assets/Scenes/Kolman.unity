@@ -1639,14 +1639,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1011700332}
     m_Modifications:
-    - target: {fileID: 1667078168007778334, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
-      propertyPath: enemyType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6414848549013692615, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8753619234690991415, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1694,14 +1686,6 @@ PrefabInstance:
     - target: {fileID: 8753619234690991416, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
       propertyPath: m_Name
       value: Aymon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8753619234851411488, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 55.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8753619234851411488, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 61.1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1917505841872629879, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
@@ -3922,10 +3906,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6111132430663928628, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5f34197fa7a111542b04dbe36f01c5e8, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}

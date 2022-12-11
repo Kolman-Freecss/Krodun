@@ -150,6 +150,8 @@ namespace Kolman_Freecss.Krodun
                 RegisterServerCallbacks();
             }
             
+            // Set Scene loaded to true
+            SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
         }
 
         // This is called when a client connects to the server
@@ -270,8 +272,6 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
             
-            // Set Scene loaded to true
-            SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
         }
         
         private void Update()
@@ -280,10 +280,10 @@ namespace Kolman_Freecss.Krodun
             {
                 _hasAnimator = TryGetComponent(out _animator);
 
-                JumpAndGravity();
+                /*JumpAndGravity();
                 GroundedCheck();
                 Move();
-                Attack();
+                Attack();*/
             }
         }
         
@@ -319,7 +319,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (_gameLoaded)
             {
-                CameraRotation();
+                /*CameraRotation();*/
             }
         }
 
