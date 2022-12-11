@@ -255,7 +255,7 @@ namespace Kolman_Freecss.Krodun
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
             /*SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;*/
         }
-        
+
         private void GetReferences()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -263,9 +263,9 @@ namespace Kolman_Freecss.Krodun
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<RPGInputs>();
+            UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            playerInput.enabled = true;
             _playerInput = GetComponent<PlayerInput>();
-            _playerInput.enabled = true;
-            _playerInput.SwitchCurrentControlScheme("KeyboardMouse");
             
             _menuManager.Init();
 
@@ -558,6 +558,10 @@ namespace Kolman_Freecss.Krodun
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
@@ -570,6 +574,10 @@ namespace Kolman_Freecss.Krodun
         
         private void OnRun(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
@@ -578,6 +586,10 @@ namespace Kolman_Freecss.Krodun
 
         private void OnLand(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
