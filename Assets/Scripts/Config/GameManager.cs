@@ -61,7 +61,6 @@ namespace Kolman_Freecss.Krodun
 
         public void Update()
         {
-            Debug.Log("Update GameManager" + nameof(IsServer) + " " + IsServer + " " + nameof(isGameStarted) + " " + isGameStarted.Value);
             if (IsServer)
             {
                 StartGame();
@@ -70,9 +69,9 @@ namespace Kolman_Freecss.Krodun
 
         private void StartGame()
         {
-            Debug.Log("------------------START GAME------------------");
             if (!isGameStarted.Value)
             {
+                Debug.Log("------------------START GAME------------------");
                 isGameStarted.Value = true;
             }
         }

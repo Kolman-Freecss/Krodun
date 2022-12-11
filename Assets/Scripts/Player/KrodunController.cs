@@ -144,7 +144,6 @@ namespace Kolman_Freecss.Krodun
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
             if (IsServer)
@@ -178,7 +177,6 @@ namespace Kolman_Freecss.Krodun
         // Invoked when a client has loaded this scene
         private void ClientLoadedScene(ulong clientId)
         {
-            Debug.Log("Client loaded scene");
             if (IsServer)
             {
                 if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
@@ -202,7 +200,6 @@ namespace Kolman_Freecss.Krodun
         private void SendClientInitDataClientRpc(ulong clientId)
         {
             Debug.Log("SendClientInitData called to clientId -> " + clientId);
-            Debug.Log("SendClientInitData -> " + nameof(IsOwner) + " -> " + IsOwner);
             AwakeData();
         }
 
@@ -219,7 +216,6 @@ namespace Kolman_Freecss.Krodun
                 _gameLoaded = true;
             }
             enabled = true;
-            Debug.Log("AwakeData");
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -281,35 +277,12 @@ namespace Kolman_Freecss.Krodun
             
         }
         
-        [ServerRpc]
-        public void RandomTeleportServerRpc()
-        {
-            var oldPosition = transform.position;
-            transform.position = GetRandomPositionOnXYPlane();
-            var newPosition = transform.position;
-            print($"{nameof(RandomTeleportServerRpc)}() -> {nameof(OwnerClientId)}: {OwnerClientId} --- {nameof(oldPosition)}: {oldPosition} --- {nameof(newPosition)}: {newPosition}");
-        }
-        
-        private static Vector3 GetRandomPositionOnXYPlane()
-        {
-            return new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0f);
-        }
-        
         private void Update()
         {
-            Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
-            print($"{nameof(OwnerClientId)}: {OwnerClientId}");
-            if (_input != null && _input.leftClick)
-            {
-                RandomTeleportServerRpc();
-            }
-            Debug.Log("Update-> " + nameof(IsLocalPlayer) + " -> " + IsLocalPlayer + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + nameof(_gameLoaded)+ " -> " + _gameLoaded + nameof(_input) + " -> " + _input);
             if (!IsLocalPlayer || !IsOwner || !_gameLoaded || _input == null)
             {
-                Debug.Log("Return");
                 return;
             }
-            Debug.Log("Start Update");
             _hasAnimator = TryGetComponent(out _animator);
             JumpAndGravity();
             GroundedCheck();
@@ -350,7 +323,6 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
-            Debug.Log("LateUpdate, LocalClientId -> " + NetworkManager.LocalClientId);
             if (!IsLocalPlayer || IsOwner || !_gameLoaded || _input == null)
             {
                 return;
