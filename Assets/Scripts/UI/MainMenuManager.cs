@@ -7,16 +7,10 @@ namespace Kolman_Freecss.Krodun
 {
     public class MainMenuManager : MonoBehaviour
     {
-        private GameObject _mainMenuManager;
         private GameObject _multiplayerCanvas;
 
         private void Awake()
         {
-            if (_mainMenuManager == null)
-            {
-                _mainMenuManager = GameObject.FindGameObjectWithTag("MainMenuManager");
-            }
-
             if (_multiplayerCanvas == null)
             {
                 _multiplayerCanvas = GameObject.FindGameObjectWithTag("MultiplayerCanvas");
@@ -40,6 +34,11 @@ namespace Kolman_Freecss.Krodun
 
         public void OnStartButtonPressed()
         {
+            StartGame();
+        }
+        
+        public void StartGame()
+        {
             StartCoroutine(LoadGame());
         }
 
@@ -50,6 +49,8 @@ namespace Kolman_Freecss.Krodun
             {
                 yield return null;
             }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }

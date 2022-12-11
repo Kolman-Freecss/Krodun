@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 758.9443, y: 288.70377}
-  m_SizeDelta: {x: -1517.8885, y: -577.4075}
+  m_AnchoredPosition: {x: 758.95, y: 290.54}
+  m_SizeDelta: {x: -1517.9, y: -581.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5353927435567001068
 CanvasRenderer:
@@ -627,7 +627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Buscar partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1096,8 +1096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -41.056, y: 242.5983}
-  m_SizeDelta: {x: -122.11, y: -582.9441}
+  m_AnchoredPosition: {x: -41.053, y: 266.1}
+  m_SizeDelta: {x: -122.1, y: -629.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5228507546545847697
 MonoBehaviour:
@@ -1513,7 +1513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8555700203041889097
 CanvasRenderer:
@@ -1596,7 +1596,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2437797905383237488}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7152572726580275337}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPUIMediator, Assembly-CSharp
+        m_MethodName: ToggleJoinIPUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2750054473623497116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,6 +1619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858530565616587143}
   - component: {fileID: 4185728820706360696}
+  - component: {fileID: 2059463989605773814}
   m_Layer: 0
   m_Name: IPHostMenu
   m_TagString: Untagged
@@ -1649,6 +1662,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2059463989605773814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750054473623497116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7334bf8b6a240909e0da5f45b8e6968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInput: {fileID: 2325614012541694725}
+  portInput: {fileID: 7447971845916245356}
+  _mediator: {fileID: 7152572726580275337}
 --- !u!1 &2852954504533062940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +2009,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5492059718341167852
 CanvasRenderer:
@@ -2064,7 +2092,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4683928811978588474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7152572726580275337}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPUIMediator, Assembly-CSharp
+        m_MethodName: ToggleCreateIPUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3544759671919816912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,6 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8a3d2cf27148d4ea88553e268488f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: Player
 --- !u!1 &3587212492650869956
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,8 +3080,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.257004, y: -3.4190063}
+  m_SizeDelta: {x: 20.5138, y: 6.838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4918457120244786367
 CanvasRenderer:
@@ -3070,7 +3111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Hostear partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3538,8 +3579,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 30.262573, y: -212.72803}
-  m_SizeDelta: {x: -793.9763, y: -463.774}
+  m_AnchoredPosition: {x: -5.2025146, y: -102.69002}
+  m_SizeDelta: {x: -1110.4049, y: -411.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4661963811895560702
 CanvasRenderer:
@@ -3622,7 +3663,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1301351795697206499}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2059463989605773814}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPHostUI, Assembly-CSharp
+        m_MethodName: OnClickHost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5414887228953195503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4156,7 +4209,7 @@ GameObject:
   - component: {fileID: 8058378726387421467}
   - component: {fileID: 3872312986010238265}
   m_Layer: 0
-  m_Name: HostButton
+  m_Name: JoinButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4180,8 +4233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 30.262573, y: -212.72801}
-  m_SizeDelta: {x: -793.9763, y: -463.774}
+  m_AnchoredPosition: {x: -3.4683228, y: -102.69002}
+  m_SizeDelta: {x: -1106.9366, y: -411.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1324485174670342274
 CanvasRenderer:
@@ -4264,7 +4317,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8058378726387421467}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1601628123356973825}
+        m_TargetAssemblyTypeName: Kolman_Freecss.Krodun.IPJoinUI, Assembly-CSharp
+        m_MethodName: OnClickJoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7004323465504011417
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,8 +4712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -22.118}
-  m_SizeDelta: {x: -40, y: -244.09}
+  m_AnchoredPosition: {x: -0.8178711, y: -9.375092}
+  m_SizeDelta: {x: -41.6359, y: -269.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8017631253599842978
 GameObject:
@@ -4740,6 +4805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4260420379120199279}
   - component: {fileID: 7395101170865513935}
+  - component: {fileID: 1601628123356973825}
   m_Layer: 0
   m_Name: IPJoinMenu
   m_TagString: Untagged
@@ -4782,6 +4848,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1601628123356973825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8891627156122724480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027380ea00e04fc5a6ba71fa25f6c3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInput: {fileID: 4604044061928732937}
+  portInput: {fileID: 7209421769031273812}
+  _mediator: {fileID: 7152572726580275337}
 --- !u!1 &9055496016093359203
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,9 @@
 ﻿using Kolman_Freecss.HitboxHurtboxSystem;
+using Kolman_Freecss.Krodun.ConnectionManagement;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -9,7 +12,7 @@ namespace Kolman_Freecss.Krodun
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
-    public class KrodunController : MonoBehaviour, IHitboxResponder, IHurtboxResponder
+    public class KrodunController : NetworkBehaviour, IHitboxResponder, IHurtboxResponder
     {
         #region Inspector Variables
         [Header("Player")]
@@ -76,6 +79,8 @@ namespace Kolman_Freecss.Krodun
         
         #endregion
 
+        #region Auxiliary Variables
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -113,6 +118,11 @@ namespace Kolman_Freecss.Krodun
         
         private bool _hasAnimator;
         
+        // Multiplayer variables
+        private bool _gameLoaded;
+
+        #endregion
+        
         private bool IsCurrentDeviceMouse
         {
             get
@@ -124,12 +134,83 @@ namespace Kolman_Freecss.Krodun
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
         
-        private void Awake()
+        
+
+        public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
+            /*if (!IsOwner)
+            {
+                Destroy(this);
+            }*/
+            Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
+            //If we are hosting, then handle the server side for detecting when clients have connected
+            //and when their lobby scenes are finished loading.
+            if (IsServer)
+            {
+                transform.position = new Vector3(120, 25, 127);
+                RegisterServerCallbacks();
+            }
+            
+            // Set Scene loaded to true
+            SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
+        }
+
+        // This is called when a client connects to the server
+        // Invoked when a client has loaded this scene
+        private void ClientLoadedScene(ulong clientId)
+        {
+            Debug.Log("Client loaded scene");
+            if (IsServer)
+            {
+                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                {
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                }
+            }
+            SendClientInitDataClientRpc(clientId);
+        }
+
+        private void OnClientConnectedCallback(ulong clientId)
+        {
+            Debug.Log($"Client {clientId} connected");
+            if (IsServer)
+            {
+                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                {
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                }
+            }
+        }
+        
+        private void CheckInGame(SceneTransitionHandler.SceneStates state)
+        {
+            Debug.Log("CheckInGame -> We are in the game -> " + state);
+            if (state == SceneTransitionHandler.SceneStates.Kolman)
+            {
+                _gameLoaded = true;
+            }
+        }
+        
+        [ClientRpc]
+        private void SendClientInitDataClientRpc(ulong clientId)
+        {
+            Debug.Log("SendClientInitData called to clientId -> " + clientId);
+            AwakeData();
+        }
+
+        public void AwakeData()
+        {
+            Debug.Log("AwakeData");
             // get a reference to our main camera
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            }
+            
+            if (CinemachineCameraTarget == null)
+            {
+                CinemachineCameraTarget = GameObject.FindGameObjectWithTag("KrodunFollowCamera");
             }
 
             if (_menuManager == null)
@@ -139,13 +220,26 @@ namespace Kolman_Freecss.Krodun
 
             _hitbox = GetComponentInChildren<Hitbox>();
             _hurtbox = GetComponentInChildren<Hurtbox>();
-            
-            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
-            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
-            
+
+            RegisterPostCallbacks();
+            GetReferences();
         }
 
-        private void Start()
+        private void RegisterPostCallbacks()
+        {
+            OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
+            OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+        }
+
+        private void RegisterServerCallbacks()
+        {
+            //Server will be notified when a client connects
+            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
+        }
+        
+        private void GetReferences()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -164,10 +258,16 @@ namespace Kolman_Freecss.Krodun
             // set our initial facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
+            
         }
         
         private void Update()
         {
+            Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
+            if (!IsOwner || !_gameLoaded)
+            {
+                return;
+            }
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
@@ -206,6 +306,10 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
+            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || IsServer)
+            {
+                return;
+            }
             CameraRotation();
         }
 

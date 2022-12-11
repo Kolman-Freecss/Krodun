@@ -21,11 +21,6 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
-        private void Awake()
-        {
-            ManageSingleton();
-        }
-
         private void Start()
         {
             _krodunController = GetComponent<KrodunController>();
@@ -77,18 +72,5 @@ namespace Kolman_Freecss.Krodun
             _experience += experience;
         }
         
-        void ManageSingleton()
-        {
-            if (Instance != null)
-            {
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-        }
     }
 }
