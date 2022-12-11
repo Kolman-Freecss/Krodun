@@ -79,6 +79,8 @@ namespace Kolman_Freecss.Krodun
         
         #endregion
 
+        #region Auxiliary Variables
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -118,6 +120,8 @@ namespace Kolman_Freecss.Krodun
         
         // Multiplayer variables
         private bool _gameLoaded;
+
+        #endregion
         
         private bool IsCurrentDeviceMouse
         {
@@ -132,15 +136,17 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnNetworkSpawn()
         {
-            if (!IsOwner)
+            base.OnNetworkSpawn();
+            /*if (!IsOwner)
             {
                 Destroy(this);
-            }
+            }*/
             Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
             if (IsServer)
             {
+                transform.position = new Vector3(120, 25, 127);
                 RegisterServerCallbacks();
             }
             
@@ -164,6 +170,13 @@ namespace Kolman_Freecss.Krodun
         private void OnClientConnectedCallback(ulong clientId)
         {
             Debug.Log($"Client {clientId} connected");
+            if (IsServer)
+            {
+                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                {
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                }
+            }
         }
         
         private void CheckInGame(SceneTransitionHandler.SceneStates state)
