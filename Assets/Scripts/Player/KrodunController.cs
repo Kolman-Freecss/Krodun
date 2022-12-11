@@ -1,4 +1,5 @@
 ﻿using System;
+using Cinemachine;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
@@ -196,6 +197,9 @@ namespace Kolman_Freecss.Krodun
             }
         }*/
         
+        /*
+         * This is called when a client has loaded the scene and is ready to be initialized.
+         */
         [ClientRpc]
         private void SendClientInitDataClientRpc(ulong clientId)
         {
@@ -203,6 +207,9 @@ namespace Kolman_Freecss.Krodun
             AwakeData();
         }
 
+        /*
+         * AwakeData is invoked for every client that has loaded the scene.
+         */
         public void AwakeData()
         {
             if (!IsLocalPlayer || !IsOwner)
@@ -225,6 +232,8 @@ namespace Kolman_Freecss.Krodun
             if (CinemachineCameraTarget == null)
             {
                 CinemachineCameraTarget = GameObject.FindGameObjectWithTag("KrodunFollowCamera");
+                CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().Follow = transform;
+                CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().LookAt = transform;
             }
 
             if (_menuManager == null)
