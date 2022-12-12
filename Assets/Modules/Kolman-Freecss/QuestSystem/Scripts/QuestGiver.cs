@@ -7,11 +7,12 @@ namespace Kolman_Freecss.QuestSystem
 {
     public class QuestGiver : MonoBehaviour
     {
+        #region Inspector Variables
         [Header("Quest Info")] public List<QuestSO> QuestsSO = new List<QuestSO>();
-        
         public Quest CurrentQuest;
         public List<GameObject> QuestMarkers;
-
+        #endregion
+        
         private List<Quest> Quests = new List<Quest>();
         
         // Auxiliar variables

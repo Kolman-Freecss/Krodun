@@ -1,5 +1,6 @@
 ﻿using System;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,11 @@ namespace Kolman_Freecss.Krodun
         
         [HideInInspector]
         public NetworkVariable<bool> isGameStarted = new NetworkVariable<bool>(false, 
+            NetworkVariableReadPermission.Everyone, 
+            NetworkVariableWritePermission.Server);
+        
+        [HideInInspector]
+        public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false, 
             NetworkVariableReadPermission.Everyone, 
             NetworkVariableWritePermission.Server);
         
@@ -36,6 +42,25 @@ namespace Kolman_Freecss.Krodun
             if (IsServer)
             {
                 isGameStarted.Value = false;
+                isGameOver.Value = false;
+                if (!GameManager.Instance)
+                    GameManager.OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
+                else
+                    SubscribeToDelegatesAndUpdateValues();
+            }
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            Debug.Log("Subscribing to delegates QuestManager");
+            QuestManager.Instance.OnStoryComletedEvent += OnStoryCompleted;
+        }
+        
+        private void OnStoryCompleted(Story story)
+        {
+            if (story.IsCompleted)
+            {
+                isGameOver.Value = true;
             }
         }
         
@@ -67,7 +92,6 @@ namespace Kolman_Freecss.Krodun
             Debug.Log("------------------SEND Client Loaded Scene------------------");
             OnSceneLoadedChanged?.Invoke(true);
             isSceneLoadedValue = true;
-            Debug.Log("IsSceneLoaded -> " + GameManager.Instance.isSceneLoadedValue);
             StartGame();
         }
 

@@ -2,6 +2,7 @@
 using Cinemachine;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -123,8 +124,6 @@ namespace Kolman_Freecss.Krodun
         
         // Multiplayer variables
         private bool _gameLoaded;
-
-        #endregion
         
         private bool IsCurrentDeviceMouse
         {
@@ -134,6 +133,8 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
+        #endregion
+        
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
 
@@ -261,6 +262,9 @@ namespace Kolman_Freecss.Krodun
             /*SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;*/
         }
 
+        /**
+         * Get references to the components we need
+         */
         private void GetReferences()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -268,6 +272,8 @@ namespace Kolman_Freecss.Krodun
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<RPGInputs>();
+            // By default the player input is disabled to prevent incorrect behaviours with netcode for objects with the new input system
+            // So we enabled it here
             UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
             playerInput.enabled = true;
             _playerInput = GetComponent<PlayerInput>();

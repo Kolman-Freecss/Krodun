@@ -30,9 +30,9 @@ namespace Kolman_Freecss.QuestSystem
 
         private void Update()
         {
-            if (_questManager.currentStory != null && _questManager.currentStory.CurrentQuest != null)
+            if (_questManager.CurrentStory != null && _questManager.CurrentStory.CurrentQuest != null)
             {
-                DisplayQuestInfo(_questManager.currentStory.CurrentQuest);
+                DisplayQuestInfo(_questManager.CurrentStory.CurrentQuest);
             }
         }
 

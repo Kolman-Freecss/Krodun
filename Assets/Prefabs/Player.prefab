@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 8513965869898875973}
   - component: {fileID: 8513965869898875974}
   - component: {fileID: 8513965869898875966}
-  - component: {fileID: 8513965869898875967}
   - component: {fileID: 8513965869898875968}
   - component: {fileID: 8513965869898875969}
   - component: {fileID: 8513965869898875970}
@@ -163,20 +162,6 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 0}
   health: 1000
   damage: 100
---- !u!114 &8513965869898875967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36746f535c24578a50e6ab6522ceda2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storiesSO:
-  - {fileID: 11400000, guid: 08e2a39d29fa50946b93000db5f3dcc1, type: 2}
 --- !u!114 &8513965869898875968
 MonoBehaviour:
   m_ObjectHideFlags: 0
