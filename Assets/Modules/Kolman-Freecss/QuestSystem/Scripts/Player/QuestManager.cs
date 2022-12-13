@@ -34,7 +34,6 @@ namespace Kolman_Freecss.QuestSystem
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("QuestManager spawned -> IsServer -> " + IsServer);
             
             base.OnNetworkSpawn();
             
@@ -48,7 +47,6 @@ namespace Kolman_Freecss.QuestSystem
 
         public void OnGameStarted(bool isLoaded)
         {
-            Debug.Log("QuestManager Game Started");
             if (isLoaded && IsServer)
             {
                 OnGameStartedClientRpc(isLoaded);
@@ -65,7 +63,8 @@ namespace Kolman_Freecss.QuestSystem
                 //TODO : Add a way to choose the story
                 CurrentStory = Stories[0];
                 CurrentStory.StartStory();
-                SubscribeToDelegatesAndUpdateValues();
+                // TODO : Change it to go like an event this refresh
+                RefreshQuestGivers();
             }
         }
         

@@ -3,6 +3,7 @@ using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -82,14 +83,23 @@ namespace Kolman_Freecss.Krodun
         {
             if (IsServer)
             {
-                OnClientConnectedCallbackClientRpc(clientId);
+                //Server will notified to a single client when his scene is loaded
+                ClientRpcParams clientRpcParams = new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new ulong[] {clientId}
+                    }
+                };
+                OnClientConnectedCallbackClientRpc(clientId, clientRpcParams);
             }
         }
         
         [ClientRpc]
-        private void OnClientConnectedCallbackClientRpc(ulong clientId)
+        private void OnClientConnectedCallbackClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
         {
-            Debug.Log("------------------SEND Client Loaded Scene------------------");
+            /*if (IsOwner) return;*/
+            Debug.Log("------------------SENT Client Loaded Scene------------------");
             OnSceneLoadedChanged?.Invoke(true);
             isSceneLoadedValue = true;
             StartGame();

@@ -4,7 +4,7 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
 {
     public class BasicBehaviourHitbox : MonoBehaviour
     {
-        private float offset = 1f;
+        /*private float offset = 1f;*/
         
         public virtual void OnFacingDirectionChangedHandler(Transform target)
         {

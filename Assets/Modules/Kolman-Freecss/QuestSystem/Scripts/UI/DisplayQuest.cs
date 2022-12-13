@@ -20,19 +20,12 @@ namespace Kolman_Freecss.QuestSystem
         
         [SerializeField]
         TextMeshProUGUI questReward;
-        
-        QuestManager _questManager;
-
-        private void Awake()
-        {
-            _questManager = FindObjectOfType<QuestManager>();
-        }
 
         private void Update()
         {
-            if (_questManager.CurrentStory != null && _questManager.CurrentStory.CurrentQuest != null)
+            if (QuestManager.Instance.CurrentStory != null && QuestManager.Instance.CurrentStory.CurrentQuest != null)
             {
-                DisplayQuestInfo(_questManager.CurrentStory.CurrentQuest);
+                DisplayQuestInfo(QuestManager.Instance.CurrentStory.CurrentQuest);
             }
         }
 
@@ -48,19 +41,19 @@ namespace Kolman_Freecss.QuestSystem
         
         public void OnAcceptQuest()
         {
-            _questManager.AcceptQuest();
+            QuestManager.Instance.AcceptQuest();
             CloseQuest();
         }
         
         public void OnCompleteQuest()
         {
-            _questManager.CompleteQuest();
+            QuestManager.Instance.CompleteQuest();
             CloseQuest();
         }
         
         /*public void OnDeclineQuest()
         {
-            _questManager.DeclineQuest();
+            QuestManager.Instance.DeclineQuest();
         }*/
         
         public void OnExit()

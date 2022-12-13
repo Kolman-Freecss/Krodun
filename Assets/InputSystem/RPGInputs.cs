@@ -27,9 +27,9 @@ namespace Kolman_Freecss.Krodun
         
         private void OnGameStarted(bool isLoaded)
         {
-            Debug.Log("RPGInputs Game Started");
             if (_menuManager == null && isLoaded)
             {
+                Debug.Log("GameObjectId = " + this.gameObject.GetInstanceID());
                 _menuManager = FindObjectOfType<MenuManager>();
             }
         }

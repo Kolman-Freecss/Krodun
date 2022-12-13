@@ -1,3 +1,4 @@
+using System;
 using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
@@ -5,26 +6,48 @@ namespace Kolman_Freecss.Krodun
 {
     public class CursorManager : MonoBehaviour
     {
-        [Header("Cursor Settings")] public Texture2D defaultCursor;
+        [Header("Cursor Settings")] 
+        public Texture2D defaultCursor;
         public Texture2D questNotStartedCursor;
         public Texture2D questStartedCursor;
         public Texture2D questCompletedCursor;
 
-        [Header("Canvas Settings")] public GameObject questStartedCanvas;
-        public GameObject questNotStartedCanvas;
-        public GameObject questCompletedCanvas;
+        // Canvas references
+        private GameObject _questStartedCanvas;
+        private GameObject _questNotStartedCanvas;
+        private GameObject _questCompletedCanvas;
 
-        Camera _currentCamera;
-        GameObject _previousObject;
-        RPGInputs _inputs;
+        private Camera _currentCamera;
+        private GameObject _previousObject;
+        private RPGInputs _inputs;
 
         private void Awake()
         {
-            questStartedCanvas.SetActive(false);
-            questNotStartedCanvas.SetActive(false);
-            questCompletedCanvas.SetActive(false);
             _inputs = GetComponent<RPGInputs>();
             ResetCursor();
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+
+        public void OnGameStarted(bool isLoaded)
+        {
+            if (isLoaded)
+            {
+                Debug.Log("GameObjectId = " + this.gameObject.GetInstanceID());
+                _questStartedCanvas = GameObject.Find("QuestCompletedCanvas");
+                _questNotStartedCanvas = GameObject.Find("QuestNotStartedCanvas");
+                _questCompletedCanvas = GameObject.Find("QuestStartedCanvas");
+                Debug.Log("Quest Started Canvas Id: " + _questStartedCanvas.GetInstanceID());
+                Debug.Log("Quest Not Started Canvas Id: " + _questNotStartedCanvas.GetInstanceID());
+                Debug.Log("Quest Completed Canvas Id: " + _questCompletedCanvas.GetInstanceID());
+                _questStartedCanvas.SetActive(false);
+                _questNotStartedCanvas.SetActive(false);
+                _questCompletedCanvas.SetActive(false);
+            }
         }
 
         void Update()
@@ -79,15 +102,15 @@ namespace Kolman_Freecss.Krodun
             {
                 case QuestStatus.NotStarted:
                     Cursor.SetCursor(questNotStartedCursor, Vector2.zero, CursorMode.Auto);
-                    OnClickWhenHover(target, questNotStartedCanvas);
+                    OnClickWhenHover(target, _questNotStartedCanvas);
                     break;
                 case QuestStatus.Started:
                     Cursor.SetCursor(questStartedCursor, Vector2.zero, CursorMode.Auto);
-                    OnClickWhenHover(target, questStartedCanvas);
+                    OnClickWhenHover(target, _questStartedCanvas);
                     break;
                 case QuestStatus.Completed:
                     Cursor.SetCursor(questCompletedCursor, Vector2.zero, CursorMode.Auto);
-                    OnClickWhenHover(target, questCompletedCanvas);
+                    OnClickWhenHover(target, _questCompletedCanvas);
                     break;
                 default:
                     Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
