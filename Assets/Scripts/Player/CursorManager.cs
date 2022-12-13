@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design.Serialization;
 using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Kolman_Freecss.Krodun
         public Texture2D questNotStartedCursor;
         public Texture2D questStartedCursor;
         public Texture2D questCompletedCursor;
+        
+        [HideInInspector]
+        public static CursorManager Instance { get; private set; }
 
         // Canvas references
         private GameObject _questStartedCanvas;
@@ -21,13 +25,14 @@ namespace Kolman_Freecss.Krodun
         private GameObject _previousObject;
         private RPGInputs _inputs;
 
-        private void Awake()
+        private void Start()
         {
-            _inputs = GetComponent<RPGInputs>();
+            Instance = this;
+            DontDestroyOnLoad(this);
             ResetCursor();
             SubscribeToDelegatesAndUpdateValues();
         }
-        
+
         private void SubscribeToDelegatesAndUpdateValues()
         {
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
@@ -37,13 +42,10 @@ namespace Kolman_Freecss.Krodun
         {
             if (isLoaded)
             {
-                Debug.Log("GameObjectId = " + this.gameObject.GetInstanceID());
+                _inputs = FindObjectOfType<KrodunController>().GetComponent<RPGInputs>();
                 _questStartedCanvas = GameObject.Find("QuestCompletedCanvas");
                 _questNotStartedCanvas = GameObject.Find("QuestNotStartedCanvas");
                 _questCompletedCanvas = GameObject.Find("QuestStartedCanvas");
-                Debug.Log("Quest Started Canvas Id: " + _questStartedCanvas.GetInstanceID());
-                Debug.Log("Quest Not Started Canvas Id: " + _questNotStartedCanvas.GetInstanceID());
-                Debug.Log("Quest Completed Canvas Id: " + _questCompletedCanvas.GetInstanceID());
                 _questStartedCanvas.SetActive(false);
                 _questNotStartedCanvas.SetActive(false);
                 _questCompletedCanvas.SetActive(false);
