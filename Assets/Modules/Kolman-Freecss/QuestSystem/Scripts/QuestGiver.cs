@@ -62,10 +62,7 @@ namespace Kolman_Freecss.QuestSystem
             }
             
             CurrentQuest = Quests[0];
-            if (IsOwner)
-            {
-                SubscribeToDelegatesAndUpdateValues();
-            }
+            SubscribeToDelegatesAndUpdateValues();
         }
 
         private void SubscribeToDelegatesAndUpdateValues()
@@ -96,9 +93,11 @@ namespace Kolman_Freecss.QuestSystem
         [ClientRpc]
         public void UpdateQuestClientRpc(QuestState previousState, QuestState newState)
         {
+            Debug.Log($"QuestGiver: UpdateQuestClientRpc: {newState}");
             CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
             CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
             CurrentQuest.Status = newState.Status;
+            RefreshQuestMarkServerRpc();
         }
 
         public Quest UpdateQuestStatus(Quest quest)
