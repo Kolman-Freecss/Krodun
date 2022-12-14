@@ -74,14 +74,13 @@ GameObject:
   - component: {fileID: 8513965869898875973}
   - component: {fileID: 8513965869898875974}
   - component: {fileID: 8513965869898875966}
-  - component: {fileID: 8513965869898875967}
   - component: {fileID: 8513965869898875968}
   - component: {fileID: 8513965869898875969}
   - component: {fileID: 8513965869898875970}
-  - component: {fileID: 8513965869898875971}
   - component: {fileID: 8513965869898875972}
   - component: {fileID: 3380401506969291358}
   - component: {fileID: 8902645350318365970}
+  - component: {fileID: 2437887853147575325}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -162,20 +161,6 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 0}
   health: 1000
   damage: 100
---- !u!114 &8513965869898875967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36746f535c24578a50e6ab6522ceda2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storiesSO:
-  - {fileID: 11400000, guid: 08e2a39d29fa50946b93000db5f3dcc1, type: 2}
 --- !u!114 &8513965869898875968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +204,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -238,7 +223,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: KeyboardMouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -264,25 +249,6 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &8513965869898875971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8592880286225764589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66783b8b36aab1498f63230951405ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultCursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
-  questNotStartedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
-  questStartedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
-  questCompletedCursor: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
-  questStartedCanvas: {fileID: 7138976540407097625, guid: baaa97e791e0c64478e3932a9583187a, type: 3}
-  questNotStartedCanvas: {fileID: 7138976540407097625, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
-  questCompletedCanvas: {fileID: 7138976540407097625, guid: 2fd2b52272960424f9a451855b0ffb17, type: 3}
 --- !u!114 &8513965869898875972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748fb3cc145be3c44a5945d5645062a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterItems: []
+  characterItems:
+  - itemName: Apple
+    itemDescription: Apple
+    itemIcon: {fileID: 21300000, guid: 4a89a0b790ba24846a3faf5b376110ba, type: 3}
+    itemObject: {fileID: 2102061714738248673, guid: 781ead7e00428564cac24ee4ca4c3b1c, type: 3}
+    isUnique: 0
+    amountType: 1
   database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
   inventoryDisplay: {fileID: 0}
 --- !u!114 &3380401506969291358
@@ -340,6 +312,44 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &2437887853147575325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592880286225764589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: -1481439722
+    TransitionDuration: 0
+    TriggerNameHash: 125937960
+    TransitionIndex: 2
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: -1238576965
+    TransitionDuration: 0.25
+    TriggerNameHash: 1331344109
+    TransitionIndex: 4
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 790987009
+    TransitionDuration: 0.25
+    TriggerNameHash: -699145385
+    TransitionIndex: 5
+  - Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 1523721793
+    TransitionDuration: 0.25
+    TriggerNameHash: 1654612129
+    TransitionIndex: 6
+  m_Animator: {fileID: 8513965869898875974}
 --- !u!1001 &464685576659718819
 PrefabInstance:
   m_ObjectHideFlags: 0

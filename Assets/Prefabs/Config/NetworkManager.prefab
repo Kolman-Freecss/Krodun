@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5090389961480924035
 MonoBehaviour:
@@ -52,11 +52,16 @@ MonoBehaviour:
     NetworkTransport: {fileID: 5090389961480924034}
     PlayerPrefab: {fileID: 8592880286225764589, guid: 926fbc74ab37d60429eeb18c93c42ae3, type: 3}
     NetworkPrefabs:
-    - Override: 1
-      Prefab: {fileID: 8592880286225764589, guid: 926fbc74ab37d60429eeb18c93c42ae3, type: 3}
-      SourcePrefabToOverride: {fileID: 8592880286225764589, guid: 926fbc74ab37d60429eeb18c93c42ae3, type: 3}
+    - Override: 0
+      Prefab: {fileID: 1727316602624199059, guid: 29af9613ab43f0140a71a8fb80ec9358, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 8592880286225764589, guid: 926fbc74ab37d60429eeb18c93c42ae3, type: 3}
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 7990852437527524118, guid: a4adcd1110d8a684ab9bc3b797a001c9, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0

@@ -18,6 +18,11 @@ namespace Kolman_Freecss.QuestSystem
         public bool IsUnlocked;
         public bool IsLocked;
 
+        public Story()
+        {
+            // Default constructor
+        }
+        
         public Story(StorySO storySo)
         {
             id = storySo.id;

@@ -565,6 +565,12 @@ MonoBehaviour:
   - {fileID: 5582732083753017227}
   - {fileID: 7555447450484281093}
   - {fileID: 5751069105360235233}
+  NotStarted:
+    m_InternalValue: 1
+  InProgress:
+    m_InternalValue: 0
+  Completed:
+    m_InternalValue: 0
 --- !u!54 &8214305461228703830
 Rigidbody:
   m_ObjectHideFlags: 0

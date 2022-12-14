@@ -1,9 +1,13 @@
-﻿using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System;
+using Cinemachine;
+using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -120,8 +124,6 @@ namespace Kolman_Freecss.Krodun
         
         // Multiplayer variables
         private bool _gameLoaded;
-
-        #endregion
         
         private bool IsCurrentDeviceMouse
         {
@@ -131,19 +133,19 @@ namespace Kolman_Freecss.Krodun
             }
         }
 
+        #endregion
+        
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
-        
-        
+
+        private void Awake()
+        {
+            _gameLoaded = false;
+        }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            /*if (!IsOwner)
-            {
-                Destroy(this);
-            }*/
-            Debug.Log("OnNetworkSpawn, LocalClientId -> " + NetworkManager.LocalClientId);
             //If we are hosting, then handle the server side for detecting when clients have connected
             //and when their lobby scenes are finished loading.
             if (IsServer)
@@ -151,16 +153,32 @@ namespace Kolman_Freecss.Krodun
                 transform.position = new Vector3(120, 25, 127);
                 RegisterServerCallbacks();
             }
+            if (!GameManager.Instance)
+                GameManager.OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
+            else
+                SubscribeToDelegatesAndUpdateValues();
             
             // Set Scene loaded to true
             SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Kolman);
+        }
+
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.isGameStarted.OnValueChanged += OnGameStarted;
+        }
+        
+        private void OnGameStarted(bool previousValue, bool newValue)
+        {
+            if (newValue)
+            {
+                _gameLoaded = true;
+            }
         }
 
         // This is called when a client connects to the server
         // Invoked when a client has loaded this scene
         private void ClientLoadedScene(ulong clientId)
         {
-            Debug.Log("Client loaded scene");
             if (IsServer)
             {
                 if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
@@ -170,28 +188,19 @@ namespace Kolman_Freecss.Krodun
             }
             SendClientInitDataClientRpc(clientId);
         }
-
-        private void OnClientConnectedCallback(ulong clientId)
-        {
-            Debug.Log($"Client {clientId} connected");
-            if (IsServer)
-            {
-                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
-                {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
-                }
-            }
-        }
         
-        private void CheckInGame(SceneTransitionHandler.SceneStates state)
+        /*private void CheckInGame(SceneTransitionHandler.SceneStates state)
         {
             Debug.Log("CheckInGame -> We are in the game -> " + state);
             if (state == SceneTransitionHandler.SceneStates.Kolman)
             {
                 _gameLoaded = true;
             }
-        }
+        }*/
         
+        /*
+         * This is called when a client has loaded the scene and is ready to be initialized.
+         */
         [ClientRpc]
         private void SendClientInitDataClientRpc(ulong clientId)
         {
@@ -199,9 +208,22 @@ namespace Kolman_Freecss.Krodun
             AwakeData();
         }
 
+        /*
+         * AwakeData is invoked for every client that has loaded the scene.
+         */
         public void AwakeData()
         {
-            Debug.Log("AwakeData");
+            if (!IsLocalPlayer || !IsOwner)
+            {
+                GetComponent<PlayerInput>().enabled = false;
+                enabled = false;
+                return;
+            }
+            if (GameManager.Instance.isGameStarted.Value)
+            {
+                _gameLoaded = true;
+            }
+            enabled = true;
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -211,6 +233,8 @@ namespace Kolman_Freecss.Krodun
             if (CinemachineCameraTarget == null)
             {
                 CinemachineCameraTarget = GameObject.FindGameObjectWithTag("KrodunFollowCamera");
+                CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().Follow = transform;
+                CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().LookAt = transform;
             }
 
             if (_menuManager == null)
@@ -234,11 +258,13 @@ namespace Kolman_Freecss.Krodun
         private void RegisterServerCallbacks()
         {
             //Server will be notified when a client connects
-            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
-            SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;
+            /*SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;*/
         }
-        
+
+        /**
+         * Get references to the components we need
+         */
         private void GetReferences()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -246,7 +272,12 @@ namespace Kolman_Freecss.Krodun
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<RPGInputs>();
+            // By default the player input is disabled to prevent incorrect behaviours with netcode for objects with the new input system
+            // So we enabled it here
+            UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            playerInput.enabled = true;
             _playerInput = GetComponent<PlayerInput>();
+            
             _menuManager.Init();
 
             AssignAnimationIDs();
@@ -263,13 +294,11 @@ namespace Kolman_Freecss.Krodun
         
         private void Update()
         {
-            Debug.Log("IDENTIFY I'm -> " + nameof(IsServer) + " -> " + IsServer + " or I'm -> " + nameof(IsClient) + " -> " + IsClient + " or I'm -> " + nameof(IsOwner) + " -> " + IsOwner + " or I'm -> " + nameof(IsHost) + " -> " + IsHost);
-            if (!IsOwner || !_gameLoaded)
+            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || _input == null)
             {
                 return;
             }
             _hasAnimator = TryGetComponent(out _animator);
-
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -288,7 +317,10 @@ namespace Kolman_Freecss.Krodun
 
         private void Attack()
         {
-            _animator.ResetTrigger(_animIDAttack01);
+            if (_hasAnimator)
+            {
+                _animator.ResetTrigger(_animIDAttack01);
+            }
             if (_input.action1)
             {
                 if (_hasAnimator)
@@ -306,7 +338,7 @@ namespace Kolman_Freecss.Krodun
 
         private void LateUpdate()
         {
-            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || IsServer)
+            if (!IsLocalPlayer || IsOwner || !_gameLoaded || _input == null)
             {
                 return;
             }
@@ -320,7 +352,10 @@ namespace Kolman_Freecss.Krodun
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-            _animator.SetBool(_animIDOnGround, Grounded);
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDOnGround, Grounded);
+            }
         }
 
         private void CameraRotation()
@@ -404,6 +439,8 @@ namespace Kolman_Freecss.Krodun
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
+            
+            
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
@@ -477,7 +514,10 @@ namespace Kolman_Freecss.Krodun
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
-                _animator.SetFloat(_animIDJumpVelocity, _verticalVelocity);
+                if (_hasAnimator)
+                {
+                    _animator.SetFloat(_animIDJumpVelocity, _verticalVelocity);
+                }
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
@@ -505,6 +545,10 @@ namespace Kolman_Freecss.Krodun
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
@@ -517,6 +561,10 @@ namespace Kolman_Freecss.Krodun
         
         private void OnRun(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
@@ -525,6 +573,10 @@ namespace Kolman_Freecss.Krodun
 
         private void OnLand(AnimationEvent animationEvent)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);

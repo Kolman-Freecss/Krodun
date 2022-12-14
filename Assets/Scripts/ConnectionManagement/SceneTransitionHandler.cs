@@ -81,19 +81,6 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             return m_SceneState;
         }
         
-        /*public override void OnNetworkSpawn()
-        {
-            if (IsServer)
-            {
-                if (sceneTransitionHandler != null)
-                {
-                    NetworkManager.Singleton.SceneManager.UnloadScene(sceneTransitionHandler.gameObject.scene);
-                }
-                sceneTransitionHandler = this;
-            }
-        }
-        */
-        
         public void ExitAndLoadStartMenu()
         {
             NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnLoadComplete;
