@@ -1,6 +1,7 @@
 ﻿using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -138,7 +139,15 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 {
                     Vector3 pos = dropSpawner.transform.position;
                     Quaternion rot = dropSpawner.transform.rotation;
-                    Instantiate(selectedItem.item.itemObject, pos, rot);
+                    GameObject item = Instantiate(selectedItem.item.itemObject.gameObject, pos, rot);
+                    if (item.GetComponent<NetworkObject>())
+                    {
+                        NetworkManager.Spawn(item);
+                        item.GetComponent<NetworkObject>().Spawn();
+                    } else
+                    {
+                        item.GetComponentsInChildren<NetworkObject>()[0].Spawn();
+                    }
                     //currently does not remove from inventory...
                     player.GetComponent<Inventory>().RemoveItem(selectedItem.item.itemName);
                     selectedItem.Setup(null);
