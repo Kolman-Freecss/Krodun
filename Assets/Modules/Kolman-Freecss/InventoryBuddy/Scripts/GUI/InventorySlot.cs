@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
 using UnityEngine;
@@ -20,34 +20,39 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [HideInInspector] public Inventory player;
     [HideInInspector] public Inventory tChest;
 
-
-    /**
-     * runs this once (will happen with the creation of the inventory display)
-     */
-    void Awake()
+    private void Awake()
     {
-        GameObject gObject = GameObject.Find("TreasureChest");
-        if (gObject)
-            tChest = gObject.GetComponent<Inventory>();
-        
-        gObject = GameObject.Find("Player");
-        if (gObject)
-            player = gObject.GetComponent<Inventory>();
-        else
+        GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+    }
+    
+    private void OnGameStarted(bool isLoaded)
+    {
+        Debug.Log("Inventory OnGameStarted");
+        if (isLoaded)
         {
-            gObject = GameObject.FindWithTag("Player");
+            GameObject gObject = GameObject.Find("TreasureChest");
+            if (gObject)
+                tChest = gObject.GetComponent<Inventory>();
+        
+            gObject = GameObject.Find("Player");
             if (gObject)
                 player = gObject.GetComponent<Inventory>();
-        }
+            else
+            {
+                gObject = GameObject.FindWithTag("Player");
+                if (gObject)
+                    player = gObject.GetComponent<Inventory>();
+            }
 
-        selectedItem =
-            GameObject.Find("SelectedItem")
-                .GetComponent<
-                    InventorySlot>(); //find the game object named selectedItem and make a local reference to it
-        dropSpawner = GameObject.Find("DropSpawner");
-        spriteImage = GetComponent<Image>(); //setup a reference for our local image component 
-        Setup(null); //Lets setup the slot to be empty (null) by running the setup
-        itemNameText = GetComponentInChildren<TextMeshProUGUI>();
+            selectedItem =
+                GameObject.Find("SelectedItem")
+                    .GetComponent<
+                        InventorySlot>(); //find the game object named selectedItem and make a local reference to it
+            dropSpawner = GameObject.Find("DropSpawner");
+            spriteImage = GetComponent<Image>(); //setup a reference for our local image component 
+            Setup(null); //Lets setup the slot to be empty (null) by running the setup
+            itemNameText = GetComponentInChildren<TextMeshProUGUI>();
+        }
     }
 
     /**
