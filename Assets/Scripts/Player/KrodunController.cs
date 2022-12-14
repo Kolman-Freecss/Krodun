@@ -185,8 +185,15 @@ namespace Kolman_Freecss.Krodun
                 {
                     ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
                 }
+                ClientRpcParams clientRpcParams = new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new ulong[] {clientId}
+                    }
+                };
+                SendClientInitDataClientRpc(clientId, clientRpcParams);
             }
-            SendClientInitDataClientRpc(clientId);
         }
         
         /*private void CheckInGame(SceneTransitionHandler.SceneStates state)
@@ -202,9 +209,10 @@ namespace Kolman_Freecss.Krodun
          * This is called when a client has loaded the scene and is ready to be initialized.
          */
         [ClientRpc]
-        private void SendClientInitDataClientRpc(ulong clientId)
+        private void SendClientInitDataClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
         {
-            Debug.Log("SendClientInitData called to clientId -> " + clientId);
+            Debug.Log("------------------SENT Client Init Awake Data------------------");
+            Debug.Log("Client Id -> " + clientId);
             AwakeData();
         }
 

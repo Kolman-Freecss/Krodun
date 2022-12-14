@@ -118,8 +118,6 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void RefreshQuest(int questId)
         {
-            Debug.Log(nameof(IsLocalPlayer) + IsLocalPlayer + ", " + nameof(IsServer) + IsServer + ", " + nameof(IsClient) + IsClient + ", " + nameof(IsHost) + IsHost
-                      + ", " + nameof(IsOwner) + IsOwner + nameof(NetworkManager.Singleton.LocalClientId) + NetworkManager.Singleton.LocalClientId);
             Quest qs = Quests.Find(x => x.ID == questId).UpdateStatus();
             if (qs.Status == QuestStatus.NotStarted)
             {

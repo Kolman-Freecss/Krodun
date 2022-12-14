@@ -42,7 +42,7 @@ public class Vendor : MonoBehaviour
             else
             {
                 myUI.enabled = false;
-                myUI.uIToToggle.SetActive(false);
+                myUI.CanvasToToggle.enabled = false;
             }
         }
     }

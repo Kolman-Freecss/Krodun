@@ -3,7 +3,7 @@
 public class ActivateUI : MonoBehaviour
 {
     private readonly KeyCode _keyCode = KeyCode.I;
-    public GameObject uIToToggle;
+    public Canvas CanvasToToggle;
     bool waiting;
     public bool startOff;
 
@@ -11,7 +11,7 @@ public class ActivateUI : MonoBehaviour
     {
         if (startOff)
         {
-            uIToToggle.SetActive(false);
+            CanvasToToggle.enabled = false;
         }
     }
 
@@ -21,7 +21,7 @@ public class ActivateUI : MonoBehaviour
         {
             if (Input.GetKeyDown(this._keyCode))
             {
-                uIToToggle.SetActive(!uIToToggle.activeSelf);
+                CanvasToToggle.enabled = !CanvasToToggle.enabled;
             }
         }
     }

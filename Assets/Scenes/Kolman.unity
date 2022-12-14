@@ -2715,7 +2715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233964166999568978, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -433.93954
+      value: -433.9395
       objectReference: {fileID: 0}
     - target: {fileID: 2248400193158198747, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3157,8 +3157,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2957874060335852339, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 2957874060335852340, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: uIToToggle
+      value: 
+      objectReference: {fileID: 2055894332}
+    - target: {fileID: 2957874060335852340, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: CanvasToToggle
+      value: 
+      objectReference: {fileID: 2055894334}
+    - target: {fileID: 2957874060335852342, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2957874060335852343, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
@@ -3245,20 +3253,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2957874060516468676, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: dropSpawner
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961386104047688776, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: dropSpawner
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+--- !u!1 &2055894332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2957874060335852339, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+  m_PrefabInstance: {fileID: 2055894331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2055894333 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2957874060335852343, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+  m_PrefabInstance: {fileID: 2055894331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &2055894334 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2957874060335852342, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
   m_PrefabInstance: {fileID: 2055894331}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2070026861

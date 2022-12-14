@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Kolman_Freecss.Krodun;
 using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
@@ -21,12 +22,26 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
     {
         public List<InventoryItem> characterItems = new List<InventoryItem>();  //create a new list called items                                                                             
         public InventoryItemList database;                                      //pick the list we want to get info from
+        [HideInInspector]
         public InventoryDisplay inventoryDisplay;
         private QuestManager questManager;
+        private Canvas _inventoryCanvas;
 
         private void Awake()
         {
-            questManager = FindObjectOfType<QuestManager>();
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        private void OnGameStarted(bool isLoaded)
+        {
+            Debug.Log("Inventory OnGameStarted");
+            if (inventoryDisplay == null && isLoaded)
+            {
+                questManager = FindObjectOfType<QuestManager>();
+                inventoryDisplay = FindObjectOfType<InventoryDisplay>();
+                _inventoryCanvas = FindObjectOfType<ActivateUI>().GetComponent<Canvas>();
+                _inventoryCanvas.enabled = false;
+            }
         }
 
         public void GiveItem(string itemName)
