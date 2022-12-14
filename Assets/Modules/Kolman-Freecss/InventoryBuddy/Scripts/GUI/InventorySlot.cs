@@ -142,7 +142,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     GameObject item = Instantiate(selectedItem.item.itemObject.gameObject, pos, rot);
                     if (item.GetComponent<NetworkObject>())
                     {
-                        NetworkManager.Spawn(item);
                         item.GetComponent<NetworkObject>().Spawn();
                     } else
                     {
