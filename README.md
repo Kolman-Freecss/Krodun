@@ -1,7 +1,9 @@
 # Krodun
 TFG - Computer Engineering
 
-RPG Adventure Genre Video game built with Unity 3D
+Multiplayer CO-OP RPG Adventure Genre Video game built with Unity 3D
+
+Max players for multiplayer 2
 
 ---
 

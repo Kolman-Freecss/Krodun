@@ -23,7 +23,7 @@ namespace Kolman_Freecss.Krodun
 
         private Camera _currentCamera;
         private GameObject _previousObject;
-        private RPGInputs _inputs;
+        private KrodunController _krodunController;
 
         private void Start()
         {
@@ -42,7 +42,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (isLoaded)
             {
-                _inputs = FindObjectOfType<KrodunController>().GetComponent<RPGInputs>();
+                _krodunController = FindObjectOfType<KrodunController>();
                 _questStartedCanvas = GameObject.Find("QuestCompletedCanvas");
                 _questNotStartedCanvas = GameObject.Find("QuestNotStartedCanvas");
                 _questCompletedCanvas = GameObject.Find("QuestStartedCanvas");
@@ -122,7 +122,7 @@ namespace Kolman_Freecss.Krodun
 
         private void OnClickWhenHover(GameObject target, GameObject canvas)
         {
-            if (_inputs.leftClick && isInsideAreaDistance(target))
+            if (_krodunController.Input.leftClick && isInsideAreaDistance(target))
             {
                 target.GetComponent<QuestGiver>().FaceTarget();
                 canvas.SetActive(true);
@@ -134,7 +134,7 @@ namespace Kolman_Freecss.Krodun
      */
         bool isInsideAreaDistance(GameObject go)
         {
-            return Vector3.Distance(go.transform.position, transform.position) < 5;
+            return Vector3.Distance(go.transform.position, _krodunController.transform.position) < 5;
         }
 
         /**

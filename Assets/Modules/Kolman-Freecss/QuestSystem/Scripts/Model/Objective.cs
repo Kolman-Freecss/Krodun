@@ -24,7 +24,8 @@ namespace Kolman_Freecss.QuestSystem
         
         public int CurrentAmount
         {
-            get { return _currentAmount; }
+            get => _currentAmount;
+            set => _currentAmount = value;
         }
         
         public Objective(Objective objective)

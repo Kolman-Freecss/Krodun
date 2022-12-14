@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kolman_Freecss.Krodun;
+using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -34,38 +35,48 @@ namespace Kolman_Freecss.QuestSystem
 
         public override void OnNetworkSpawn()
         {
-            
             base.OnNetworkSpawn();
-            
-            SubscribeToDelegatesAndUpdateValues();
+
+            if (IsServer)
+            {
+                //Server will be notified when a client connects
+                SubscribeToDelegatesAndUpdateValues();
+            }
         }
         
         private void SubscribeToDelegatesAndUpdateValues()
         {
-            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
         }
-
-        public void OnGameStarted(bool isLoaded)
+        
+        private void ClientLoadedScene(ulong clientId)
         {
-            if (isLoaded && IsServer)
+            if (IsServer)
             {
-                OnGameStartedClientRpc(isLoaded);
+                //Server will notified to a single client when his scene is loaded
+                ClientRpcParams clientRpcParams = new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new ulong[] {clientId}
+                    }
+                };
+                OnClientConnectedQuestInitClientRpc(clientId, clientRpcParams);
             }
         }
 
         [ClientRpc]
-        public void OnGameStartedClientRpc(bool isLoaded)
+        public void OnClientConnectedQuestInitClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
         {
-            if (isLoaded)
-            {
-                QuestGivers = FindObjectsOfType<QuestGiver>().ToList();
-                storiesSO.ForEach(storySO => { Stories.Add(new Story(storySO)); });
-                //TODO : Add a way to choose the story
-                CurrentStory = Stories[0];
-                CurrentStory.StartStory();
-                // TODO : Change it to go like an event this refresh
-                RefreshQuestGivers();
-            }
+            Debug.Log("----------------- Quests Init -----------------");
+            
+            QuestGivers = FindObjectsOfType<QuestGiver>().ToList();
+            storiesSO.ForEach(storySO => { Stories.Add(new Story(storySO)); });
+            //TODO : Add a way to choose the story
+            CurrentStory = Stories[0];
+            CurrentStory.StartStory();
+            // TODO : Change it to go like an event this refresh
+            RefreshQuestGivers();
         }
         
         /*[ServerRpc]*/

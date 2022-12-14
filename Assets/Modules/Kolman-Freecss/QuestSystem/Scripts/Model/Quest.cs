@@ -18,18 +18,14 @@ namespace Kolman_Freecss.QuestSystem
         public List<Objective> objectives = new List<Objective>();
         public int storyStep;
         public Reward reward;
-        
-        private QuestStatus _status;
-        public QuestStatus Status
-        {
-            get { return _status; }
-        } 
-            
+
+        public QuestStatus Status { get; set; }
+
         public int StoryId;
 
         public Quest()
         {
-            _status = QuestStatus.Inactive;
+            Status = QuestStatus.Inactive;
         }
         
         public Quest(QuestSO questSo) : this()
@@ -50,17 +46,17 @@ namespace Kolman_Freecss.QuestSystem
         
         public void ActiveQuest()
         {
-            _status = QuestStatus.NotStarted;
+            Status = QuestStatus.NotStarted;
         }
         
         public void StartQuest()
         {
-            _status = QuestStatus.Started;
+            Status = QuestStatus.Started;
         }
         
         public Quest CompleteQuest()
         {
-            _status = QuestStatus.Completed;
+            Status = QuestStatus.Completed;
             return this;
         }
         
@@ -79,7 +75,7 @@ namespace Kolman_Freecss.QuestSystem
                     };
                 }
             });
-            return _status == QuestStatus.Completed;
+            return Status == QuestStatus.Completed;
         }
 
         private bool AllObjectivesCompleted()
@@ -94,21 +90,21 @@ namespace Kolman_Freecss.QuestSystem
     
         public Quest UpdateStatus(Quest quest)
         {
-            if (_status.Equals(QuestStatus.NotStarted))
+            if (Status.Equals(QuestStatus.NotStarted))
             {
                 //if (CheckStartCondition())
                 //{
-                    _status = QuestStatus.Started;
+                    Status = QuestStatus.Started;
                 //}
             }
-            else if (_status.Equals(QuestStatus.Inactive))
+            else if (Status.Equals(QuestStatus.Inactive))
             {
                 //if (CheckActiveCondition())
                 //{
-                    _status = QuestStatus.NotStarted;
+                    Status = QuestStatus.NotStarted;
                 //}
             }
-            else if (_status == QuestStatus.Started)
+            else if (Status == QuestStatus.Started)
             {
                 if (CheckEndCondition(quest))
                 {
@@ -138,17 +134,17 @@ namespace Kolman_Freecss.QuestSystem
         
         public bool IsNotStarted()
         {
-            return _status == QuestStatus.NotStarted;
+            return Status == QuestStatus.NotStarted;
         }
         
         public bool IsStarted()
         {
-            return _status == QuestStatus.Started;
+            return Status == QuestStatus.Started;
         }
         
         public bool IsCompleted()
         {
-            return QuestStatus.Completed.Equals(_status);
+            return QuestStatus.Completed.Equals(Status);
         }
         
     }
