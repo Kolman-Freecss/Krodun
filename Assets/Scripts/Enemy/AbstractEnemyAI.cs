@@ -1,10 +1,14 @@
-﻿using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Kolman_Freecss.HitboxHurtboxSystem;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace Kolman_Freecss.Krodun
 {
-    public abstract class AbstractEnemyAI : MonoBehaviour
+    public abstract class AbstractEnemyAI : NetworkBehaviour
     {
         [SerializeField] protected float chaseRange = 10f;
         [SerializeField] protected float turnSpeed = 5f;
@@ -12,7 +16,9 @@ namespace Kolman_Freecss.Krodun
         protected float distanceToTarget = Mathf.Infinity;
         protected bool isProvoked = false;
         protected EnemyBehaviour health;
-        protected Transform _player;
+        
+        protected List<Transform> _players;
+        protected Transform _playerTarget;
         
         // Animator
         protected Animator _animator;
@@ -26,6 +32,7 @@ namespace Kolman_Freecss.Krodun
         protected EnemyHurtbox _hurtbox;
         
         private bool _isAttacking;
+        protected bool _gameStarted = false;
         
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
@@ -43,12 +50,27 @@ namespace Kolman_Freecss.Krodun
             _hasAnimator = TryGetComponent(out _animator);
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<EnemyBehaviour>();
-            _player = FindObjectOfType<KrodunController>().transform;
             AssignAnimationIDs();
             
             // set our initial facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
+            
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        public void OnGameStarted(bool isLoaded)
+        {
+            if (isLoaded)
+            {
+                _players = FindObjectsOfType<KrodunController>().ToList().ConvertAll(x => x.transform);
+                _gameStarted = isLoaded;
+            }
         }
 
         protected abstract void AssignAnimationIDs();
@@ -85,7 +107,7 @@ namespace Kolman_Freecss.Krodun
 
         protected void FaceTarget()
         {
-            Vector3 direction = (_player.position - transform.position).normalized;
+            Vector3 direction = (_playerTarget.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
         }
@@ -93,7 +115,7 @@ namespace Kolman_Freecss.Krodun
         void ChaseTarget()
         {
             TriggerAnimationMove();
-            navMeshAgent.SetDestination(_player.position);
+            navMeshAgent.SetDestination(_playerTarget.position);
             // set our facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);

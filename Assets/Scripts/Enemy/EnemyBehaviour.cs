@@ -1,10 +1,11 @@
 ﻿using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.QuestSystem;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
 {
-    public class EnemyBehaviour : MonoBehaviour
+    public class EnemyBehaviour : NetworkBehaviour
     {
         [SerializeField] float damage = 40f;
         [SerializeField] float health = 100f;
@@ -27,8 +28,21 @@ namespace Kolman_Freecss.Krodun
         {
             _hitbox = GetComponentInChildren<EnemyHitbox>();
             _hasAnimator = TryGetComponent(out _animator);
-            _player = FindObjectOfType<PlayerBehaviour>();
             AssignAnimationIDs();
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        public void OnGameStarted(bool isLoaded)
+        {
+            if (isLoaded)
+            {
+                _player = FindObjectOfType<PlayerBehaviour>();
+            }
         }
         
         private void AssignAnimationIDs()
