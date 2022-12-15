@@ -1392,10 +1392,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
@@ -1868,10 +1864,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
@@ -1994,10 +1986,6 @@ PrefabInstance:
     - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
       propertyPath: m_Name
       value: Apple (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2195,10 +2183,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
@@ -2266,10 +2250,6 @@ PrefabInstance:
     - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
       propertyPath: m_Name
       value: Apple (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2379,10 +2359,6 @@ PrefabInstance:
     - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
       propertyPath: m_Name
       value: Apple (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2633,7 +2609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233964166999568978, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -433.93942
+      value: -433.93945
       objectReference: {fileID: 0}
     - target: {fileID: 2248400193158198747, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchorMax.y
