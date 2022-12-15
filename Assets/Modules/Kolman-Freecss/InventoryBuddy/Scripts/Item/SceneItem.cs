@@ -12,7 +12,7 @@ using UnityEngine;
  *********************************************************/
 
 
-public class SceneItem : MonoBehaviour
+public class SceneItem : NetworkBehaviour
 {
     [SerializeField]
     private string itemName;  //CASE SENSITIVE - write in the name of the item that matches the name in the InventoryList so we find the right item.
@@ -58,7 +58,7 @@ public class SceneItem : MonoBehaviour
                 //if (other.GetComponent<Inventory>().characterItems.Count < other.GetComponent<Inventory>().inventoryDisplay.numberOfSlots)
                 //{
                     other.GetComponent<Inventory>().AddItem(itemName);
-                    Destroy(gameObject);
+                    DestroyItemServerRpc();
                 //}
                 //else if (other.GetComponent<Inventory>().characterItems.Count == other.GetComponent<Inventory>().inventoryDisplay.numberOfSlots)
 
@@ -73,6 +73,21 @@ public class SceneItem : MonoBehaviour
 
             }
 
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void DestroyItemServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        Debug.Log($"Despawn Apple by -> {clientId} " + nameof(IsServer) + IsServer);
+        Destroy(gameObject);
+        if (gameObject.GetComponent<NetworkObject>())
+        {
+            gameObject.GetComponent<NetworkObject>().Despawn();
+        } else
+        {
+            gameObject.GetComponentsInChildren<NetworkObject>()[0].Despawn();
         }
     }
 }

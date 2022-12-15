@@ -262,13 +262,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterItems:
-  - itemName: Apple
+  - prefabID: 0
+    itemName: Apple
     itemDescription: Apple
     itemIcon: {fileID: 21300000, guid: 4a89a0b790ba24846a3faf5b376110ba, type: 3}
     itemObject: {fileID: 2102061714738248673, guid: 781ead7e00428564cac24ee4ca4c3b1c, type: 3}
     isUnique: 0
     amountType: 1
   database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
+  NetworkPrefabsList:
+  - key: 0
+    value: {fileID: 4581217033266119115, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
   inventoryDisplay: {fileID: 0}
 --- !u!114 &3380401506969291358
 MonoBehaviour:

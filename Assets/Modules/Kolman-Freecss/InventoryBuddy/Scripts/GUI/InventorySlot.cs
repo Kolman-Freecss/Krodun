@@ -1,4 +1,5 @@
-﻿using Kolman_Freecss.Krodun;
+﻿using System.Collections.Generic;
+using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
 using Unity.Netcode;
@@ -6,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image spriteImage; //our image inside the slot
     public InventoryItem item; //our item inside the slot
@@ -28,7 +29,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     
     private void OnGameStarted(bool isLoaded)
     {
-        Debug.Log("Inventory OnGameStarted");
+        Debug.Log("InventorySlot OnGameStarted");
         if (isLoaded)
         {
             GameObject gObject = GameObject.Find("TreasureChest");
@@ -137,16 +138,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             {
                 if (selectedItem.item != null)
                 {
-                    Vector3 pos = dropSpawner.transform.position;
-                    Quaternion rot = dropSpawner.transform.rotation;
-                    GameObject item = Instantiate(selectedItem.item.itemObject.gameObject, pos, rot);
-                    if (item.GetComponent<NetworkObject>())
-                    {
-                        item.GetComponent<NetworkObject>().Spawn();
-                    } else
-                    {
-                        item.GetComponentsInChildren<NetworkObject>()[0].Spawn();
-                    }
+                    SpawnItemServerRpc(selectedItem.item.prefabID);
                     //currently does not remove from inventory...
                     player.GetComponent<Inventory>().RemoveItem(selectedItem.item.itemName);
                     selectedItem.Setup(null);
@@ -184,6 +176,24 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     selectedItem.Setup(null); //remove the selected item from our selection
                 }
             }
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnItemServerRpc(int prefabId, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        Debug.Log($"Spawn Apple by -> {clientId} " + nameof(NetworkManager.Singleton.IsServer) + NetworkManager.Singleton.IsServer);
+        Vector3 pos = dropSpawner.transform.position;
+        Quaternion rot = dropSpawner.transform.rotation;
+        // Get the prefab from the networkPrefabs dictionary with the given prefabId
+        GameObject item = Instantiate(player.NetworkPrefabs[prefabId].gameObject, pos, rot);
+        if (item.GetComponent<NetworkObject>())
+        {
+            item.GetComponent<NetworkObject>().Spawn();
+        } else
+        {
+            item.GetComponentsInChildren<NetworkObject>()[0].Spawn();
         }
     }
 

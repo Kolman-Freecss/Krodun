@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Kolman_Freecss.Krodun;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
@@ -19,10 +20,21 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
      * 
      *******************************************************/
 
+    [Serializable]
+    public class DictionaryPair
+    {
+        public int key;
+        public NetworkObject value;
+    }
+    
     public class Inventory : NetworkBehaviour
     {
         public List<InventoryItem> characterItems = new List<InventoryItem>();  //create a new list called items                                                                             
         public InventoryItemList database;                                      //pick the list we want to get info from
+        // Workaround because the Unity cannot serialize Dictionaries
+        public List<DictionaryPair> NetworkPrefabsList = new List<DictionaryPair>();
+        // Dictionary of prefab objects that can be spawned ordered by an ID
+        public Dictionary<int, NetworkObject> NetworkPrefabs = new Dictionary<int, NetworkObject>();
         [HideInInspector]
         public InventoryDisplay inventoryDisplay;
         private QuestManager questManager;
@@ -30,6 +42,10 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
 
         private void Awake()
         {
+            foreach (var d in NetworkPrefabsList)
+            {
+                NetworkPrefabs.Add(d.key, d.value);
+            }
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
         

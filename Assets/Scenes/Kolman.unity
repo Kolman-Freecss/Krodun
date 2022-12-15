@@ -2776,7 +2776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233964166999568978, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -433.94012
+      value: -433.9395
       objectReference: {fileID: 0}
     - target: {fileID: 2248400193158198747, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3186,6 +3186,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2105940013}
     m_Modifications:
+    - target: {fileID: 171349238, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3517331230
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055894336, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1622643049
+      objectReference: {fileID: 0}
     - target: {fileID: 2957874059043919112, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -3217,18 +3225,6 @@ PrefabInstance:
     - target: {fileID: 2957874060335852339, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957874060335852340, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: uIToToggle
-      value: 
-      objectReference: {fileID: 2055894332}
-    - target: {fileID: 2957874060335852340, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: CanvasToToggle
-      value: 
-      objectReference: {fileID: 2055894334}
-    - target: {fileID: 2957874060335852342, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2957874060335852343, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
       propertyPath: m_Pivot.x
@@ -3327,11 +3323,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2957874060335852343, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
   m_PrefabInstance: {fileID: 2055894331}
   m_PrefabAsset: {fileID: 0}
---- !u!223 &2055894334 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 2957874060335852342, guid: 6e4a55c9bce1a7c4f996ac1143aa2573, type: 3}
-  m_PrefabInstance: {fileID: 2055894331}
+--- !u!114 &2055894335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055894332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3938973623
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &2070026861
 PrefabInstance:
   m_ObjectHideFlags: 0

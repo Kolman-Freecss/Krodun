@@ -6,6 +6,7 @@ using Ragnarok;
 [System.Serializable]                         //    Our Representation of an InventoryItem
 public class InventoryItem 
 {
+    public int prefabID;                    //    The ID of the prefab
     public string itemName = "New Item";      //    What the item will be called in the inventory
     public string itemDescription = "new description";
     //public int MaxStackQuantity = 1;          //how many of this item can stack per slot
