@@ -51,7 +51,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         
         private void OnGameStarted(bool isLoaded)
         {
-            Debug.Log("Inventory OnGameStarted");
             if (inventoryDisplay == null && isLoaded)
             {
                 questManager = FindObjectOfType<QuestManager>();
@@ -77,7 +76,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         
         public void AddItemInventory(string itemName)
         {
-            Debug.Log("Item added to inventory of client -> " + NetworkManager.Singleton.LocalClientId);
             InventoryItem itemToAdd = database.GetItem(itemName);   //get reference to our listed item
             characterItems.Add(itemToAdd);                                   //add reference to our local items list
             inventoryDisplay.AddNewItem(itemToAdd);
@@ -95,7 +93,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             if (item != null)
             {
                 characterItems.Remove(item);
-                Debug.Log("Item removed: " + item.itemName);
             }
         }
         //void Save()

@@ -731,6 +731,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 719752190
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -742,10 +746,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -799,27 +799,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 202347973}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &202347975 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 202347973}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &202347976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202347975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2255999812
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &216921140
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +883,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1999747467
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -915,10 +898,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -972,27 +951,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 253970480}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &253970482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 253970480}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &253970483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253970482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3860050855
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!4 &305868432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3557353845126590194, guid: 020ec10f91714054caab886281a2e06f, type: 3}
@@ -1006,6 +964,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3878871377
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -1020,7 +982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -1074,27 +1036,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 373329249}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &373329251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 373329249}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &373329252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373329251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1581755998
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &386627795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1417,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 684580869
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -1487,10 +1432,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -1544,27 +1485,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 999137867}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &999137869 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 999137867}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &999137870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999137869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1016561435
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &1011700331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,6 +1535,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1524061811
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -1626,10 +1550,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -1683,27 +1603,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 1076369650}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1076369652 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 1076369650}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1076369653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076369652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 327866134
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &1077234867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1841,6 +1740,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3499323658
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -1852,10 +1755,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -1909,27 +1808,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 1240701497}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1240701499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 1240701497}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1240701500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240701499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3567595707
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &1255027608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2556,6 +2434,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2836595202
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -2567,10 +2449,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -2624,27 +2502,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 1853539665}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1853539667 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 1853539665}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1853539668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853539667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 38170701
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &1858612380
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,7 +2633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233964166999568978, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -433.9395
+      value: -433.93942
       objectReference: {fileID: 0}
     - target: {fileID: 2248400193158198747, guid: e0bb16f609b09794f9e4daf02695cb31, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3347,6 +3204,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 208790201
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -3358,10 +3219,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -3415,27 +3272,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 2070026861}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2070026863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 2070026861}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2070026864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070026863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3380928242
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &2070185571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3920,6 +3756,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 734439504
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -3931,10 +3771,6 @@ PrefabInstance:
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_RootOrder
@@ -3988,27 +3824,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
   m_PrefabInstance: {fileID: 2072863334}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2072863336 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 2072863334}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2072863337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072863336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3461237217
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!4 &2088423855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3843615399318746067, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
@@ -4133,6 +3948,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1568266834}
     m_Modifications:
+    - target: {fileID: 1083023464173237552, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3904169218
+      objectReference: {fileID: 0}
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.size
       value: 1
@@ -4196,27 +4015,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
---- !u!1 &3843615398182756989 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
-  m_PrefabInstance: {fileID: 3843615398182756988}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3843615398182756990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3843615398182756989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1689048499
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &3954980263262900900
 PrefabInstance:
   m_ObjectHideFlags: 0

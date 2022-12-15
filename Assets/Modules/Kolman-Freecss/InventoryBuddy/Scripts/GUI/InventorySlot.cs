@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Kolman_Freecss.Krodun;
+﻿using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
 using Unity.Netcode;
@@ -112,7 +111,6 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
                     if (inventory) //im a player inventory slot:
                     {
                         tChest.GiveItem(this.item.itemName); //add item to player's treasure chest                  
-                        Debug.Log("gave to chest");
                         Setup(null); //remove from inventory
                         InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                     }
@@ -120,14 +118,12 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
                     if (treasureChest) //I am a treasure chest slot:
                     {
                         player.GiveItem(this.item.itemName); //add item to player's inventory
-                        Debug.Log("gave to player");
                         Setup(null); //remove from treasure chest
                         InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                     }
                 }
             }
 
-            Debug.Log("Right Mouse Button Clicked on: " + name);
             //currently right clicking turns it off... could be a good place to trade item to another inventory display
             //    InventoryEvents.OnClickDeactivated();
         }
@@ -183,7 +179,6 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
     public void SpawnItemServerRpc(int prefabId, ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
-        Debug.Log($"Spawn Apple by -> {clientId} " + nameof(NetworkManager.Singleton.IsServer) + NetworkManager.Singleton.IsServer);
         Vector3 pos = dropSpawner.transform.position;
         Quaternion rot = dropSpawner.transform.rotation;
         // Get the prefab from the networkPrefabs dictionary with the given prefabId

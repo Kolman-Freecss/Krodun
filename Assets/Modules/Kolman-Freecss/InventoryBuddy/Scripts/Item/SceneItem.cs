@@ -80,7 +80,6 @@ public class SceneItem : NetworkBehaviour
     public void DestroyItemServerRpc(ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
-        Debug.Log($"Despawn Apple by -> {clientId} " + nameof(IsServer) + IsServer);
         Destroy(gameObject);
         if (gameObject.GetComponent<NetworkObject>())
         {

@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 2439673575862490216}
   - component: {fileID: 8214305461228703830}
   - component: {fileID: 7251797063334524217}
-  - component: {fileID: -4537204989837156135}
+  - component: {fileID: 1083023464173237552}
   m_Layer: 6
   m_Name: NPC
   m_TagString: Untagged
@@ -602,7 +602,7 @@ CapsuleCollider:
   m_Height: 1.7614155
   m_Direction: 1
   m_Center: {x: 0, y: 0.9271002, z: 0.090164185}
---- !u!114 &-4537204989837156135
+--- !u!114 &1083023464173237552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2288,6 +2288,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8832415519695916015}
     m_Modifications:
+    - target: {fileID: -8977598773352656668, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb084332c257f624083bef14201f55e9, type: 2}
     - target: {fileID: -8679921383154817045, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2348,6 +2352,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: QuestMark
       objectReference: {fileID: 0}
+    - target: {fileID: -6624272779872505446, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 12200090406f6744883bef07c8cecbb0, type: 2}
     - target: {fileID: 919132149155446097, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
       propertyPath: m_Name
       value: ExclamationNotStarted
