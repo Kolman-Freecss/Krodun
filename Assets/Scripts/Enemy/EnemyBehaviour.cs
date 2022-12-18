@@ -1,4 +1,6 @@
-﻿using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,7 +14,9 @@ namespace Kolman_Freecss.Krodun
         [SerializeField] AmountType enemyType = AmountType.TROLL;
         
         bool _isDead = false;
-        PlayerBehaviour _player;
+        
+        protected List<PlayerBehaviour> _players;
+        protected PlayerBehaviour _playerTarget;
         
         // animation IDs
         private int _animIDMoving;
@@ -41,7 +45,8 @@ namespace Kolman_Freecss.Krodun
         {
             if (isLoaded)
             {
-                _player = FindObjectOfType<PlayerBehaviour>();
+                _players = FindObjectsOfType<PlayerBehaviour>().ToList();
+                _playerTarget = _players[0].GetComponent<PlayerBehaviour>();
             }
         }
         
@@ -69,7 +74,8 @@ namespace Kolman_Freecss.Krodun
         {
             if (_isDead) return;
             _isDead = true;
-            _player.EventQuest(EventQuestType.Kill, enemyType);
+            // TODO Event to all players
+            _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDeath);
@@ -87,8 +93,9 @@ namespace Kolman_Freecss.Krodun
         {
             if (_hitbox.InHitbox)
             {
-                if (_player == null) return;
-                _player.TakeDamage(damage);
+                // TODO Event to all players
+                if (_playerTarget == null) return;
+                _playerTarget.TakeDamage(damage);
             }
         }
         

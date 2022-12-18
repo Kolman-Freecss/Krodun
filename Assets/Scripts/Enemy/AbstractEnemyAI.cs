@@ -69,6 +69,7 @@ namespace Kolman_Freecss.Krodun
             if (isLoaded)
             {
                 _players = FindObjectsOfType<KrodunController>().ToList().ConvertAll(x => x.transform);
+                _playerTarget = _players[0];
                 _gameStarted = isLoaded;
             }
         }
