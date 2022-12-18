@@ -2,8 +2,6 @@
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -44,8 +42,8 @@ namespace Kolman_Freecss.Krodun
             {
                 isGameStarted.Value = false;
                 isGameOver.Value = false;
-                if (!GameManager.Instance)
-                    GameManager.OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
+                if (!Instance)
+                    OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
                 else
                     SubscribeToDelegatesAndUpdateValues();
             }
