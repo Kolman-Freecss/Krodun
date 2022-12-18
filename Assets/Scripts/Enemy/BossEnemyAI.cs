@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -21,6 +23,7 @@ namespace Kolman_Freecss.Krodun
 
         protected override void Update()
         {
+            if (!_gameStarted) return;
             if (health.IsDead())
             {
                 enabled = false;
@@ -29,18 +32,21 @@ namespace Kolman_Freecss.Krodun
 
             StopAnimationMove();
 
-            distanceToTarget = Vector3.Distance(_player.position, transform.position);
+            // TODO Change that calculation to a OnTrigger
+            // Check if any player is in range
+            //distanceToTarget = Vector3.Distance(_player.position, transform.position);
 
             if (isProvoked)
             {
                 EngageTarget();
             }
-            else if (distanceToTarget <= chaseRange)
+            if (_players.Any(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange))
             {
                 isProvoked = true;
+                _playerTarget = _players.First(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange);
             }
         }
-
+        
         protected override void AttackTarget()
         {
             if (_hasAnimator)

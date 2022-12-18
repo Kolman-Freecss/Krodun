@@ -100,6 +100,7 @@ namespace Kolman_Freecss.Krodun
         {
             /*if (IsOwner) return;*/
             Debug.Log("------------------SENT Client Loaded Scene------------------");
+            Debug.Log("Client Id -> " + clientId);
             OnSceneLoadedChanged?.Invoke(true);
             isSceneLoadedValue = true;
             StartGame();

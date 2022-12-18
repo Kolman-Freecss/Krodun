@@ -141,6 +141,7 @@ MonoBehaviour:
     itemIcon: {fileID: 0}
     itemObject: {fileID: 0}
     isUnique: 0
+    amountType: 0
   selectedItem: {fileID: 0}
   dropScreen: 1
   dropSpawner: {fileID: 0}

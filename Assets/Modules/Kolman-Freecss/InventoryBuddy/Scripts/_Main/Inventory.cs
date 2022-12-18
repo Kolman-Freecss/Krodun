@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Kolman_Freecss.Krodun;
 using Kolman_Freecss.QuestSystem;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so they dont interfere with yours
@@ -17,16 +20,44 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
      * 
      *******************************************************/
 
-    public class Inventory : MonoBehaviour
+    [Serializable]
+    public class DictionaryPair
+    {
+        public int key;
+        public NetworkObject value;
+    }
+    
+    public class Inventory : NetworkBehaviour
     {
         public List<InventoryItem> characterItems = new List<InventoryItem>();  //create a new list called items                                                                             
         public InventoryItemList database;                                      //pick the list we want to get info from
+        // Workaround because the Unity cannot serialize Dictionaries
+        public List<DictionaryPair> NetworkPrefabsList = new List<DictionaryPair>();
+        // Dictionary of prefab objects that can be spawned ordered by an ID
+        public Dictionary<int, NetworkObject> NetworkPrefabs = new Dictionary<int, NetworkObject>();
+        [HideInInspector]
         public InventoryDisplay inventoryDisplay;
         private QuestManager questManager;
+        private Canvas _inventoryCanvas;
 
         private void Awake()
         {
-            questManager = FindObjectOfType<QuestManager>();
+            foreach (var d in NetworkPrefabsList)
+            {
+                NetworkPrefabs.Add(d.key, d.value);
+            }
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        private void OnGameStarted(bool isLoaded)
+        {
+            if (inventoryDisplay == null && isLoaded)
+            {
+                questManager = FindObjectOfType<QuestManager>();
+                inventoryDisplay = FindObjectOfType<InventoryDisplay>();
+                _inventoryCanvas = FindObjectOfType<ActivateUI>().GetComponent<Canvas>();
+                _inventoryCanvas.enabled = false;
+            }
         }
 
         public void GiveItem(string itemName)
@@ -38,21 +69,17 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
 
         public void AddItem(string itemName)
         {
+            if (!IsOwner) return;
+            
+            AddItemInventory(itemName);
+        }
+        
+        public void AddItemInventory(string itemName)
+        {
             InventoryItem itemToAdd = database.GetItem(itemName);   //get reference to our listed item
             characterItems.Add(itemToAdd);                                   //add reference to our local items list
             inventoryDisplay.AddNewItem(itemToAdd);
             questManager.EventTriggered(EventQuestType.Collect, itemToAdd.amountType);
-            //     InventoryEvents.OnItemAddedToInventory(itemToAdd);      //call event using our referenced item, the event will tell the display to show it.
-            //   Debug.Log("Item addded: " + itemToAdd.itemName);
-        }
-
-        public void AddItems(List<InventoryItem> items)
-        {
-            foreach (InventoryItem item in items)
-            {
-                AddItem(item.itemName);
-                questManager.EventTriggered(EventQuestType.Collect, item.amountType);
-            }
         }
 
         public InventoryItem CheckThisItem(string itemName)
@@ -66,7 +93,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             if (item != null)
             {
                 characterItems.Remove(item);
-                Debug.Log("Item removed: " + item.itemName);
             }
         }
         //void Save()

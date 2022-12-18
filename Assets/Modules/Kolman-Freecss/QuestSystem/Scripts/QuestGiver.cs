@@ -44,11 +44,11 @@ namespace Kolman_Freecss.QuestSystem
 
         private void Awake()
         {
-            _player = FindObjectOfType<KrodunController>();
             QuestsSO.ForEach(x => Quests.Add(new Quest(x, x.StoryStep)));
             _notStarted = QuestMarkers.Find(g => g.name == "ExclamationNotStarted");
             _inProgress = QuestMarkers.Find(g => g.name == "ExclamationStarted");
             _completed = QuestMarkers.Find(g => g.name == "QuestCompletedMark");
+            SubscribeToDelegatesAndUpdateValues();
         }
 
         public override void OnNetworkSpawn()
@@ -80,6 +80,15 @@ namespace Kolman_Freecss.QuestSystem
             {
                 _completed.SetActive(newValue);
             };
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        public void OnGameStarted(bool isLoaded)
+        {
+            if (isLoaded)
+            {
+                _player = FindObjectOfType<KrodunController>();
+            }
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -118,8 +127,6 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void RefreshQuest(int questId)
         {
-            Debug.Log(nameof(IsLocalPlayer) + IsLocalPlayer + ", " + nameof(IsServer) + IsServer + ", " + nameof(IsClient) + IsClient + ", " + nameof(IsHost) + IsHost
-                      + ", " + nameof(IsOwner) + IsOwner + nameof(NetworkManager.Singleton.LocalClientId) + NetworkManager.Singleton.LocalClientId);
             Quest qs = Quests.Find(x => x.ID == questId).UpdateStatus();
             if (qs.Status == QuestStatus.NotStarted)
             {

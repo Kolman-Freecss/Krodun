@@ -489,6 +489,8 @@ GameObject:
   - component: {fileID: 2439673575862490216}
   - component: {fileID: 8214305461228703830}
   - component: {fileID: 7251797063334524217}
+  - component: {fileID: 1083023464173237552}
+  - component: {fileID: 8021594350421673769}
   m_Layer: 6
   m_Name: NPC
   m_TagString: Untagged
@@ -601,6 +603,48 @@ CapsuleCollider:
   m_Height: 1.7614155
   m_Direction: 1
   m_Center: {x: 0, y: 0.9271002, z: 0.090164185}
+--- !u!114 &1083023464173237552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843615399318425607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &8021594350421673769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843615399318425607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
 --- !u!1 &3843615399318425741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,6 +2315,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8832415519695916015}
     m_Modifications:
+    - target: {fileID: -8977598773352656668, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb084332c257f624083bef14201f55e9, type: 2}
     - target: {fileID: -8679921383154817045, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2331,6 +2379,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: QuestMark
       objectReference: {fileID: 0}
+    - target: {fileID: -6624272779872505446, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 12200090406f6744883bef07c8cecbb0, type: 2}
     - target: {fileID: 919132149155446097, guid: 548ba127e7f2c7c4cb929ae1f433ea9d, type: 3}
       propertyPath: m_Name
       value: ExclamationNotStarted

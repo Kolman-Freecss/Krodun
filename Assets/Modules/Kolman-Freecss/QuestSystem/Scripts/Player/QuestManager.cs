@@ -51,18 +51,17 @@ namespace Kolman_Freecss.QuestSystem
         
         private void ClientLoadedScene(ulong clientId)
         {
-            if (IsServer)
+            if (!IsServer) return;
+            
+            //Server will notified to a single client when his scene is loaded
+            ClientRpcParams clientRpcParams = new ClientRpcParams
             {
-                //Server will notified to a single client when his scene is loaded
-                ClientRpcParams clientRpcParams = new ClientRpcParams
+                Send = new ClientRpcSendParams
                 {
-                    Send = new ClientRpcSendParams
-                    {
-                        TargetClientIds = new ulong[] {clientId}
-                    }
-                };
-                OnClientConnectedQuestInitClientRpc(clientId, clientRpcParams);
-            }
+                    TargetClientIds = new ulong[] {clientId}
+                }
+            };
+            OnClientConnectedQuestInitClientRpc(clientId, clientRpcParams);
         }
 
         [ClientRpc]

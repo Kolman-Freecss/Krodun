@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image spriteImage; //our image inside the slot
     public InventoryItem item; //our item inside the slot
@@ -20,34 +21,39 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [HideInInspector] public Inventory player;
     [HideInInspector] public Inventory tChest;
 
-
-    /**
-     * runs this once (will happen with the creation of the inventory display)
-     */
-    void Awake()
+    private void Awake()
     {
-        GameObject gObject = GameObject.Find("TreasureChest");
-        if (gObject)
-            tChest = gObject.GetComponent<Inventory>();
-        
-        gObject = GameObject.Find("Player");
-        if (gObject)
-            player = gObject.GetComponent<Inventory>();
-        else
+        GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+    }
+    
+    private void OnGameStarted(bool isLoaded)
+    {
+        Debug.Log("InventorySlot OnGameStarted");
+        if (isLoaded)
         {
-            gObject = GameObject.FindWithTag("Player");
+            GameObject gObject = GameObject.Find("TreasureChest");
+            if (gObject)
+                tChest = gObject.GetComponent<Inventory>();
+        
+            gObject = GameObject.Find("Player");
             if (gObject)
                 player = gObject.GetComponent<Inventory>();
-        }
+            else
+            {
+                gObject = GameObject.FindWithTag("Player");
+                if (gObject)
+                    player = gObject.GetComponent<Inventory>();
+            }
 
-        selectedItem =
-            GameObject.Find("SelectedItem")
-                .GetComponent<
-                    InventorySlot>(); //find the game object named selectedItem and make a local reference to it
-        dropSpawner = GameObject.Find("DropSpawner");
-        spriteImage = GetComponent<Image>(); //setup a reference for our local image component 
-        Setup(null); //Lets setup the slot to be empty (null) by running the setup
-        itemNameText = GetComponentInChildren<TextMeshProUGUI>();
+            selectedItem =
+                GameObject.Find("SelectedItem")
+                    .GetComponent<
+                        InventorySlot>(); //find the game object named selectedItem and make a local reference to it
+            dropSpawner = GameObject.Find("DropSpawner");
+            spriteImage = GetComponent<Image>(); //setup a reference for our local image component 
+            Setup(null); //Lets setup the slot to be empty (null) by running the setup
+            itemNameText = GetComponentInChildren<TextMeshProUGUI>();
+        }
     }
 
     /**
@@ -105,7 +111,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     if (inventory) //im a player inventory slot:
                     {
                         tChest.GiveItem(this.item.itemName); //add item to player's treasure chest                  
-                        Debug.Log("gave to chest");
                         Setup(null); //remove from inventory
                         InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                     }
@@ -113,14 +118,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     if (treasureChest) //I am a treasure chest slot:
                     {
                         player.GiveItem(this.item.itemName); //add item to player's inventory
-                        Debug.Log("gave to player");
                         Setup(null); //remove from treasure chest
                         InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                     }
                 }
             }
 
-            Debug.Log("Right Mouse Button Clicked on: " + name);
             //currently right clicking turns it off... could be a good place to trade item to another inventory display
             //    InventoryEvents.OnClickDeactivated();
         }
@@ -131,9 +134,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             {
                 if (selectedItem.item != null)
                 {
-                    Vector3 pos = dropSpawner.transform.position;
-                    Quaternion rot = dropSpawner.transform.rotation;
-                    Instantiate(selectedItem.item.itemObject, pos, rot);
+                    SpawnItemServerRpc(selectedItem.item.prefabID);
                     //currently does not remove from inventory...
                     player.GetComponent<Inventory>().RemoveItem(selectedItem.item.itemName);
                     selectedItem.Setup(null);
@@ -171,6 +172,23 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     selectedItem.Setup(null); //remove the selected item from our selection
                 }
             }
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnItemServerRpc(int prefabId, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        Vector3 pos = dropSpawner.transform.position;
+        Quaternion rot = dropSpawner.transform.rotation;
+        // Get the prefab from the networkPrefabs dictionary with the given prefabId
+        GameObject item = Instantiate(player.NetworkPrefabs[prefabId].gameObject, pos, rot);
+        if (item.GetComponent<NetworkObject>())
+        {
+            item.GetComponent<NetworkObject>().Spawn();
+        } else
+        {
+            item.GetComponentsInChildren<NetworkObject>()[0].Spawn();
         }
     }
 

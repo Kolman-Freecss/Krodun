@@ -1,17 +1,22 @@
-﻿using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.QuestSystem;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
 {
-    public class EnemyBehaviour : MonoBehaviour
+    public class EnemyBehaviour : NetworkBehaviour
     {
         [SerializeField] float damage = 40f;
         [SerializeField] float health = 100f;
         [SerializeField] AmountType enemyType = AmountType.TROLL;
         
         bool _isDead = false;
-        PlayerBehaviour _player;
+        
+        protected List<PlayerBehaviour> _players;
+        protected PlayerBehaviour _playerTarget;
         
         // animation IDs
         private int _animIDMoving;
@@ -27,8 +32,22 @@ namespace Kolman_Freecss.Krodun
         {
             _hitbox = GetComponentInChildren<EnemyHitbox>();
             _hasAnimator = TryGetComponent(out _animator);
-            _player = FindObjectOfType<PlayerBehaviour>();
             AssignAnimationIDs();
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        public void OnGameStarted(bool isLoaded)
+        {
+            if (isLoaded)
+            {
+                _players = FindObjectsOfType<PlayerBehaviour>().ToList();
+                _playerTarget = _players[0].GetComponent<PlayerBehaviour>();
+            }
         }
         
         private void AssignAnimationIDs()
@@ -55,7 +74,8 @@ namespace Kolman_Freecss.Krodun
         {
             if (_isDead) return;
             _isDead = true;
-            _player.EventQuest(EventQuestType.Kill, enemyType);
+            // TODO Event to all players
+            _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDeath);
@@ -73,8 +93,9 @@ namespace Kolman_Freecss.Krodun
         {
             if (_hitbox.InHitbox)
             {
-                if (_player == null) return;
-                _player.TakeDamage(damage);
+                // TODO Event to all players
+                if (_playerTarget == null) return;
+                _playerTarget.TakeDamage(damage);
             }
         }
         
