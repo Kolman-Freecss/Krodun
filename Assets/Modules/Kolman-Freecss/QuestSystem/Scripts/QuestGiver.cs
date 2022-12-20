@@ -85,7 +85,7 @@ namespace Kolman_Freecss.QuestSystem
 
         private void SubscribeToDelegatesAndUpdateValues()
         {
-            QuestStateSync.OnValueChanged += UpdateQuestClientRpc;
+            QuestStateSync.OnValueChanged += UpdateQuestState;
             NotStarted.OnValueChanged += (previousValue, newValue) =>
             {
                 _notStarted.SetActive(newValue);
@@ -114,15 +114,15 @@ namespace Kolman_Freecss.QuestSystem
         {
             var clientId = serverRpcParams.Receive.SenderClientId;
             Debug.Log($"QuestGiver: UpdateQuestServerRpc: {clientId}");
-            QuestStateSyncValue.setState(state);
+            QuestStateSyncValue = state;
         }
         
-        [ClientRpc]
-        public void UpdateQuestClientRpc(QuestState previousState, QuestState newState)
+        public void UpdateQuestState(QuestState previousState, QuestState newState)
         {
             Debug.Log($"QuestGiver: UpdateQuestClientRpc: {newState}");
             CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
             CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
+            Debug.Log("Amount updated -> " + CurrentQuest.objectives[0].CurrentAmount);
             CurrentQuest.Status = newState.Status;
             RefreshQuestMarkServerRpc();
         }
@@ -235,44 +235,6 @@ namespace Kolman_Freecss.QuestSystem
         public bool Completed.Value { get => Completed.Value; set => Completed.Value = value; }*/
         
         public QuestState QuestStateSyncValue { get => QuestStateSync.Value; set => QuestStateSync.Value = value; }
-
-        #endregion
-
-
-        #region Struct NetworkVariable to Sync Quest State
-
-        public struct QuestState : INetworkSerializable
-        {
-            public int QuestId;
-            public bool isFinished;
-            public bool IsCompleted;
-            public int CurrrentAmount;
-            public QuestStatus Status;
-
-            public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-            {
-                serializer.SerializeValue(ref QuestId);
-                serializer.SerializeValue(ref isFinished);
-                serializer.SerializeValue(ref IsCompleted);
-                serializer.SerializeValue(ref CurrrentAmount);
-                serializer.SerializeValue(ref Status);
-            }
-            
-            public void setState(QuestState state)
-            {
-                QuestId = state.QuestId;
-                isFinished = state.isFinished;
-                IsCompleted = state.IsCompleted;
-                CurrrentAmount = state.CurrrentAmount;
-                Status = state.Status;
-            }
-            
-            public static QuestState DefaultValue()
-            {
-                return new QuestState
-                {};
-            }
-        }
 
         #endregion
     }

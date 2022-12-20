@@ -32,6 +32,9 @@ namespace Kolman_Freecss.QuestSystem
         [HideInInspector]
         public event OnCollectItemHandler OnCollectItemEvent;
         
+        [HideInInspector] public NetworkVariable<QuestState> QuestStateSync = new NetworkVariable<QuestState>(QuestState.DefaultValue(), NetworkVariableReadPermission.Everyone,
+            writePerm: NetworkVariableWritePermission.Owner);
+        
         private void Awake()
         {
             Instance = this;
@@ -47,12 +50,26 @@ namespace Kolman_Freecss.QuestSystem
                 //Server will be notified when a client connects
                 SubscribeToDelegatesAndUpdateValues();
             }
+            
+            SubscribeToDelegatesAndUpdateValuesClient();
         }
-        
+
+        private void SubscribeToDelegatesAndUpdateValuesClient()
+        {
+            QuestStateSync.OnValueChanged += UpdateQuestState;
+        }
+
         private void SubscribeToDelegatesAndUpdateValues()
         {
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
             OnCollectItemEvent += ItemCollectedServerRpc;
+        }
+        
+        public void UpdateQuestState(QuestState previousState, QuestState newState)
+        {
+            CurrentStory.CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
+            CurrentStory.CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
+            CurrentStory.CurrentQuest.Status = newState.Status;
         }
         
         private void ClientLoadedScene(ulong clientId)
@@ -128,6 +145,21 @@ namespace Kolman_Freecss.QuestSystem
         {
             Debug.Log("ItemCollectedServerRpc");
             CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType);
+            SyncQuestStatus(CurrentStory.CurrentQuest);
+        }
+        
+        private void SyncQuestStatus(Quest quest)
+        {
+            var state = new QuestState {IsCompleted = quest.objectives[0].isCompleted, CurrrentAmount = quest.objectives[0].CurrentAmount, Status = quest.Status};
+            UpdateQuestServerRpc(state);
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            Debug.Log($"QuestGiver: UpdateQuestServerRpc: {clientId}");
+            QuestStateSyncValue = state;
         }
 
         /**
@@ -209,6 +241,8 @@ namespace Kolman_Freecss.QuestSystem
         public List<Story> Stories { get => stories; set => stories = value; }
         
         public Story CurrentStory { get => currentStory; set => currentStory = value; }
+        
+        public QuestState QuestStateSyncValue { get => QuestStateSync.Value; set => QuestStateSync.Value = value; }
 
         #endregion
 
