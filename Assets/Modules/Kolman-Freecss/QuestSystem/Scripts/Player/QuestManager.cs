@@ -27,6 +27,11 @@ namespace Kolman_Freecss.QuestSystem
         [HideInInspector]
         public event OnStoryComletedHandler OnStoryComletedEvent;
         
+        [HideInInspector]
+        public delegate void OnCollectItemHandler(EventQuestType eventQuestType, AmountType amountType, int questId);
+        [HideInInspector]
+        public event OnCollectItemHandler OnCollectItemEvent;
+        
         private void Awake()
         {
             Instance = this;
@@ -47,6 +52,7 @@ namespace Kolman_Freecss.QuestSystem
         private void SubscribeToDelegatesAndUpdateValues()
         {
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+            OnCollectItemEvent += ItemCollectedServerRpc;
         }
         
         private void ClientLoadedScene(ulong clientId)
@@ -114,12 +120,14 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void EventTriggered(EventQuestType eventQuestType, AmountType amountType)
         {
-            if (CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType))
-            {
-                Debug.Log("Objetive progress");
-                // We update the quest status in quest giver
-                UpdateStatusGiverByQuestId(CurrentStory.CurrentQuest);
-            }
+            OnCollectItemEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
+        }
+        
+        [ServerRpc]
+        private void ItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        {
+            Debug.Log("ItemCollectedServerRpc");
+            CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType);
         }
 
         /**

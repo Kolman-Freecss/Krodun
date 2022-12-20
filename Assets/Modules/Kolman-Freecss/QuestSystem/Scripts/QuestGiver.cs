@@ -59,10 +59,28 @@ namespace Kolman_Freecss.QuestSystem
                 NotStarted.Value = true;
                 InProgress.Value = false;
                 Completed.Value = false;
+                QuestManager.Instance.OnCollectItemEvent += OnItemCollectedServerRpc;
             }
             
             CurrentQuest = Quests[0];
             SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        [ServerRpc]
+        private void OnItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        {
+            if (CurrentQuest.ID != questId) return;
+            Debug.Log("OnItemCollectedServerRpc");
+            if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
+            {
+                Debug.Log("Objetive progress");
+                // We update the quest status in quest giver
+                UpdateQuestStatus(CurrentQuest);
+            }
+            else
+            {
+                SyncQuestStatus(CurrentQuest);
+            }
         }
 
         private void SubscribeToDelegatesAndUpdateValues()
@@ -112,13 +130,7 @@ namespace Kolman_Freecss.QuestSystem
         public Quest UpdateQuestStatus(Quest quest)
         {
             CurrentQuest.UpdateStatus(quest);
-            var state = new QuestState
-            {
-                IsCompleted = CurrentQuest.Status == QuestStatus.Completed,
-                Status = CurrentQuest.Status,
-            };
-            UpdateQuestServerRpc(state);
-            RefreshQuestMarkServerRpc();
+            SyncQuestStatus(CurrentQuest);
             return CurrentQuest;
         }
 
@@ -132,7 +144,12 @@ namespace Kolman_Freecss.QuestSystem
             {
                 CurrentQuest = qs;
             }
-            var state = new QuestState {IsCompleted = qs.objectives[0].isCompleted, CurrrentAmount = qs.objectives[0].CurrentAmount, Status = qs.Status};
+            SyncQuestStatus(qs);
+        }
+        
+        private void SyncQuestStatus(Quest quest)
+        {
+            var state = new QuestState {IsCompleted = quest.objectives[0].isCompleted, CurrrentAmount = quest.objectives[0].CurrentAmount, Status = quest.Status};
             UpdateQuestServerRpc(state);
             RefreshQuestMarkServerRpc();
         }

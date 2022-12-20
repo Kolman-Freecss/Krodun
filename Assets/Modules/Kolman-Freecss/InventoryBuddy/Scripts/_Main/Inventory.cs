@@ -37,7 +37,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         public Dictionary<int, NetworkObject> NetworkPrefabs = new Dictionary<int, NetworkObject>();
         [HideInInspector]
         public InventoryDisplay inventoryDisplay;
-        private QuestManager questManager;
         private Canvas _inventoryCanvas;
 
         private void Awake()
@@ -53,7 +52,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
         {
             if (inventoryDisplay == null && isLoaded)
             {
-                questManager = FindObjectOfType<QuestManager>();
                 inventoryDisplay = FindObjectOfType<InventoryDisplay>();
                 _inventoryCanvas = FindObjectOfType<ActivateUI>().GetComponent<Canvas>();
                 _inventoryCanvas.enabled = false;
@@ -79,7 +77,7 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             InventoryItem itemToAdd = database.GetItem(itemName);   //get reference to our listed item
             characterItems.Add(itemToAdd);                                   //add reference to our local items list
             inventoryDisplay.AddNewItem(itemToAdd);
-            questManager.EventTriggered(EventQuestType.Collect, itemToAdd.amountType);
+            QuestManager.Instance.EventTriggered(EventQuestType.Collect, itemToAdd.amountType);
         }
 
         public InventoryItem CheckThisItem(string itemName)
