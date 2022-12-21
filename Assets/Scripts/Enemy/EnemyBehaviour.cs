@@ -11,10 +11,17 @@ namespace Kolman_Freecss.Krodun
     public class EnemyBehaviour : NetworkBehaviour
     {
         [SerializeField] float damage = 40f;
-        [SerializeField] float health = 100f;
-        [SerializeField] AmountType enemyType = AmountType.TROLL;
+        [SerializeField] 
+        public NetworkVariable<float> health = new NetworkVariable<float>(100f, 
+            NetworkVariableReadPermission.Everyone, 
+            NetworkVariableWritePermission.Server);
+        [SerializeField] 
+        AmountType enemyType = AmountType.TROLL;
         
-        bool _isDead = false;
+        [HideInInspector]
+        public NetworkVariable<bool> _isDead = new NetworkVariable<bool>(false, 
+            NetworkVariableReadPermission.Everyone, 
+            NetworkVariableWritePermission.Server);
         
         protected List<PlayerBehaviour> _players;
         protected PlayerBehaviour _playerTarget;
@@ -64,22 +71,34 @@ namespace Kolman_Freecss.Krodun
         
         public void TakeDamage(int damage)
         {
-            health -= damage;
-            if (health <= 0)
+            TakeDamageServerRpc(damage);
+            
+            if (health.Value <= 0) return;
+            BroadcastMessage("OnDamageTaken");
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void TakeDamageServerRpc(int damage)
+        {
+            health.Value -= damage;
+            if (health.Value <= 0)
             {
                 Die();
             }
-            else
-            {
-                BroadcastMessage("OnDamageTaken");
-            }
         }
         
+        // Only called on the server
         void Die()
         {
-            if (_isDead) return;
-            _isDead = true;
+            if (!IsServer || _isDead.Value) return;
+            _isDead.Value = true;
             // TODO Event to all players
+            DieClientRpc();
+        }
+        
+        [ClientRpc]
+        void DieClientRpc()
+        {
             _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             if (_hasAnimator)
             {
@@ -106,8 +125,7 @@ namespace Kolman_Freecss.Krodun
         
         public bool IsDead()
         {
-            
-            return _isDead;
+            return _isDead.Value;
         }
         
     }
