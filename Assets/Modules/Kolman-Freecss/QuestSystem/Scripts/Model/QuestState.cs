@@ -5,7 +5,7 @@ namespace Kolman_Freecss.QuestSystem
     public struct QuestState : INetworkSerializable
     {
         public int QuestId;
-        public bool isFinished;
+        public bool isFinished; // true if the quest is currently finished and hidden from the player
         public bool IsCompleted;
         public int CurrrentAmount;
         public QuestStatus Status;
@@ -18,7 +18,7 @@ namespace Kolman_Freecss.QuestSystem
             serializer.SerializeValue(ref CurrrentAmount);
             serializer.SerializeValue(ref Status);
         }
-            
+        
         public void setState(QuestState state)
         {
             QuestId = state.QuestId;

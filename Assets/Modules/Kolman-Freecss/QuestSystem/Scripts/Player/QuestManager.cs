@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Kolman_Freecss.Krodun;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,7 +8,7 @@ namespace Kolman_Freecss.QuestSystem
 {
     public class QuestManager : NetworkBehaviour
     {
-        #region Variables
+        #region ######## Variables ########
 
         public List<StorySO> storiesSO = new List<StorySO>();
 
@@ -22,6 +20,8 @@ namespace Kolman_Freecss.QuestSystem
         
         #endregion
 
+        #region ######## Events ########
+
         [HideInInspector]
         public delegate void OnStoryComletedHandler(Story story);
         [HideInInspector]
@@ -31,9 +31,15 @@ namespace Kolman_Freecss.QuestSystem
         public delegate void OnCollectItemHandler(EventQuestType eventQuestType, AmountType amountType, int questId);
         [HideInInspector]
         public event OnCollectItemHandler OnCollectItemEvent;
-        
+
+        #endregion
+
+        #region ######## Network Variables ########
+
         [HideInInspector] public NetworkVariable<QuestState> QuestStateSync = new NetworkVariable<QuestState>(QuestState.DefaultValue(), NetworkVariableReadPermission.Everyone,
             writePerm: NetworkVariableWritePermission.Owner);
+
+        #endregion
         
         private void Awake()
         {
@@ -67,6 +73,11 @@ namespace Kolman_Freecss.QuestSystem
         
         public void UpdateQuestState(QuestState previousState, QuestState newState)
         {
+            if (newState.Status == QuestStatus.Completed)
+            {
+                CurrentStory.CompleteQuest();
+                return;
+            }
             CurrentStory.CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
             CurrentStory.CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
             CurrentStory.CurrentQuest.Status = newState.Status;
@@ -87,22 +98,7 @@ namespace Kolman_Freecss.QuestSystem
             OnClientConnectedQuestInitClientRpc(clientId, clientRpcParams);
         }
 
-        [ClientRpc]
-        public void OnClientConnectedQuestInitClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
-        {
-            Debug.Log("----------------- Quests Init -----------------");
-            
-            QuestGivers = FindObjectsOfType<QuestGiver>().ToList();
-            storiesSO.ForEach(storySO => { Stories.Add(new Story(storySO)); });
-            //TODO : Add a way to choose the story
-            CurrentStory = Stories[0];
-            CurrentStory.StartStory();
-            // TODO : Change it to go like an event this refresh
-            RefreshQuestGivers();
-        }
         
-        /*[ServerRpc]*/
-
         /*private void Update()
         {
             // ONLY!! Use it like hack to test the quest system            
@@ -140,39 +136,66 @@ namespace Kolman_Freecss.QuestSystem
             OnCollectItemEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
         }
         
-        [ServerRpc]
-        private void ItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
-        {
-            Debug.Log("ItemCollectedServerRpc");
-            CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType);
-            SyncQuestStatus(CurrentStory.CurrentQuest);
-        }
-        
         private void SyncQuestStatus(Quest quest)
         {
-            var state = new QuestState {IsCompleted = quest.objectives[0].isCompleted, CurrrentAmount = quest.objectives[0].CurrentAmount, Status = quest.Status};
+            var state = new QuestState {IsCompleted = quest.objectives[0].isCompleted, 
+                CurrrentAmount = quest.objectives[0].CurrentAmount, 
+                Status = quest.Status};
             UpdateQuestServerRpc(state);
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        /**
+         * Called when a client finish the quest
+         */
+        private void SyncQuestStatusFinished()
         {
-            var clientId = serverRpcParams.Receive.SenderClientId;
-            Debug.Log($"QuestGiver: UpdateQuestServerRpc: {clientId}");
-            QuestStateSyncValue = state;
+            var state = new QuestState {isFinished = true};
+            UpdateQuestServerRpc(state);
         }
-
+        
         /**
          * Finish the current quest and start the next one
          */
         public void CompleteQuest()
         {
+            if (!IsOwner) return;
+            CompleteQuestServerRpc();
+        }
+
+        #region ######## Client RPCs ########
+
+        [ClientRpc]
+        public void OnClientConnectedQuestInitClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
+        {
+            Debug.Log("----------------- Quests Init -----------------");
+            
+            QuestGivers = FindObjectsOfType<QuestGiver>().ToList();
+            storiesSO.ForEach(storySO => { Stories.Add(new Story(storySO)); });
+            //TODO : Add a way to choose the story
+            CurrentStory = Stories[0];
+            CurrentStory.StartStory();
+            // TODO : Change it to go like an event this refresh
+            RefreshQuestGivers();
+        }
+
+        #endregion
+        
+        #region ######## ServerCalls ########
+
+        [ServerRpc(RequireOwnership = false)]
+        public void CompleteQuestServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            Debug.Log($"Quest completed by client -> {clientId}");
+            
             FinishStatusGiverByQuestId(CurrentStory.CurrentQuest.ID);
-            if (CurrentStory.CompleteQuest() != null)
+            Quest q = CurrentStory.CompleteQuest();
+            if (q != null)
             {
                 RefreshQuestGivers();
             }
-            else
+            SyncQuestStatusFinished();
+            if (q == null)
             {
                 CurrentStory.CompleteStory();
                 OnStoryComletedEvent?.Invoke(CurrentStory);
@@ -180,6 +203,22 @@ namespace Kolman_Freecss.QuestSystem
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            QuestStateSyncValue = state;
+        }
+        
+        [ServerRpc]
+        private void ItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        {
+            CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType);
+            SyncQuestStatus(CurrentStory.CurrentQuest);
+        }
+        
+        #endregion
+        
         /**
          * Update the current story and the status of the current quest giver
          */

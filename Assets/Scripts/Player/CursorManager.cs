@@ -43,9 +43,9 @@ namespace Kolman_Freecss.Krodun
             if (isLoaded)
             {
                 _krodunController = FindObjectOfType<KrodunController>();
-                _questStartedCanvas = GameObject.Find("QuestCompletedCanvas");
                 _questNotStartedCanvas = GameObject.Find("QuestNotStartedCanvas");
-                _questCompletedCanvas = GameObject.Find("QuestStartedCanvas");
+                _questStartedCanvas = GameObject.Find("QuestStartedCanvas");
+                _questCompletedCanvas = GameObject.Find("QuestCompletedCanvas");
                 _questStartedCanvas.SetActive(false);
                 _questNotStartedCanvas.SetActive(false);
                 _questCompletedCanvas.SetActive(false);

@@ -1,29 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Kolman_Freecss.Krodun;
 using Unity.Netcode;
 using UnityEngine;
-
 
 namespace Kolman_Freecss.QuestSystem
 {
     public class QuestGiver : NetworkBehaviour
     {
-        #region Inspector Variables
+        #region ######## Inspector Variables ########
         [Header("Quest Info")] public List<QuestSO> QuestsSO = new List<QuestSO>();
         public Quest CurrentQuest;
         public List<GameObject> QuestMarkers;
         #endregion
 
-        #region Auxiliar Variables
-
-        private List<Quest> Quests = new List<Quest>();
-        
-        // Auxiliar variables
-        private GameObject _notStarted;
-        private GameObject _inProgress;
-        private GameObject _completed;
-        
+        #region ######## Network Variables ########
         [HideInInspector]
         public NetworkVariable<bool> NotStarted = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone,
             writePerm: NetworkVariableWritePermission.Owner);
@@ -37,8 +27,19 @@ namespace Kolman_Freecss.QuestSystem
         [HideInInspector] public NetworkVariable<QuestState> QuestStateSync = new NetworkVariable<QuestState>(QuestState.DefaultValue(), NetworkVariableReadPermission.Everyone,
         writePerm: NetworkVariableWritePermission.Owner);
 
-        KrodunController _player;
+        #endregion
+        
+        #region ######## Auxiliar Variables ########
 
+        private List<Quest> Quests = new List<Quest>();
+        
+        // Auxiliar variables
+        private GameObject _notStarted;
+        private GameObject _inProgress;
+        private GameObject _completed;
+        
+        KrodunController _player;
+        
         #endregion
         
 
@@ -70,10 +71,8 @@ namespace Kolman_Freecss.QuestSystem
         private void OnItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
         {
             if (CurrentQuest.ID != questId) return;
-            Debug.Log("OnItemCollectedServerRpc");
             if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
             {
-                Debug.Log("Objetive progress");
                 // We update the quest status in quest giver
                 UpdateQuestStatus(CurrentQuest);
             }
@@ -113,17 +112,21 @@ namespace Kolman_Freecss.QuestSystem
         public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
         {
             var clientId = serverRpcParams.Receive.SenderClientId;
-            Debug.Log($"QuestGiver: UpdateQuestServerRpc: {clientId}");
             QuestStateSyncValue = state;
         }
         
         public void UpdateQuestState(QuestState previousState, QuestState newState)
         {
-            Debug.Log($"QuestGiver: UpdateQuestClientRpc: {newState}");
-            CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
-            CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
-            Debug.Log("Amount updated -> " + CurrentQuest.objectives[0].CurrentAmount);
-            CurrentQuest.Status = newState.Status;
+            if (newState.isFinished)
+            {
+                CurrentQuest = null;
+            }
+            else
+            {
+                CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
+                CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
+                CurrentQuest.Status = newState.Status;
+            }
             RefreshQuestMarkServerRpc();
         }
 
@@ -149,7 +152,12 @@ namespace Kolman_Freecss.QuestSystem
         
         private void SyncQuestStatus(Quest quest)
         {
-            var state = new QuestState {IsCompleted = quest.objectives[0].isCompleted, CurrrentAmount = quest.objectives[0].CurrentAmount, Status = quest.Status};
+            var state = new QuestState
+            {
+                IsCompleted = quest.objectives[0].isCompleted, 
+                CurrrentAmount = quest.objectives[0].CurrentAmount, 
+                Status = quest.Status
+            };
             UpdateQuestServerRpc(state);
             RefreshQuestMarkServerRpc();
         }
@@ -160,7 +168,6 @@ namespace Kolman_Freecss.QuestSystem
         [ServerRpc(RequireOwnership = false)]
         private void RefreshQuestMarkServerRpc(ServerRpcParams serverRpcParams = default)
         {
-            Debug.Log($"QuestGiver: RefreshQuestMarkServerRpc: {serverRpcParams.Receive.SenderClientId}");
             if (CurrentQuest != null)
             {
                 HideQuestMarks();
