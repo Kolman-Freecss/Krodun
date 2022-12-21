@@ -67,21 +67,6 @@ namespace Kolman_Freecss.QuestSystem
             SubscribeToDelegatesAndUpdateValues();
         }
         
-        [ServerRpc]
-        private void OnItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
-        {
-            if (CurrentQuest.ID != questId) return;
-            if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
-            {
-                // We update the quest status in quest giver
-                UpdateQuestStatus(CurrentQuest);
-            }
-            else
-            {
-                SyncQuestStatus(CurrentQuest);
-            }
-        }
-
         private void SubscribeToDelegatesAndUpdateValues()
         {
             QuestStateSync.OnValueChanged += UpdateQuestState;
@@ -106,13 +91,6 @@ namespace Kolman_Freecss.QuestSystem
             {
                 _player = FindObjectOfType<KrodunController>();
             }
-        }
-        
-        [ServerRpc(RequireOwnership = false)]
-        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
-        {
-            var clientId = serverRpcParams.Receive.SenderClientId;
-            QuestStateSyncValue = state;
         }
         
         public void UpdateQuestState(QuestState previousState, QuestState newState)
@@ -161,35 +139,7 @@ namespace Kolman_Freecss.QuestSystem
             UpdateQuestServerRpc(state);
             RefreshQuestMarkServerRpc();
         }
-
-        /**
-         * Displays one mark on the quest giver by the current quest status
-         */
-        [ServerRpc(RequireOwnership = false)]
-        private void RefreshQuestMarkServerRpc(ServerRpcParams serverRpcParams = default)
-        {
-            if (CurrentQuest != null)
-            {
-                HideQuestMarks();
-                switch (CurrentQuest.Status)
-                {
-                    case QuestStatus.NotStarted:
-                        NotStarted.Value = true;
-                        break;
-                    case QuestStatus.Started:
-                        InProgress.Value = true;
-                        break;
-                    case QuestStatus.Completed:
-                        Completed.Value = true;
-                        break;
-                }
-            }
-            else
-            {
-                HideQuestMarks();
-            }
-        }
-
+        
         private void HideQuestMarks()
         {
             NotStarted.Value = false;
@@ -232,6 +182,60 @@ namespace Kolman_Freecss.QuestSystem
         {
             return Quests.Exists(x => x.ID == questId);
         }
+        
+        #region ######## ServerCalls ########
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            QuestStateSyncValue = state;
+        }
+        
+        [ServerRpc]
+        private void OnItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        {
+            if (CurrentQuest.ID != questId) return;
+            if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
+            {
+                // We update the quest status in quest giver
+                UpdateQuestStatus(CurrentQuest);
+            }
+            else
+            {
+                SyncQuestStatus(CurrentQuest);
+            }
+        }
+
+        /**
+         * Displays one mark on the quest giver by the current quest status
+         */
+        [ServerRpc(RequireOwnership = false)]
+        private void RefreshQuestMarkServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            if (CurrentQuest != null)
+            {
+                HideQuestMarks();
+                switch (CurrentQuest.Status)
+                {
+                    case QuestStatus.NotStarted:
+                        NotStarted.Value = true;
+                        break;
+                    case QuestStatus.Started:
+                        InProgress.Value = true;
+                        break;
+                    case QuestStatus.Completed:
+                        Completed.Value = true;
+                        break;
+                }
+            }
+            else
+            {
+                HideQuestMarks();
+            }
+        }
+        
+        #endregion
 
         #region ################## GETTERS && SETTERS ################## 
 

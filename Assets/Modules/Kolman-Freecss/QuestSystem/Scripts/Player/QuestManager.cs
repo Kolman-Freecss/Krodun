@@ -73,7 +73,7 @@ namespace Kolman_Freecss.QuestSystem
         
         public void UpdateQuestState(QuestState previousState, QuestState newState)
         {
-            if (newState.Status == QuestStatus.Completed)
+            if (newState.isFinished)
             {
                 CurrentStory.CompleteQuest();
                 return;
@@ -195,6 +195,7 @@ namespace Kolman_Freecss.QuestSystem
                 RefreshQuestGivers();
             }
             SyncQuestStatusFinished();
+            // No more quests in the story so we finish it
             if (q == null)
             {
                 CurrentStory.CompleteStory();
