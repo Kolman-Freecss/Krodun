@@ -43,6 +43,7 @@ namespace Kolman_Freecss.Krodun
             _hurtbox = GetComponentInChildren<EnemyHurtbox>();
             OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
             OnFacingDirectionChangedHurtbox += _hurtbox.OnFacingDirectionChangedHandler;
+            SubscribeToDelegatesAndUpdateValues();
         }
         
         void Start()
@@ -56,7 +57,6 @@ namespace Kolman_Freecss.Krodun
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
             
-            SubscribeToDelegatesAndUpdateValues();
         }
         
         private void SubscribeToDelegatesAndUpdateValues()
@@ -93,6 +93,8 @@ namespace Kolman_Freecss.Krodun
             {
                 StopAttack();
             }
+            
+            distanceToTarget = Vector3.Distance(_playerTarget.position, transform.position);
 
             if (distanceToTarget >= navMeshAgent.stoppingDistance)
             {
