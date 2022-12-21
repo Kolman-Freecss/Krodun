@@ -28,9 +28,9 @@ namespace Kolman_Freecss.QuestSystem
         public event OnStoryComletedHandler OnStoryComletedEvent;
         
         [HideInInspector]
-        public delegate void OnCollectItemHandler(EventQuestType eventQuestType, AmountType amountType, int questId);
+        public delegate void OnQuestObjectiveHandler(EventQuestType eventQuestType, AmountType amountType, int questId);
         [HideInInspector]
-        public event OnCollectItemHandler OnCollectItemEvent;
+        public event OnQuestObjectiveHandler OnQuestObjectiveEvent;
 
         #endregion
 
@@ -68,7 +68,7 @@ namespace Kolman_Freecss.QuestSystem
         private void SubscribeToDelegatesAndUpdateValues()
         {
             SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
-            OnCollectItemEvent += ItemCollectedServerRpc;
+            OnQuestObjectiveEvent += OnQuestObjectiveHandleServerRpc;
         }
         
         public void UpdateQuestState(QuestState previousState, QuestState newState)
@@ -133,7 +133,7 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void EventTriggered(EventQuestType eventQuestType, AmountType amountType)
         {
-            OnSceneItemCollectedServerRpc(eventQuestType, amountType);
+            OnQuestObjectiveHandleServerRpc(eventQuestType, amountType);
         }
         
         private void SyncQuestStatus(Quest quest)
@@ -182,11 +182,10 @@ namespace Kolman_Freecss.QuestSystem
         #region ######## ServerCalls ########
 
         [ServerRpc(RequireOwnership = false)]
-        public void OnSceneItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, ServerRpcParams serverRpcParams = default)
+        public void OnQuestObjectiveHandleServerRpc(EventQuestType eventQuestType, AmountType amountType, ServerRpcParams serverRpcParams = default)
         {
             var clientId = serverRpcParams.Receive.SenderClientId;
-            Debug.Log($"Quest completed by client -> {clientId}");
-            OnCollectItemEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
+            OnQuestObjectiveEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -219,7 +218,7 @@ namespace Kolman_Freecss.QuestSystem
         }
         
         [ServerRpc]
-        private void ItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        private void OnQuestObjectiveHandleServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
         {
             CurrentStory.UpdateQuestObjectiveAmount(eventQuestType, amountType);
             SyncQuestStatus(CurrentStory.CurrentQuest);

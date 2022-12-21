@@ -60,7 +60,7 @@ namespace Kolman_Freecss.QuestSystem
                 NotStarted.Value = true;
                 InProgress.Value = false;
                 Completed.Value = false;
-                QuestManager.Instance.OnCollectItemEvent += OnItemCollectedServerRpc;
+                QuestManager.Instance.OnQuestObjectiveEvent += OnQuestObjectiveHandleServerRpc;
             }
             
             CurrentQuest = Quests[0];
@@ -193,7 +193,7 @@ namespace Kolman_Freecss.QuestSystem
         }
         
         [ServerRpc]
-        private void OnItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        private void OnQuestObjectiveHandleServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
         {
             if (CurrentQuest.ID != questId) return;
             if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))

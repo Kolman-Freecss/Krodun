@@ -4,12 +4,13 @@ using Kolman_Freecss.HitboxHurtboxSystem;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 namespace Kolman_Freecss.Krodun
 {
     public abstract class AbstractEnemyAI : NetworkBehaviour
     {
+        #region ###### Variables ######
+
         [SerializeField] protected float chaseRange = 10f;
         [SerializeField] protected float turnSpeed = 5f;
         protected NavMeshAgent navMeshAgent;
@@ -33,6 +34,8 @@ namespace Kolman_Freecss.Krodun
         
         private bool _isAttacking;
         protected bool _gameStarted = false;
+
+        #endregion
         
         public event IHitboxResponder.FacingDirectionChanged OnFacingDirectionChangedHitbox;
         public event IHurtboxResponder.FacingDirectionChanged OnFacingDirectionChangedHurtbox;
@@ -62,6 +65,7 @@ namespace Kolman_Freecss.Krodun
         private void SubscribeToDelegatesAndUpdateValues()
         {
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+            NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
         }
         
         public void OnGameStarted(bool isLoaded)
@@ -73,12 +77,13 @@ namespace Kolman_Freecss.Krodun
                 _gameStarted = isLoaded;
             }
         }
-
-        protected abstract void AssignAnimationIDs();
-
-        protected abstract void Update();
         
-        protected abstract void AttackTarget();
+        private void OnClientConnectedCallback(ulong clientId)
+        {
+            Debug.Log($"Client {clientId} connected");
+            _players = FindObjectsOfType<KrodunController>().ToList().ConvertAll(x => x.transform);
+        }
+
 
         // Called by Unity when the enemy is hit by a weapon (TakeDamage)
         public void OnDamageTaken()
@@ -130,7 +135,15 @@ namespace Kolman_Freecss.Krodun
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
         }
+
+        #region ###### Abstract Methods ######
         
+        protected abstract void AssignAnimationIDs();
+
+        protected abstract void Update();
+        
+        protected abstract void AttackTarget();
+
         protected abstract void StopAttack();
         
         protected abstract void TriggerAnimationMove();
@@ -154,6 +167,8 @@ namespace Kolman_Freecss.Krodun
         protected abstract void StopAnimationDeath();
         
         protected abstract void StopAnimationHit();
+
+        #endregion
         
     }
 }
