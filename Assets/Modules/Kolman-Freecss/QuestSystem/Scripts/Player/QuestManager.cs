@@ -133,7 +133,7 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void EventTriggered(EventQuestType eventQuestType, AmountType amountType)
         {
-            OnCollectItemEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
+            OnSceneItemCollectedServerRpc(eventQuestType, amountType);
         }
         
         private void SyncQuestStatus(Quest quest)
@@ -158,7 +158,6 @@ namespace Kolman_Freecss.QuestSystem
          */
         public void CompleteQuest()
         {
-            if (!IsOwner) return;
             CompleteQuestServerRpc();
         }
 
@@ -182,6 +181,14 @@ namespace Kolman_Freecss.QuestSystem
         
         #region ######## ServerCalls ########
 
+        [ServerRpc(RequireOwnership = false)]
+        public void OnSceneItemCollectedServerRpc(EventQuestType eventQuestType, AmountType amountType, ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            Debug.Log($"Quest completed by client -> {clientId}");
+            OnCollectItemEvent?.Invoke(eventQuestType, amountType, CurrentStory.CurrentQuest.ID);
+        }
+        
         [ServerRpc(RequireOwnership = false)]
         public void CompleteQuestServerRpc(ServerRpcParams serverRpcParams = default)
         {
