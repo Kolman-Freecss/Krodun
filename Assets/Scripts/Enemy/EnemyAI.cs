@@ -18,6 +18,7 @@ namespace Kolman_Freecss.Krodun
         protected override void Update()
         {
             if (!_gameStarted) return;
+            
             if (health.IsDead())
             {
                 enabled = false;
@@ -31,10 +32,6 @@ namespace Kolman_Freecss.Krodun
                 _animator.SetInteger(_animIDIdle, 1); // Idle animation
             }
             
-            // TODO Change that calculation to a OnTrigger
-            // Check if any player is in range
-            //distanceToTarget = Vector3.Distance(_player.position, transform.position);
-
             if (isProvoked)
             {
                 EngageTarget();
@@ -59,7 +56,9 @@ namespace Kolman_Freecss.Krodun
                 _animator.SetInteger(_animIDMoving, 5); // Attack animation
             }
         }
-        
+
+        #region ###### ANIMATIONS ######
+
         protected override void TriggerAnimationMove()
         {
             if (_hasAnimator)
@@ -139,5 +138,8 @@ namespace Kolman_Freecss.Krodun
                 _animator.SetInteger(_animIDMoving, 0); // Stop animation
             }
         }
+
+        #endregion
+        
     }
 }

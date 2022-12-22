@@ -478,6 +478,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6782267679959451028, guid: b89f7d8280cac9445b8bb7fceda1b6c3, type: 3}
+      propertyPath: questCompletedCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 2453736320353e04b8e162dcf95a974f, type: 3}
+    - target: {fileID: 6782267679959451028, guid: b89f7d8280cac9445b8bb7fceda1b6c3, type: 3}
+      propertyPath: questNotStartedCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: b56e6234cd04cae4480b73d35724b49b, type: 3}
     - target: {fileID: 6782267679959451029, guid: b89f7d8280cac9445b8bb7fceda1b6c3, type: 3}
       propertyPath: m_Name
       value: CursorManager

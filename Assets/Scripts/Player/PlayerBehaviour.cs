@@ -12,7 +12,6 @@ namespace Kolman_Freecss.Krodun
         int _experience = 0;
         private static PlayerBehaviour Instance { get; set; }
         private KrodunController _krodunController;
-        private QuestManager _questManager;
         public KrodunController KrodunController
         {
             get
@@ -24,7 +23,6 @@ namespace Kolman_Freecss.Krodun
         private void Start()
         {
             _krodunController = GetComponent<KrodunController>();
-            _questManager = GetComponent<QuestManager>();
             Init();
         }
 
@@ -59,7 +57,7 @@ namespace Kolman_Freecss.Krodun
             {
                 case EventQuestType.Kill:
                     AddExperience(10);
-                    _questManager.EventTriggered(EventQuestType.Kill, amountType);                    
+                    QuestManager.Instance.EventTriggered(EventQuestType.Kill, amountType);                    
                     break;
                 default:
                     break;

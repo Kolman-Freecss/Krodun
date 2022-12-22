@@ -25,7 +25,7 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
 
         public void Attack()
         {
-            if (InHitbox)
+            if (InHitbox && CurrentCollider != null)
             {
                 EnemyHurtbox hurtbox = CurrentCollider.GetComponent<EnemyHurtbox>();
                 hurtbox?.OnHit(_playerBehaviour.damage);

@@ -1,29 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Kolman_Freecss.Krodun;
 using Unity.Netcode;
 using UnityEngine;
-
 
 namespace Kolman_Freecss.QuestSystem
 {
     public class QuestGiver : NetworkBehaviour
     {
-        #region Inspector Variables
+        #region ######## Inspector Variables ########
         [Header("Quest Info")] public List<QuestSO> QuestsSO = new List<QuestSO>();
         public Quest CurrentQuest;
         public List<GameObject> QuestMarkers;
         #endregion
 
-        #region Auxiliar Variables
-
-        private List<Quest> Quests = new List<Quest>();
-        
-        // Auxiliar variables
-        private GameObject _notStarted;
-        private GameObject _inProgress;
-        private GameObject _completed;
-        
+        #region ######## Network Variables ########
         [HideInInspector]
         public NetworkVariable<bool> NotStarted = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone,
             writePerm: NetworkVariableWritePermission.Owner);
@@ -37,8 +27,19 @@ namespace Kolman_Freecss.QuestSystem
         [HideInInspector] public NetworkVariable<QuestState> QuestStateSync = new NetworkVariable<QuestState>(QuestState.DefaultValue(), NetworkVariableReadPermission.Everyone,
         writePerm: NetworkVariableWritePermission.Owner);
 
-        KrodunController _player;
+        #endregion
+        
+        #region ######## Auxiliar Variables ########
 
+        private List<Quest> Quests = new List<Quest>();
+        
+        // Auxiliar variables
+        private GameObject _notStarted;
+        private GameObject _inProgress;
+        private GameObject _completed;
+        
+        KrodunController _player;
+        
         #endregion
         
 
@@ -59,15 +60,16 @@ namespace Kolman_Freecss.QuestSystem
                 NotStarted.Value = true;
                 InProgress.Value = false;
                 Completed.Value = false;
+                QuestManager.Instance.OnQuestObjectiveEvent += OnQuestObjectiveHandleServerRpc;
             }
             
             CurrentQuest = Quests[0];
             SubscribeToDelegatesAndUpdateValues();
         }
-
+        
         private void SubscribeToDelegatesAndUpdateValues()
         {
-            QuestStateSync.OnValueChanged += UpdateQuestClientRpc;
+            QuestStateSync.OnValueChanged += UpdateQuestState;
             NotStarted.OnValueChanged += (previousValue, newValue) =>
             {
                 _notStarted.SetActive(newValue);
@@ -91,34 +93,25 @@ namespace Kolman_Freecss.QuestSystem
             }
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        public void UpdateQuestState(QuestState previousState, QuestState newState)
         {
-            var clientId = serverRpcParams.Receive.SenderClientId;
-            Debug.Log($"QuestGiver: UpdateQuestServerRpc: {clientId}");
-            QuestStateSyncValue.setState(state);
-        }
-        
-        [ClientRpc]
-        public void UpdateQuestClientRpc(QuestState previousState, QuestState newState)
-        {
-            Debug.Log($"QuestGiver: UpdateQuestClientRpc: {newState}");
-            CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
-            CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
-            CurrentQuest.Status = newState.Status;
+            if (newState.isFinished)
+            {
+                CurrentQuest = null;
+            }
+            else
+            {
+                CurrentQuest.objectives[0].isCompleted = newState.IsCompleted;
+                CurrentQuest.objectives[0].CurrentAmount = newState.CurrrentAmount;
+                CurrentQuest.Status = newState.Status;
+            }
             RefreshQuestMarkServerRpc();
         }
 
         public Quest UpdateQuestStatus(Quest quest)
         {
             CurrentQuest.UpdateStatus(quest);
-            var state = new QuestState
-            {
-                IsCompleted = CurrentQuest.Status == QuestStatus.Completed,
-                Status = CurrentQuest.Status,
-            };
-            UpdateQuestServerRpc(state);
-            RefreshQuestMarkServerRpc();
+            SyncQuestStatus(CurrentQuest);
             return CurrentQuest;
         }
 
@@ -132,40 +125,21 @@ namespace Kolman_Freecss.QuestSystem
             {
                 CurrentQuest = qs;
             }
-            var state = new QuestState {IsCompleted = qs.objectives[0].isCompleted, CurrrentAmount = qs.objectives[0].CurrentAmount, Status = qs.Status};
+            SyncQuestStatus(qs);
+        }
+        
+        private void SyncQuestStatus(Quest quest)
+        {
+            var state = new QuestState
+            {
+                IsCompleted = quest.objectives[0].isCompleted, 
+                CurrrentAmount = quest.objectives[0].CurrentAmount, 
+                Status = quest.Status
+            };
             UpdateQuestServerRpc(state);
             RefreshQuestMarkServerRpc();
         }
-
-        /**
-         * Displays one mark on the quest giver by the current quest status
-         */
-        [ServerRpc(RequireOwnership = false)]
-        private void RefreshQuestMarkServerRpc(ServerRpcParams serverRpcParams = default)
-        {
-            Debug.Log($"QuestGiver: RefreshQuestMarkServerRpc: {serverRpcParams.Receive.SenderClientId}");
-            if (CurrentQuest != null)
-            {
-                HideQuestMarks();
-                switch (CurrentQuest.Status)
-                {
-                    case QuestStatus.NotStarted:
-                        NotStarted.Value = true;
-                        break;
-                    case QuestStatus.Started:
-                        InProgress.Value = true;
-                        break;
-                    case QuestStatus.Completed:
-                        Completed.Value = true;
-                        break;
-                }
-            }
-            else
-            {
-                HideQuestMarks();
-            }
-        }
-
+        
         private void HideQuestMarks()
         {
             NotStarted.Value = false;
@@ -208,6 +182,60 @@ namespace Kolman_Freecss.QuestSystem
         {
             return Quests.Exists(x => x.ID == questId);
         }
+        
+        #region ######## ServerCalls ########
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateQuestServerRpc(QuestState state, ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            QuestStateSyncValue = state;
+        }
+        
+        [ServerRpc]
+        private void OnQuestObjectiveHandleServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
+        {
+            if (CurrentQuest == null || CurrentQuest.ID != questId) return;
+            if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
+            {
+                // We update the quest status in quest giver
+                UpdateQuestStatus(CurrentQuest);
+            }
+            else
+            {
+                SyncQuestStatus(CurrentQuest);
+            }
+        }
+
+        /**
+         * Displays one mark on the quest giver by the current quest status
+         */
+        [ServerRpc(RequireOwnership = false)]
+        private void RefreshQuestMarkServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            if (CurrentQuest != null)
+            {
+                HideQuestMarks();
+                switch (CurrentQuest.Status)
+                {
+                    case QuestStatus.NotStarted:
+                        NotStarted.Value = true;
+                        break;
+                    case QuestStatus.Started:
+                        InProgress.Value = true;
+                        break;
+                    case QuestStatus.Completed:
+                        Completed.Value = true;
+                        break;
+                }
+            }
+            else
+            {
+                HideQuestMarks();
+            }
+        }
+        
+        #endregion
 
         #region ################## GETTERS && SETTERS ################## 
 
@@ -218,44 +246,6 @@ namespace Kolman_Freecss.QuestSystem
         public bool Completed.Value { get => Completed.Value; set => Completed.Value = value; }*/
         
         public QuestState QuestStateSyncValue { get => QuestStateSync.Value; set => QuestStateSync.Value = value; }
-
-        #endregion
-
-
-        #region Struct NetworkVariable to Sync Quest State
-
-        public struct QuestState : INetworkSerializable
-        {
-            public int QuestId;
-            public bool isFinished;
-            public bool IsCompleted;
-            public int CurrrentAmount;
-            public QuestStatus Status;
-
-            public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-            {
-                serializer.SerializeValue(ref QuestId);
-                serializer.SerializeValue(ref isFinished);
-                serializer.SerializeValue(ref IsCompleted);
-                serializer.SerializeValue(ref CurrrentAmount);
-                serializer.SerializeValue(ref Status);
-            }
-            
-            public void setState(QuestState state)
-            {
-                QuestId = state.QuestId;
-                isFinished = state.isFinished;
-                IsCompleted = state.IsCompleted;
-                CurrrentAmount = state.CurrrentAmount;
-                Status = state.Status;
-            }
-            
-            public static QuestState DefaultValue()
-            {
-                return new QuestState
-                {};
-            }
-        }
 
         #endregion
     }
