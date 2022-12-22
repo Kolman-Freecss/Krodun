@@ -93,13 +93,13 @@ namespace Kolman_Freecss.Krodun
             if (!IsServer || _isDead.Value) return;
             _isDead.Value = true;
             // TODO Event to all players
+            _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             DieClientRpc();
         }
         
         [ClientRpc]
         void DieClientRpc()
         {
-            _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDeath);

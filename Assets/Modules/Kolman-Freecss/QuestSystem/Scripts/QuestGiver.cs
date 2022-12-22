@@ -195,7 +195,7 @@ namespace Kolman_Freecss.QuestSystem
         [ServerRpc]
         private void OnQuestObjectiveHandleServerRpc(EventQuestType eventQuestType, AmountType amountType, int questId)
         {
-            if (CurrentQuest.ID != questId) return;
+            if (CurrentQuest == null || CurrentQuest.ID != questId) return;
             if (CurrentQuest.UpdateQuestObjectiveAmount(eventQuestType, amountType))
             {
                 // We update the quest status in quest giver
