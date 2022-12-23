@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using Kolman_Freecss.Krodun.ConnectionManagement;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +11,8 @@ namespace Kolman_Freecss.Krodun
     public class MainMenuManager : MonoBehaviour
     {
         private GameObject _multiplayerCanvas;
+        private float _delayTimeToStart = 3f; 
+        private string _gameSceneName = "Kolman";
 
         private void Awake()
         {
@@ -44,13 +49,20 @@ namespace Kolman_Freecss.Krodun
 
         IEnumerator LoadGame()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Kolman");
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
+            yield return new WaitForSeconds(_delayTimeToStart);
 
-            yield return new WaitForEndOfFrame();
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData("127.0.0.1", (ushort) 6666);
+            if (NetworkManager.Singleton.StartHost())
+            {
+                SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
+                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
+                Debug.Log("Host started");
+            }
+            else
+            {
+                Debug.Log("Host failed to start");
+            }
+            
         }
     }
 }
