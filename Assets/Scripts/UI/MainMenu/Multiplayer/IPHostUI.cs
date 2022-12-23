@@ -1,16 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Kolman_Freecss.Krodun
 {
     public class IPHostUI : MonoBehaviour
     {
 
-        [SerializeField] private InputField ipInput;
-        [SerializeField] private InputField portInput;
+        [SerializeField] private TMP_InputField ipInput;
+        [SerializeField] private TMP_InputField portInput;
         [SerializeField] private IPUIMediator _mediator;
         private CanvasGroup _canvasGroup;
 
