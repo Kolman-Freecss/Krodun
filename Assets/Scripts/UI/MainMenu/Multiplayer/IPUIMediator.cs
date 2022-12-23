@@ -25,7 +25,7 @@ namespace Kolman_Freecss.Krodun
         private void Start()
         {
             // Show create IP as default
-            ToggleCreateIPUI();
+            ToggleCreateIP();
         }
 
         public void ToggleJoinIPUI()
@@ -34,12 +34,17 @@ namespace Kolman_Freecss.Krodun
             _joinUI.Show();
             _hostUI.Hide();
         }
+
+        private void ToggleCreateIP()
+        {
+            _hostUI.Show();
+            _joinUI.Hide();
+        }
         
         public void ToggleCreateIPUI()
         {
             AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
-            _hostUI.Show();
-            _joinUI.Hide();
+            ToggleCreateIP();
         }
         
         public void JoinWithIp(string ip, string port)

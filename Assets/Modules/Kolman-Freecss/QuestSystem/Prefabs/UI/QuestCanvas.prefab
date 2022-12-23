@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Rewards
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -205,8 +205,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -406,8 +406,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '{{Title Quest}}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -731,8 +731,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '{{Objectives Description}}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -866,8 +866,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Recibir\xE1s: "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1066,8 +1066,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '{{Rewards}}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1201,8 +1201,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '{{Description Quest}}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1799,7 +1799,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4994021626079535756}
   m_Direction: 1
   m_Value: 1.0000001
-  m_Size: 0.4187839
+  m_Size: 0.41878396
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1946,8 +1946,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quest Objectives
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+  m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
