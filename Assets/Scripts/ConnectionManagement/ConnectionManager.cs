@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -38,16 +39,24 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
 
         public void StartHost(string playerName, string ipAddress, int port)
         {
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
-            if (NetworkManager.Singleton.StartHost())
+            try
             {
-                SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
-                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
-                Debug.Log("Host started");
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+                if (NetworkManager.Singleton.StartHost())
+                {
+                    SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
+                    SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
+                    Debug.Log("Host started");
+                }
+                else
+                {
+                    Debug.Log("Host failed to start");
+                    
+                }
             }
-            else
+            catch (Exception e)
             {
-                Debug.Log("Host failed to start");
+                Console.WriteLine(e);
             }
         }
         
@@ -63,14 +72,21 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         
         public void StartClient(string playerName, string ipAddress, int port)
         {
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
-            if (NetworkManager.Singleton.StartClient())
+            try
             {
-                Debug.Log("Client started");
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+                if (NetworkManager.Singleton.StartClient())
+                {
+                    Debug.Log("Client started");
+                }
+                else
+                {
+                    Debug.Log("Client failed to start");
+                }
             }
-            else
+            catch (Exception e)
             {
-                Debug.Log("Client failed to start");
+                Console.WriteLine(e);
             }
         }
     }

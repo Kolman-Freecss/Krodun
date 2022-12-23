@@ -639,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortInputField
       objectReference: {fileID: 0}
+    - target: {fileID: 2851002473601088742, guid: 5bff4cf3c95887c47b76dbffd26135cf, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4268308797543246485, guid: 5bff4cf3c95887c47b76dbffd26135cf, type: 3}
       propertyPath: m_text
       value: Puerto...
