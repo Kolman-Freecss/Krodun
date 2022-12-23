@@ -30,7 +30,7 @@ namespace Kolman_Freecss.Krodun
 
         public void ToggleJoinIPUI()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             _joinUI.Show();
             _hostUI.Hide();
         }
@@ -43,7 +43,7 @@ namespace Kolman_Freecss.Krodun
         
         public void ToggleCreateIPUI()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             ToggleCreateIP();
         }
         
@@ -77,7 +77,7 @@ namespace Kolman_Freecss.Krodun
 
         public void OnExitMenu()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             gameObject.SetActive(false);
         }
     }

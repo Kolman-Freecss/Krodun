@@ -56,13 +56,13 @@ namespace Kolman_Freecss.Krodun
 
         public void ExitGame()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             Application.Quit();
         }
 
         public void ContinueGame()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             CloseMenu();
             CloseCredits();
             CloseSettings();
@@ -86,7 +86,7 @@ namespace Kolman_Freecss.Krodun
         /**################## CREDITS ##################**/
         public void ToggleCredits()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             _showCredits = !_showCredits;
             _creditsCanvas.SetActive(_showCredits);
             if (_showCredits) CloseMenu();
@@ -112,7 +112,7 @@ namespace Kolman_Freecss.Krodun
 
         public void ToggleSettings()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             _showSettings = !_showSettings;
             _settingsCanvas.SetActive(_showSettings);
             if (_showSettings) CloseMenu();

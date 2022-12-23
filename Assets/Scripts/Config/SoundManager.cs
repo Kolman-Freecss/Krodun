@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -5,13 +6,19 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [Range(0, 100)] public float EffectsAudioVolume = 50f;
-    [Range(0, 100)] public float MusicAudioVolume = 50f;
+    [Range(0, 100)] public float MusicAudioVolume = 40f;
     
     public AudioClip ButtonClickSound;
 
     private void Awake()
     {
         ManageSingleton();
+    }
+
+    private void Start()
+    {
+        SetEffectsVolume(EffectsAudioVolume);
+        SetMusicVolume(MusicAudioVolume);
     }
 
     public void SetEffectsVolume(float volume)
@@ -21,7 +28,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        GetComponent<AudioSource>().volume = volume;
+        GetComponent<AudioSource>().volume = volume / 100;
     }
 
     public float GetSoundVolume()
@@ -42,5 +49,10 @@ public class SoundManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+    
+    public void PlayButtonClickSound(Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(ButtonClickSound, position, EffectsAudioVolume / 100);
     }
 }

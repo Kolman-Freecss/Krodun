@@ -29,19 +29,19 @@ namespace Kolman_Freecss.Krodun
 
         public void OnApplicationQuit()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             Application.Quit();
         }
 
         public void OnMultiplayerPressed()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             _multiplayerCanvas.SetActive(true);
         }
 
         public void OnStartButtonPressed()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             StartGame();
         }
         

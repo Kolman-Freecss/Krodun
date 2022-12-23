@@ -37,7 +37,7 @@ namespace Kolman_Freecss.Krodun
 
         public void OnClickHost()
         {
-            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
+            SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             if (_mediator != null)
             {
                 _mediator.HostIpRequest(ipInput.text, portInput.text);

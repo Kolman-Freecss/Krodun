@@ -968,6 +968,14 @@ PrefabInstance:
       value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 4564624447476211136, guid: 7cf94a9b15579ad4cb39d5b26bf828b9, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+    - target: {fileID: 4564624447476211136, guid: 7cf94a9b15579ad4cb39d5b26bf828b9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
+    - target: {fileID: 4564624447476211136, guid: 7cf94a9b15579ad4cb39d5b26bf828b9, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
