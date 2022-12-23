@@ -562,7 +562,7 @@ namespace Kolman_Freecss.Krodun
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), SoundManager.Instance.EffectsAudioVolume);
                 }
             }
         }
@@ -575,7 +575,7 @@ namespace Kolman_Freecss.Krodun
             }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
+                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.Instance.EffectsAudioVolume);
             }
         }
 
@@ -587,7 +587,7 @@ namespace Kolman_Freecss.Krodun
             }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), SoundManager.instance.EffectsAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), SoundManager.Instance.EffectsAudioVolume);
             }
         }
         

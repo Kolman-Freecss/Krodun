@@ -15,7 +15,7 @@ namespace Kolman_Freecss.Krodun
         
         IPJoinUI _joinUI;
         IPHostUI _hostUI;
-
+        
         private void Awake()
         {
             _joinUI = FindObjectOfType<IPJoinUI>();
@@ -30,12 +30,14 @@ namespace Kolman_Freecss.Krodun
 
         public void ToggleJoinIPUI()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             _joinUI.Show();
             _hostUI.Hide();
         }
         
         public void ToggleCreateIPUI()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             _hostUI.Show();
             _joinUI.Hide();
         }
@@ -70,6 +72,7 @@ namespace Kolman_Freecss.Krodun
 
         public void OnExitMenu()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             gameObject.SetActive(false);
         }
     }

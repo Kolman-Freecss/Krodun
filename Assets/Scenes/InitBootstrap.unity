@@ -238,6 +238,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4961651951489840478, guid: ffcd81ec88a513d4295b8418544bf4fd, type: 3}
+      propertyPath: ButtonClickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d1bb46cdffe6bab428cbc6000fac0584, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ffcd81ec88a513d4295b8418544bf4fd, type: 3}

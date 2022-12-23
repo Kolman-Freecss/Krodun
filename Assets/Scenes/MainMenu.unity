@@ -493,6 +493,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077171103134995309, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: _buttonClickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d1bb46cdffe6bab428cbc6000fac0584, type: 3}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8300000, guid: d1bb46cdffe6bab428cbc6000fac0584, type: 3}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_name
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358067177236455821, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7089518242120171374, guid: cdfda22b464f10e4a92e7549a583f402, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -6.822998

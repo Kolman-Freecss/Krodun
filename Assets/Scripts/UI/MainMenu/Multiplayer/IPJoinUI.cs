@@ -37,6 +37,7 @@ namespace Kolman_Freecss.Krodun
 
         public void OnClickJoin()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             if (_mediator != null)
             {
                 _mediator.JoinWithIp(ipInput.text, portInput.text);

@@ -43,8 +43,8 @@ namespace Kolman_Freecss.Krodun
                 _krodunController = FindObjectOfType<KrodunController>();
             }
 
-            _musicSlider.value = SoundManager.instance.MusicAudioVolume;
-            _soundSlider.value = SoundManager.instance.EffectsAudioVolume;
+            _musicSlider.value = SoundManager.Instance.MusicAudioVolume;
+            _soundSlider.value = SoundManager.Instance.EffectsAudioVolume;
         }
 
         public void Init()
@@ -56,11 +56,13 @@ namespace Kolman_Freecss.Krodun
 
         public void ExitGame()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             Application.Quit();
         }
 
         public void ContinueGame()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             CloseMenu();
             CloseCredits();
             CloseSettings();
@@ -84,6 +86,7 @@ namespace Kolman_Freecss.Krodun
         /**################## CREDITS ##################**/
         public void ToggleCredits()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             _showCredits = !_showCredits;
             _creditsCanvas.SetActive(_showCredits);
             if (_showCredits) CloseMenu();
@@ -99,16 +102,17 @@ namespace Kolman_Freecss.Krodun
         /**################## SETTINGS ##################**/
         public void OnMusicVolumeChange(float value)
         {
-            SoundManager.instance.SetMusicVolume(this._musicSlider.value);
+            SoundManager.Instance.SetMusicVolume(this._musicSlider.value);
         }
 
         public void OnSoundVolumeChange(float volume)
         {
-            SoundManager.instance.SetEffectsVolume(this._soundSlider.value);
+            SoundManager.Instance.SetEffectsVolume(this._soundSlider.value);
         }
 
         public void ToggleSettings()
         {
+            AudioSource.PlayClipAtPoint(SoundManager.Instance.ButtonClickSound, Camera.main.transform.position);
             _showSettings = !_showSettings;
             _settingsCanvas.SetActive(_showSettings);
             if (_showSettings) CloseMenu();

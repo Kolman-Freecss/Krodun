@@ -2,24 +2,12 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager Instance { get; set; }
+    public static SoundManager Instance { get; private set; }
 
     [Range(0, 100)] public float EffectsAudioVolume = 50f;
     [Range(0, 100)] public float MusicAudioVolume = 50f;
-
-
-    public static SoundManager instance
-    {
-        get
-        {
-            if (Instance == null)
-            {
-                Instance = FindObjectOfType<SoundManager>();
-            }
-
-            return Instance;
-        }
-    }
+    
+    public AudioClip ButtonClickSound;
 
     private void Awake()
     {
