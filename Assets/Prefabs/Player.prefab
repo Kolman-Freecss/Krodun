@@ -177,7 +177,7 @@ MonoBehaviour:
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  LandingAudioClip: {fileID: 0}
+  LandingAudioClip: {fileID: 8300000, guid: 9be63439d338b1b4ab0dde7030885b3a, type: 3}
   FootstepAudioClips:
   - {fileID: 8300000, guid: c025c43d1749af5469c7dd8af13e162f, type: 3}
   RunAudioClip: {fileID: 8300000, guid: 69a1cba5022b43b478202d9b934c61bb, type: 3}
@@ -331,28 +331,22 @@ MonoBehaviour:
   TransitionStateInfoList:
   - Layer: 0
     OriginatingState: -601574123
-    DestinationState: -1481439722
-    TransitionDuration: 0
-    TriggerNameHash: 125937960
-    TransitionIndex: 2
-  - Layer: 0
-    OriginatingState: -601574123
     DestinationState: -1238576965
     TransitionDuration: 0.25
     TriggerNameHash: 1331344109
-    TransitionIndex: 4
+    TransitionIndex: 3
   - Layer: 0
     OriginatingState: -601574123
     DestinationState: 790987009
     TransitionDuration: 0.25
     TriggerNameHash: -699145385
-    TransitionIndex: 5
+    TransitionIndex: 4
   - Layer: 0
     OriginatingState: -601574123
     DestinationState: 1523721793
     TransitionDuration: 0.25
     TriggerNameHash: 1654612129
-    TransitionIndex: 6
+    TransitionIndex: 5
   m_Animator: {fileID: 8513965869898875974}
 --- !u!1001 &464685576659718819
 PrefabInstance:

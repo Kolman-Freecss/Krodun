@@ -575,7 +575,8 @@ namespace Kolman_Freecss.Krodun
             }
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(RunAudioClip, transform.TransformPoint(_controller.center), SoundManager.Instance.EffectsAudioVolume);
+                var index = Random.Range(0, FootstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), SoundManager.Instance.EffectsAudioVolume);
             }
         }
 
