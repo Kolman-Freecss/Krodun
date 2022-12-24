@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Kolman_Freecss.Krodun
 {
     public class MainMenuManager : MonoBehaviour
     {
+        public TextMeshProUGUI version;
+        
         private GameObject _multiplayerCanvas;
         private float _delayTimeToStart = 3f; 
         private string _gameSceneName = "Kolman";
@@ -25,6 +28,7 @@ namespace Kolman_Freecss.Krodun
         private void Start()
         {
             _multiplayerCanvas.SetActive(false);
+            version.text = "Version: v" + Application.version;
         }
 
         public void OnApplicationQuit()
