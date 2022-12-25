@@ -35,7 +35,10 @@ namespace Kolman_Freecss.Krodun
                 startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
                 OnClientConnected(NetworkManager.Singleton.LocalClientId);
             }
-
+            else
+            {
+                UpdateScreen();
+            }
         }
 
         public override void OnNetworkDespawn()
@@ -54,7 +57,6 @@ namespace Kolman_Freecss.Krodun
             if (_playersReady.ContainsKey(obj))
             {
                 Destroy(_playersReady[obj]);
-                _playersReady[obj].GetComponent<NetworkObject>().Despawn();
                 _playersReady.Remove(obj);
                 ConnectionManager.Instance.RemovePlayer(obj);
             }
@@ -75,7 +77,6 @@ namespace Kolman_Freecss.Krodun
             // Get the State child of the playerLobby
             TextMeshProUGUI playerReady = playerLobby.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             playerReady.text = "Not Ready";
-            //playerLobby.GetComponent<NetworkObject>().Spawn();
             _playersReady.Add(player.Id, playerLobby);
             CheckAllPlayersReady();
         }
@@ -142,6 +143,26 @@ namespace Kolman_Freecss.Krodun
             {
                 CheckAllPlayersReady();
                 UpdateUsersForLobby(clientId);
+            }
+            UpdateScreenClientRpc();
+        }
+        
+        [ClientRpc]
+        private void UpdateScreenClientRpc()
+        {
+            if (IsServer) return;
+
+            UpdateScreen();
+        }
+
+        private void UpdateScreen()
+        {
+            foreach (KeyValuePair<ulong, GameObject> pUI in _playersReady)
+            {
+                Player player = ConnectionManager.Instance.PlayersInGame[pUI.Key];
+                // Get the State child of the playerLobby
+                TextMeshProUGUI playerReady = pUI.Value.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                playerReady.text = player.IsReady ? "Ready" : "Not Ready";
             }
         }
         

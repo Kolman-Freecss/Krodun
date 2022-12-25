@@ -904,7 +904,6 @@ GameObject:
   - component: {fileID: 666636156}
   - component: {fileID: 666636158}
   - component: {fileID: 666636157}
-  - component: {fileID: 666636159}
   m_Layer: 0
   m_Name: LobbyPlayers
   m_TagString: Untagged
@@ -971,22 +970,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666636155}
   m_CullTransparentMesh: 1
---- !u!114 &666636159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666636155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4035575458
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &978179488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1344,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1359528540}
   - component: {fileID: 1359528541}
-  - component: {fileID: 1359528542}
   m_Layer: 0
   m_Name: PlayersInLobbyWrapper
   m_TagString: Untagged
@@ -1415,22 +1397,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1359528542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359528539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2456317324
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &1426210730
 PrefabInstance:
   m_ObjectHideFlags: 0

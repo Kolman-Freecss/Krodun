@@ -11,7 +11,7 @@
         public Player(ulong clientId, string playerName)
         {
             this.Id = clientId;
-            this.Name = playerName;
+            this.Name = playerName != null && playerName.Length > 0 ? playerName : "Player_" + clientId;
             this.IsReady = false;
         }
 
