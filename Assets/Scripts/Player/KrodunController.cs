@@ -3,6 +3,7 @@ using Cinemachine;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
+using Model;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -177,13 +178,13 @@ namespace Kolman_Freecss.Krodun
 
         // This is called when a client connects to the server
         // Invoked when a client has loaded this scene
-        private void ClientLoadedScene(ulong clientId)
+        private void ClientLoadedGameScene(ulong clientId)
         {
             if (IsServer)
             {
                 if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
                 {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, new Player(clientId));
                 }
                 ClientRpcParams clientRpcParams = new ClientRpcParams
                 {
@@ -266,7 +267,7 @@ namespace Kolman_Freecss.Krodun
         private void RegisterServerCallbacks()
         {
             //Server will be notified when a client connects
-            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
             /*SceneTransitionHandler.sceneTransitionHandler.OnSceneStateChanged += CheckInGame;*/
         }
 

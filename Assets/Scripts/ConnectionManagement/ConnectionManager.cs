@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Model;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         private MainMenuManager _mainMenuManager;
         
         private string _gameSceneName = "Kolman";
-        public Dictionary<ulong, bool> PlayersInGame = new Dictionary<ulong, bool>();
+        private string _lobbySceneName = "MultiplayerLobby";
+        public Dictionary<ulong, Player> PlayersInGame = new Dictionary<ulong, Player>();
 
         private void Awake()
         {
@@ -44,8 +46,9 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
                 if (NetworkManager.Singleton.StartHost())
                 {
-                    SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
-                    SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
+                    PlayersInGame.Add(NetworkManager.Singleton.LocalClientId, new Player(NetworkManager.Singleton.LocalClientId, playerName));
+                    // SceneTransitionHandler.sceneTransitionHandler.RegisterGameCallbacks();
+                    SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_lobbySceneName);
                     Debug.Log("Host started");
                 }
                 else
@@ -77,6 +80,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
                 if (NetworkManager.Singleton.StartClient())
                 {
+                    PlayersInGame.Add(NetworkManager.Singleton.LocalClientId, new Player(NetworkManager.Singleton.LocalClientId, playerName));
                     Debug.Log("Client started");
                 }
                 else
@@ -88,6 +92,11 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             {
                 Console.WriteLine(e);
             }
+        }
+
+        public void RemovePlayer(ulong clientId)
+        {
+            this.PlayersInGame.Remove(clientId);
         }
     }
 }

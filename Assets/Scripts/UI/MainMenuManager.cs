@@ -61,7 +61,7 @@ namespace Kolman_Freecss.Krodun
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData("127.0.0.1", (ushort) 6666);
             if (NetworkManager.Singleton.StartHost())
             {
-                SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
+                SceneTransitionHandler.sceneTransitionHandler.RegisterGameCallbacks();
                 SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
                 Debug.Log("Host started");
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
+using Model;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -72,12 +73,12 @@ namespace Kolman_Freecss.Krodun
             {
                 //Server will be notified when a client connects
                 NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
-                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
             }
             
         }
         
-        private void ClientLoadedScene(ulong clientId)
+        private void ClientLoadedGameScene(ulong clientId)
         {
             if (IsServer)
             {
@@ -128,7 +129,7 @@ namespace Kolman_Freecss.Krodun
             {
                 if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
                 {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, false);
+                    ConnectionManager.Instance.PlayersInGame.Add(clientId, new Player(clientId));
                 }
             }
         }

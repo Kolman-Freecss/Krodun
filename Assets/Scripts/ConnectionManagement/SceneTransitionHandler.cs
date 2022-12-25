@@ -14,7 +14,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         [HideInInspector]
         public delegate void ClientLoadedSceneDelegateHandler(ulong clientId);
         [HideInInspector]
-        public event ClientLoadedSceneDelegateHandler OnClientLoadedScene;
+        public event ClientLoadedSceneDelegateHandler OnClientLoadedGameScene;
         
         [HideInInspector]
         public delegate void SceneStateChangedDelegateHandler(SceneStates newState);
@@ -84,12 +84,12 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         public void ExitAndLoadStartMenu()
         {
             NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnLoadComplete;
-            OnClientLoadedScene = null;
+            OnClientLoadedGameScene = null;
             SetSceneState(SceneStates.Start);
             SceneManager.LoadScene(1);
         }
         
-        public void RegisterCallbacks()
+        public void RegisterGameCallbacks()
         {
             NetworkManager.Singleton.SceneManager.OnLoadComplete += OnLoadComplete;
         }
@@ -97,7 +97,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
         {
             m_numberOfClientLoaded += 1;
-            OnClientLoadedScene?.Invoke(clientId);
+            OnClientLoadedGameScene?.Invoke(clientId);
         }
         
         public void SwitchScene(string scenename)

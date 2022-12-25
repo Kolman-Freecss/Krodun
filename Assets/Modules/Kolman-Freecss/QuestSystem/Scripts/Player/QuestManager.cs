@@ -67,7 +67,7 @@ namespace Kolman_Freecss.QuestSystem
 
         private void SubscribeToDelegatesAndUpdateValues()
         {
-            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedScene += ClientLoadedScene;
+            SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
             OnQuestObjectiveEvent += OnQuestObjectiveHandleServerRpc;
         }
         
@@ -83,7 +83,7 @@ namespace Kolman_Freecss.QuestSystem
             CurrentStory.CurrentQuest.Status = newState.Status;
         }
         
-        private void ClientLoadedScene(ulong clientId)
+        private void ClientLoadedGameScene(ulong clientId)
         {
             if (!IsServer) return;
             
