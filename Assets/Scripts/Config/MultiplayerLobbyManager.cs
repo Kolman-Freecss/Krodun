@@ -51,9 +51,13 @@ namespace Kolman_Freecss.Krodun
 
         private void OnClientDisconnect(ulong obj)
         {
-            _playersReady[obj].GetComponent<NetworkObject>().Despawn();
-            _playersReady.Remove(obj);
-            ConnectionManager.Instance.RemovePlayer(obj);
+            if (_playersReady.ContainsKey(obj))
+            {
+                Destroy(_playersReady[obj]);
+                _playersReady[obj].GetComponent<NetworkObject>().Despawn();
+                _playersReady.Remove(obj);
+                ConnectionManager.Instance.RemovePlayer(obj);
+            }
         }
 
         private void OnClientConnected(ulong obj)
@@ -71,7 +75,7 @@ namespace Kolman_Freecss.Krodun
             // Get the State child of the playerLobby
             TextMeshProUGUI playerReady = playerLobby.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             playerReady.text = "Not Ready";
-            playerLobby.GetComponent<NetworkObject>().Spawn();
+            //playerLobby.GetComponent<NetworkObject>().Spawn();
             _playersReady.Add(player.Id, playerLobby);
             CheckAllPlayersReady();
         }
@@ -112,15 +116,22 @@ namespace Kolman_Freecss.Krodun
                 {
                     if (!player.Value.IsReady)
                     {
-                        startGameButton.interactable = false;
-                        startGameButton. GetComponent<CanvasGroup>().alpha = 0.5f;
-                        startGameButton. GetComponent<CanvasGroup>().interactable = false;
-                        startGameButton. GetComponent<CanvasGroup>().blocksRaycasts = false;
+                        DisableStartButton();
                         return false;
                     }
                 }
+                return true;
             }
-            return true;
+            DisableStartButton();
+            return false;
+        }
+
+        public void DisableStartButton()
+        {
+            startGameButton.interactable = false;
+            startGameButton. GetComponent<CanvasGroup>().alpha = 0.5f;
+            startGameButton. GetComponent<CanvasGroup>().interactable = false;
+            startGameButton. GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -129,7 +140,6 @@ namespace Kolman_Freecss.Krodun
             var clientId = serverRpcParams.Receive.SenderClientId;
             if (_playersReady.ContainsKey(clientId))
             {
-                ConnectionManager.Instance.PlayersInGame[clientId].IsReady = true;
                 CheckAllPlayersReady();
                 UpdateUsersForLobby(clientId);
             }
