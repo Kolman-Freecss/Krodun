@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Model;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -43,7 +41,14 @@ namespace Kolman_Freecss.Krodun
                 startGameButton.GetComponent<CanvasGroup>().interactable = true;
                 startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
-            
+            PlayersInGame.OnListChanged += OnPlayersInGameChanged;
+        }
+
+        private void OnPlayersInGameChanged(NetworkListEvent<Player> e)
+        {
+            GenerateScreen();
+            UpdateScreen();
+            CheckAllPlayersReadyServerRpc();
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -81,8 +86,6 @@ namespace Kolman_Freecss.Krodun
         public void OnClientLoadScene(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
         {
             AddPlayerToLobbyServerRpc(clientId);
-            GenerateScreenClientRpc();
-            UpdateScreenClientRpc();
         }
 
         private void GenerateUserForLobby(Player player)
@@ -171,7 +174,7 @@ namespace Kolman_Freecss.Krodun
             if (_playersReady.ContainsKey(clientId))
             {
                 ClickReadyHandle(clientId);
-                UpdateScreenClientRpc();
+                //UpdateScreenClientRpc();
             }
         }
         
@@ -185,16 +188,9 @@ namespace Kolman_Freecss.Krodun
             this.startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         
-        [ClientRpc]
-        private void GenerateScreenClientRpc()
+        private void GenerateScreen()
         {
             GenerateAllUsersForLobby();
-        }
-        
-        [ClientRpc]
-        private void UpdateScreenClientRpc()
-        {
-            UpdateScreen();
         }
         
         private void UpdateScreen()
