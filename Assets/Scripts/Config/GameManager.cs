@@ -125,13 +125,21 @@ namespace Kolman_Freecss.Krodun
         private void OnClientConnectedCallback(ulong clientId)
         {
             Debug.Log($"Client {clientId} connected");
-            if (IsServer)
+            /*if (IsServer)
             {
-                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                // Find if the client is already in the list PlayersInGame
+                if (ConnectionManager.Instance.PlayersInGame.IndexOf(new Player
+                    {
+                        Id = clientId
+                    }) == -1)
                 {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, new Player(clientId));
+                    // Add the client to the list PlayersInGame
+                    ConnectionManager.Instance.PlayersInGame.Add(new Player
+                    {
+                        Id = clientId
+                    });
                 }
-            }
+            }*/
         }
     }
 }

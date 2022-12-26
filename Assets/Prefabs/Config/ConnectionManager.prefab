@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1727316602624199057}
   - component: {fileID: 1727316602624199056}
+  - component: {fileID: 5644438726271119126}
   m_Layer: 0
   m_Name: ConnectionManager
   m_TagString: Untagged
@@ -44,3 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb9c354431c4d05947574c0729a6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5644438726271119126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727316602624199059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

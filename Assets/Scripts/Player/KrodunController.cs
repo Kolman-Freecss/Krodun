@@ -182,10 +182,13 @@ namespace Kolman_Freecss.Krodun
         {
             if (IsServer)
             {
-                if (!ConnectionManager.Instance.PlayersInGame.ContainsKey(clientId))
+                /*if (ConnectionManager.Instance.GetPlayer(clientId).Id == -1f)
                 {
-                    ConnectionManager.Instance.PlayersInGame.Add(clientId, new Player(clientId));
-                }
+                    ConnectionManager.Instance.PlayersInGame.Add(new Player
+                    {
+                        Id = clientId,
+                    });
+                }*/
                 ClientRpcParams clientRpcParams = new ClientRpcParams
                 {
                     Send = new ClientRpcSendParams

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Kolman_Freecss.Krodun;
 using Kolman_Freecss.QuestSystem;
+using Model;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -20,13 +21,6 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
      * 
      *******************************************************/
 
-    [Serializable]
-    public class DictionaryPair
-    {
-        public int key;
-        public NetworkObject value;
-    }
-    
     public class Inventory : NetworkBehaviour
     {
         public List<InventoryItem> characterItems = new List<InventoryItem>();  //create a new list called items                                                                             

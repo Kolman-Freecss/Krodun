@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Model;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kolman_Freecss.Krodun
@@ -22,23 +25,36 @@ namespace Kolman_Freecss.Krodun
         private int minPlayers = 2;
         private int maxPlayers = 2;
         
+        public NetworkList<Player> PlayersInGame;
         private Dictionary<ulong, GameObject> _playersReady = new Dictionary<ulong, GameObject>();
+
+        private void Awake()
+        {
+            PlayersInGame  = new NetworkList<Player>();
+        }
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
-                NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+                NetworkManager.Singleton.SceneManager.OnLoadComplete += OnClientLoadScene;
                 NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
                 startGameButton.GetComponent<CanvasGroup>().alpha = 1;
                 startGameButton.GetComponent<CanvasGroup>().interactable = true;
                 startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
-                OnClientConnected(NetworkManager.Singleton.LocalClientId);
             }
-            else
+            
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void AddPlayerToLobbyServerRpc(ulong clientId)
+        {
+            PlayersInGame.Add(new Player
             {
-                UpdateScreen();
-            }
+                Id = clientId,
+                /*playerName*/
+                IsReady = false
+            });
         }
 
         public override void OnNetworkDespawn()
@@ -47,7 +63,7 @@ namespace Kolman_Freecss.Krodun
             
             if (IsServer)
             {
-                NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+                NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
                 NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
             }
         }
@@ -58,39 +74,52 @@ namespace Kolman_Freecss.Krodun
             {
                 Destroy(_playersReady[obj]);
                 _playersReady.Remove(obj);
-                ConnectionManager.Instance.RemovePlayer(obj);
+                RemovePlayer(obj);
             }
         }
-
-        private void OnClientConnected(ulong obj)
-        {
-            Player player = ConnectionManager.Instance.PlayersInGame[obj];
-            GenerateUserForLobby(player);
-        }
         
+        public void OnClientLoadScene(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
+        {
+            AddPlayerToLobbyServerRpc(clientId);
+            GenerateScreenClientRpc();
+            UpdateScreenClientRpc();
+        }
+
         private void GenerateUserForLobby(Player player)
         {
             GameObject playerLobby = Instantiate(playerInLobbyPrefab, playersInLobbyWrapper.transform);
             // Get the Name child of the playerLobby
             TextMeshProUGUI playerName = playerLobby.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            playerName.text = player.Name;
+            playerName.text = "Player_" + player.Id;
             // Get the State child of the playerLobby
             TextMeshProUGUI playerReady = playerLobby.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             playerReady.text = "Not Ready";
             _playersReady.Add(player.Id, playerLobby);
-            CheckAllPlayersReady();
+            if (IsHost)
+                CheckAllPlayersReadyServerRpc();
+        }
+
+        private void GenerateAllUsersForLobby()
+        {
+            foreach (Player player in PlayersInGame)
+            {
+                if (_playersReady.ContainsKey(player.Id))
+                    continue;
+                GenerateUserForLobby(player);
+            }
         }
         
-        private void UpdateUsersForLobby(ulong clientId)
+        private void ClickReadyHandle(ulong clientId)
         {
             GameObject playerLobby = _playersReady[clientId];
             // Get the State child of the playerLobby
             TextMeshProUGUI playerReady = playerLobby.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            Player player = ConnectionManager.Instance.PlayersInGame[clientId];
+            Player player = GetPlayer(clientId);
             player.IsReady = !player.IsReady;
+            SetPlayer(player);
             playerReady.text = player.IsReady ? "Ready" : "Not Ready";
         }
-
+        
         public void OnReadyButton()
         {
             SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
@@ -102,7 +131,7 @@ namespace Kolman_Freecss.Krodun
             SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             if (!CheckAllPlayersReady()) return;
 
-            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
             SceneTransitionHandler.sceneTransitionHandler.RegisterGameCallbacks();
             //Transition to the ingame scene
@@ -111,11 +140,11 @@ namespace Kolman_Freecss.Krodun
 
         private bool CheckAllPlayersReady()
         {
-            if (ConnectionManager.Instance.PlayersInGame.Count >= minPlayers)
+            if (PlayersInGame.Count >= minPlayers)
             {
-                foreach (KeyValuePair<ulong, Player> player in ConnectionManager.Instance.PlayersInGame)
+                foreach (Player player in PlayersInGame)
                 {
-                    if (!player.Value.IsReady)
+                    if (!player.IsReady)
                     {
                         DisableStartButton();
                         return false;
@@ -130,9 +159,9 @@ namespace Kolman_Freecss.Krodun
         public void DisableStartButton()
         {
             startGameButton.interactable = false;
-            startGameButton. GetComponent<CanvasGroup>().alpha = 0.5f;
-            startGameButton. GetComponent<CanvasGroup>().interactable = false;
-            startGameButton. GetComponent<CanvasGroup>().blocksRaycasts = false;
+            startGameButton.GetComponent<CanvasGroup>().alpha = 0.5f;
+            startGameButton.GetComponent<CanvasGroup>().interactable = false;
+            startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -141,25 +170,38 @@ namespace Kolman_Freecss.Krodun
             var clientId = serverRpcParams.Receive.SenderClientId;
             if (_playersReady.ContainsKey(clientId))
             {
-                CheckAllPlayersReady();
-                UpdateUsersForLobby(clientId);
+                ClickReadyHandle(clientId);
+                UpdateScreenClientRpc();
             }
-            UpdateScreenClientRpc();
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void CheckAllPlayersReadyServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            if (!CheckAllPlayersReady()) return;
+            this.startGameButton.interactable = true;
+            this.startGameButton.GetComponent<CanvasGroup>().alpha = 1;
+            this.startGameButton.GetComponent<CanvasGroup>().interactable = true;
+            this.startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+        
+        [ClientRpc]
+        private void GenerateScreenClientRpc()
+        {
+            GenerateAllUsersForLobby();
         }
         
         [ClientRpc]
         private void UpdateScreenClientRpc()
         {
-            if (IsServer) return;
-
             UpdateScreen();
         }
-
+        
         private void UpdateScreen()
         {
             foreach (KeyValuePair<ulong, GameObject> pUI in _playersReady)
             {
-                Player player = ConnectionManager.Instance.PlayersInGame[pUI.Key];
+                Player player = GetPlayer(pUI.Key);
                 // Get the State child of the playerLobby
                 TextMeshProUGUI playerReady = pUI.Value.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 playerReady.text = player.IsReady ? "Ready" : "Not Ready";
@@ -171,17 +213,16 @@ namespace Kolman_Freecss.Krodun
             SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             if (IsServer)
             {
-                NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
                 NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
                 // Close the server
                 NetworkManager.Singleton.Shutdown();
+                //SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_mainMenuScene);
             }
             else
             {
                 // Disconnect from the server
                 ClientDisconnectServerRpc();
             }
-            SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_mainMenuScene);
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -191,6 +232,45 @@ namespace Kolman_Freecss.Krodun
             if (_playersReady.ContainsKey(clientId))
             {
                 NetworkManager.Singleton.DisconnectClient(clientId);
+            }
+        }
+        
+        public void RemovePlayer(ulong clientId)
+        {
+            // Remove player from list
+            PlayersInGame.Remove(new Player
+            {
+                Id = clientId
+            });
+        }
+
+        public Player GetPlayer(ulong clientId)
+        {
+            int index = PlayersInGame.IndexOf(new Player
+            {
+                Id = clientId
+            });
+            if (index != -1)
+            {
+                Player player = PlayersInGame[index];
+                return player;
+            }
+
+            return new Player()
+            {
+                Id = 615
+            };
+        }
+
+        public void SetPlayer(Player player)
+        {
+            int index = PlayersInGame.IndexOf(new Player
+            {
+                Id = player.Id
+            });
+            if (index != -1)
+            {
+                PlayersInGame[index] = player;
             }
         }
     }

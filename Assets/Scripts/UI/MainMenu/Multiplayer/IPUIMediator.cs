@@ -11,7 +11,7 @@ namespace Kolman_Freecss.Krodun
         
         public const int DefaultPort = 9998;
         public int Port => DefaultPort;
-        public string playerName = "Player";
+        public string playerName = "";
         
         IPJoinUI _joinUI;
         IPHostUI _hostUI;
