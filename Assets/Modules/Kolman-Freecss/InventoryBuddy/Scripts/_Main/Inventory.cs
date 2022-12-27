@@ -42,7 +42,7 @@ namespace Ragnarok //this creates a namespace for all of the Ragnarok scripts so
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
         
-        private void OnGameStarted(bool isLoaded)
+        private void OnGameStarted(bool isLoaded, ulong clientId)
         {
             if (inventoryDisplay == null && isLoaded)
             {

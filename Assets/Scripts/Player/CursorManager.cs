@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.Design.Serialization;
+using System.Linq;
 using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
@@ -38,11 +39,12 @@ namespace Kolman_Freecss.Krodun
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
 
-        public void OnGameStarted(bool isLoaded)
+        public void OnGameStarted(bool isLoaded, ulong clientId)
         {
             if (isLoaded)
             {
-                _krodunController = FindObjectOfType<KrodunController>();
+                // Get the Object KrodunController that have the clientId
+                _krodunController = FindObjectsOfType<KrodunController>().FirstOrDefault(k => k.OwnerClientId == clientId);
                 _questNotStartedCanvas = GameObject.Find("QuestNotStartedCanvas");
                 _questStartedCanvas = GameObject.Find("QuestStartedCanvas");
                 _questCompletedCanvas = GameObject.Find("QuestCompletedCanvas");

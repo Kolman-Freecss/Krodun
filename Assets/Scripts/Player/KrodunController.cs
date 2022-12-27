@@ -91,6 +91,7 @@ namespace Kolman_Freecss.Krodun
         private float _cinemachineTargetPitch;
 
         // player
+        public ulong clientId = 655;
         private float _speed;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
@@ -217,14 +218,15 @@ namespace Kolman_Freecss.Krodun
         {
             Debug.Log("------------------SENT Client Init Awake Data------------------");
             Debug.Log("Client Id -> " + clientId);
-            AwakeData();
+            AwakeData(clientId);
         }
 
         /*
          * AwakeData is invoked for every client that has loaded the scene.
          */
-        public void AwakeData()
+        public void AwakeData(ulong cId)
         {
+            this.clientId = 655;
             if (!IsLocalPlayer || !IsOwner)
             {
                 GetComponent<PlayerInput>().enabled = false;
@@ -234,6 +236,7 @@ namespace Kolman_Freecss.Krodun
             if (GameManager.Instance.isGameStarted.Value)
             {
                 _gameLoaded = true;
+                this.clientId = cId;
             }
             enabled = true;
             // get a reference to our main camera

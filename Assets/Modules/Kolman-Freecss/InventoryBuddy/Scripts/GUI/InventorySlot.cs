@@ -26,7 +26,7 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
         GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
     }
     
-    private void OnGameStarted(bool isLoaded)
+    private void OnGameStarted(bool isLoaded, ulong clientId)
     {
         Debug.Log("InventorySlot OnGameStarted");
         if (isLoaded)

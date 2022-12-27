@@ -1,3 +1,5 @@
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +42,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (_krodunController == null)
             {
-                _krodunController = FindObjectOfType<KrodunController>();
+                _krodunController = FindObjectsOfType<KrodunController>().FirstOrDefault(k => k.OwnerClientId == NetworkManager.Singleton.LocalClientId);
             }
 
             _musicSlider.value = SoundManager.Instance.MusicAudioVolume;

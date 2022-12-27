@@ -23,7 +23,7 @@ namespace Kolman_Freecss.Krodun
             NetworkVariableWritePermission.Server);
         
         [HideInInspector]
-        public delegate void IsSceneLoadedDelegateHandler(bool isLoaded);
+        public delegate void IsSceneLoadedDelegateHandler(bool isLoaded, ulong clientId);
         
         [HideInInspector]
         public event IsSceneLoadedDelegateHandler OnSceneLoadedChanged;
@@ -100,7 +100,7 @@ namespace Kolman_Freecss.Krodun
             /*if (IsOwner) return;*/
             Debug.Log("------------------SENT Client Loaded Scene------------------");
             Debug.Log("Client Id -> " + clientId);
-            OnSceneLoadedChanged?.Invoke(true);
+            OnSceneLoadedChanged?.Invoke(true, clientId);
             isSceneLoadedValue = true;
             StartGame();
         }

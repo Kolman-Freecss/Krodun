@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Kolman_Freecss.Krodun;
 using Unity.Netcode;
 using UnityEngine;
@@ -85,11 +86,11 @@ namespace Kolman_Freecss.QuestSystem
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
         
-        public void OnGameStarted(bool isLoaded)
+        public void OnGameStarted(bool isLoaded, ulong clientId)
         {
             if (isLoaded)
             {
-                _player = FindObjectOfType<KrodunController>();
+                _player = FindObjectsOfType<KrodunController>().FirstOrDefault(k => k.OwnerClientId == clientId);
             }
         }
         

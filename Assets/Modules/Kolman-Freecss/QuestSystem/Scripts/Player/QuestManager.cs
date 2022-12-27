@@ -174,7 +174,8 @@ namespace Kolman_Freecss.QuestSystem
             CurrentStory = Stories[0];
             CurrentStory.StartStory();
             // TODO : Change it to go like an event this refresh
-            RefreshQuestGivers();
+            if (IsHost)
+                RefreshQuestGivers();
         }
 
         #endregion

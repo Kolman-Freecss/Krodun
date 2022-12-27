@@ -20,7 +20,7 @@ namespace Kolman_Freecss.Krodun
         private string _gameSceneName = "Kolman";
         private string _mainMenuScene = "MainMenu";
 
-        private int minPlayers = 2;
+        private int minPlayers = 1;
         private int maxPlayers = 2;
         
         public NetworkList<Player> PlayersInGame;
@@ -212,7 +212,7 @@ namespace Kolman_Freecss.Krodun
                 NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
                 // Close the server
                 NetworkManager.Singleton.Shutdown();
-                //SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_mainMenuScene);
+                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_mainMenuScene);
             }
             else
             {

@@ -68,7 +68,7 @@ namespace Kolman_Freecss.Krodun
             NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
         }
         
-        public void OnGameStarted(bool isLoaded)
+        public void OnGameStarted(bool isLoaded, ulong clientId)
         {
             if (isLoaded)
             {

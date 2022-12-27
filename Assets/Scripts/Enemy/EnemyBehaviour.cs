@@ -53,7 +53,7 @@ namespace Kolman_Freecss.Krodun
             GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
         
-        public void OnGameStarted(bool isLoaded)
+        public void OnGameStarted(bool isLoaded, ulong clientId)
         {
             if (isLoaded)
             {
