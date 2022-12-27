@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -12,6 +15,7 @@ namespace Kolman_Freecss.Krodun
         public const int DefaultPort = 9998;
         public int Port => DefaultPort;
         public string playerName = "";
+        public TMP_InputField playerNameText; 
         
         IPJoinUI _joinUI;
         IPHostUI _hostUI;
@@ -56,7 +60,8 @@ namespace Kolman_Freecss.Krodun
             }
             
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
-            
+            // Get the player name from the input field
+            playerName = string.IsNullOrEmpty(playerNameText.text) ? "Player_" + NetworkManager.Singleton.LocalClientId : playerNameText.text;
             ConnectionManager.Instance.StartClient(playerName, ip, portInt);
             
         }
@@ -71,6 +76,8 @@ namespace Kolman_Freecss.Krodun
 
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             
+            // Get the player name from the input field
+            playerName = string.IsNullOrEmpty(playerNameText.text) ? "Player_" + NetworkManager.Singleton.LocalClientId  : playerNameText.text;
             ConnectionManager.Instance.StartHost(playerName, ip, portInt);
             
         }

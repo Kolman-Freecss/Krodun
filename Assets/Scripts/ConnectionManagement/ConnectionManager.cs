@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Kolman_Freecss.QuestSystem;
 using Model;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -16,6 +14,9 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         private string _gameSceneName = "Kolman";
         private string _lobbySceneName = "MultiplayerLobby";
 
+        public NetworkList<Player> PlayersInGame;
+        public string PlayerName;
+
         private void Awake()
         {
             ManageSingleton();
@@ -23,6 +24,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             {
                 _mainMenuManager = FindObjectOfType<MainMenuManager>();
             }
+            PlayersInGame  = new NetworkList<Player>();
         }
         
         private void ManageSingleton()
@@ -44,6 +46,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             try
             {
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+                PlayerName = playerName;
                 if (NetworkManager.Singleton.StartHost())
                 {
                     // SceneTransitionHandler.sceneTransitionHandler.RegisterGameCallbacks();
@@ -77,6 +80,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             try
             {
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ipAddress, (ushort) port);
+                PlayerName = playerName;
                 if (NetworkManager.Singleton.StartClient())
                 {
                     Debug.Log("Client started");
@@ -91,31 +95,5 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 Console.WriteLine(e);
             }
         }
-
-        /*public void RemovePlayer(ulong clientId)
-        {
-            // Remove player from list
-            PlayersInGame.Remove(new Player
-            {
-                Id = clientId
-            });
-        }
-        
-        public Player GetPlayer(ulong clientId)
-        {
-            int index = ConnectionManager.Instance.PlayersInGame.IndexOf(new Player
-            {
-                Id = clientId
-            });
-            if (index != -1)
-            {
-                Player player = ConnectionManager.Instance.PlayersInGame[index];
-                return player;
-            }
-            return new Player()
-            {
-                Id = -1f
-            };
-        }*/
     }
 }

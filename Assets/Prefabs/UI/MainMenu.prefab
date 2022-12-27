@@ -1191,6 +1191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player
+  playerNameText: {fileID: 6426530546737325491}
 --- !u!1 &3587212492650869956
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,3 +3464,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5113602363245478329, guid: 5bff4cf3c95887c47b76dbffd26135cf, type: 3}
   m_PrefabInstance: {fileID: 9133111887506512213}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6426530546737325491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2851002473601088742, guid: 5bff4cf3c95887c47b76dbffd26135cf, type: 3}
+  m_PrefabInstance: {fileID: 9133111887506512213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

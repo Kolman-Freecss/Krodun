@@ -2,6 +2,7 @@
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Model;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,13 +24,7 @@ namespace Kolman_Freecss.Krodun
         private int minPlayers = 1;
         private int maxPlayers = 2;
         
-        public NetworkList<Player> PlayersInGame;
         private Dictionary<ulong, GameObject> _playersReady = new Dictionary<ulong, GameObject>();
-
-        private void Awake()
-        {
-            PlayersInGame  = new NetworkList<Player>();
-        }
 
         public override void OnNetworkSpawn()
         {
@@ -41,25 +36,34 @@ namespace Kolman_Freecss.Krodun
                 startGameButton.GetComponent<CanvasGroup>().interactable = true;
                 startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
-            PlayersInGame.OnListChanged += OnPlayersInGameChanged;
+            ConnectionManager.Instance.PlayersInGame.OnListChanged += OnPlayersInGameChanged;
+            RefreshScreen();
         }
 
-        private void OnPlayersInGameChanged(NetworkListEvent<Player> e)
+        private void RefreshScreen()
         {
             GenerateScreen();
             UpdateScreen();
             CheckAllPlayersReadyServerRpc();
         }
+
+        private void OnPlayersInGameChanged(NetworkListEvent<Player> e)
+        {
+            Debug.Log("OnPlayersInGameChanged");
+            RefreshScreen();
+        }
         
         [ServerRpc(RequireOwnership = false)]
-        private void AddPlayerToLobbyServerRpc(ulong clientId)
+        private void AddPlayerToLobbyServerRpc(ulong clientId, FixedString128Bytes playerName)
         {
-            PlayersInGame.Add(new Player
-            {
-                Id = clientId,
-                /*playerName*/
-                IsReady = false
-            });
+            AddPlayer(clientId, playerName.Value);
+        }
+        
+        [ClientRpc]
+        private void AddPlayerToLobbyClientRpc(ulong clientId, ClientRpcParams clientRpcParams = default)
+        {
+            string playerName = ConnectionManager.Instance.PlayerName;
+            AddPlayerToLobbyServerRpc(clientId, playerName);
         }
 
         public override void OnNetworkDespawn()
@@ -85,7 +89,14 @@ namespace Kolman_Freecss.Krodun
         
         public void OnClientLoadScene(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
         {
-            AddPlayerToLobbyServerRpc(clientId);
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] {clientId}
+                }
+            };
+            AddPlayerToLobbyClientRpc(clientId, clientRpcParams);
         }
 
         private void GenerateUserForLobby(Player player)
@@ -93,7 +104,7 @@ namespace Kolman_Freecss.Krodun
             GameObject playerLobby = Instantiate(playerInLobbyPrefab, playersInLobbyWrapper.transform);
             // Get the Name child of the playerLobby
             TextMeshProUGUI playerName = playerLobby.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            playerName.text = "Player_" + player.Id;
+            playerName.text = player.Name.Value;
             // Get the State child of the playerLobby
             TextMeshProUGUI playerReady = playerLobby.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             playerReady.text = "Not Ready";
@@ -104,7 +115,7 @@ namespace Kolman_Freecss.Krodun
 
         private void GenerateAllUsersForLobby()
         {
-            foreach (Player player in PlayersInGame)
+            foreach (Player player in ConnectionManager.Instance.PlayersInGame)
             {
                 if (_playersReady.ContainsKey(player.Id))
                     continue;
@@ -143,9 +154,9 @@ namespace Kolman_Freecss.Krodun
 
         private bool CheckAllPlayersReady()
         {
-            if (PlayersInGame.Count >= minPlayers)
+            if (ConnectionManager.Instance.PlayersInGame.Count >= minPlayers)
             {
-                foreach (Player player in PlayersInGame)
+                foreach (Player player in ConnectionManager.Instance.PlayersInGame)
                 {
                     if (!player.IsReady)
                     {
@@ -234,7 +245,7 @@ namespace Kolman_Freecss.Krodun
         public void RemovePlayer(ulong clientId)
         {
             // Remove player from list
-            PlayersInGame.Remove(new Player
+            ConnectionManager.Instance.PlayersInGame.Remove(new Player
             {
                 Id = clientId
             });
@@ -242,13 +253,13 @@ namespace Kolman_Freecss.Krodun
 
         public Player GetPlayer(ulong clientId)
         {
-            int index = PlayersInGame.IndexOf(new Player
+            int index = ConnectionManager.Instance.PlayersInGame.IndexOf(new Player
             {
                 Id = clientId
             });
             if (index != -1)
             {
-                Player player = PlayersInGame[index];
+                Player player = ConnectionManager.Instance.PlayersInGame[index];
                 return player;
             }
 
@@ -260,14 +271,25 @@ namespace Kolman_Freecss.Krodun
 
         public void SetPlayer(Player player)
         {
-            int index = PlayersInGame.IndexOf(new Player
+            int index = ConnectionManager.Instance.PlayersInGame.IndexOf(new Player
             {
                 Id = player.Id
             });
             if (index != -1)
             {
-                PlayersInGame[index] = player;
+                ConnectionManager.Instance.PlayersInGame[index] = player;
             }
+        }
+
+        public void AddPlayer(ulong clientId, string playerName)
+        {
+            Player player = new Player
+            {
+                Id = clientId,
+                Name = playerName,
+                IsReady = false
+            };
+            ConnectionManager.Instance.PlayersInGame.Add(player);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Collections;
 using Unity.Netcode;
 
 namespace Model
@@ -19,7 +20,7 @@ namespace Model
         }*/
 
         public ulong Id;
-        /*public StringContainer Name;*/
+        public FixedString128Bytes Name;
         public bool IsConnected;
         public bool IsReady;
         
@@ -29,6 +30,7 @@ namespace Model
             {
                 var reader = serializer.GetFastBufferReader();
                 reader.ReadValueSafe(out Id);
+                reader.ReadValueSafe(out Name);
                 reader.ReadValueSafe(out IsConnected);
                 reader.ReadValueSafe(out IsReady);
             }
@@ -36,6 +38,7 @@ namespace Model
             {
                 var writer = serializer.GetFastBufferWriter();
                 writer.WriteValueSafe(Id);
+                writer.WriteValueSafe(Name);
                 writer.WriteValueSafe(IsConnected);
                 writer.WriteValueSafe(IsReady);
             }
