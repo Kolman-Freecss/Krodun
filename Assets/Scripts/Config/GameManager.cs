@@ -50,6 +50,7 @@ namespace Kolman_Freecss.Krodun
                 else
                     SubscribeToDelegatesAndUpdateValues();
             }
+            
         }
         
         private void OnGameOver(bool oldValue, bool newValue)
@@ -57,17 +58,17 @@ namespace Kolman_Freecss.Krodun
             if (newValue)
             {
                 Debug.Log("Game Over");
-                if (NetworkManager.Singleton.IsConnectedClient)
+                if (IsServer)
                 {
-                    NetworkManager.Shutdown();
-                    if (IsServer)
+                    NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
+                    SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene -= ClientLoadedGameScene;
+                    /*foreach (Player player in ConnectionManager.Instance.PlayersInGame)
                     {
-                        foreach (Player player in ConnectionManager.Instance.PlayersInGame)
-                        {
-                            NetworkManager.Singleton.DisconnectClient(player.Id);
-                        }
-                    }
+                        NetworkManager.Singleton.DisconnectClient(player.Id);
+                    }*/
                 }
+                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
+                NetworkManager.Shutdown();
                 SceneManager.LoadScene("GameOver");
             }
         }
@@ -98,6 +99,7 @@ namespace Kolman_Freecss.Krodun
                 SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
             }
             
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
         }
         
         private void ClientLoadedGameScene(ulong clientId)
@@ -162,6 +164,16 @@ namespace Kolman_Freecss.Krodun
                     });
                 }
             }*/
+        }
+
+        private void OnClientDisconnect(ulong clientId)
+        {
+            Debug.Log($"Client {clientId} disconnected");
+            if (!IsServer && (clientId == NetworkManager.Singleton.LocalClientId || NetworkManager.Singleton.NetworkConfig.NetworkTransport.ServerClientId == clientId))
+            {
+                Debug.Log("Server shutdowns");
+                NetworkManager.Singleton.Shutdown();
+            } 
         }
     }
 }

@@ -135,6 +135,18 @@ namespace Kolman_Freecss.Krodun
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
         }
+        
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            NetworkObject networkObject = GetComponent<NetworkObject>();
+            if (networkObject != null)
+            {
+                if (networkObject.IsSpawned)
+                    networkObject.Despawn();
+            }
+        }
 
         #region ###### Abstract Methods ######
         

@@ -266,16 +266,6 @@ namespace Kolman_Freecss.Krodun
             SceneManager.LoadScene(_mainMenuScene);
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        private void ClientDisconnectServerRpc(ServerRpcParams serverRpcParams = default)
-        {
-            var clientId = serverRpcParams.Receive.SenderClientId;
-            if (_playersReady.ContainsKey(clientId))
-            {
-                NetworkManager.Singleton.DisconnectClient(clientId);
-            }
-        }
-        
         public void RemovePlayer(ulong clientId)
         {
             // Remove player from list

@@ -127,6 +127,17 @@ namespace Kolman_Freecss.Krodun
         {
             return _isDead.Value;
         }
-        
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            NetworkObject networkObject = GetComponent<NetworkObject>();
+            if (networkObject != null)
+            {
+                if (networkObject.IsSpawned)
+                    networkObject.Despawn();
+            }
+        }
     }
 }

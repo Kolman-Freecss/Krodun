@@ -89,4 +89,21 @@ public class SceneItem : NetworkBehaviour
             gameObject.GetComponentsInChildren<NetworkObject>()[0].Despawn();
         }
     }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            if (networkObject.IsSpawned)
+                networkObject.Despawn();
+        } else if (gameObject.GetComponentsInChildren<NetworkObject>().Length > 0)
+        {
+            networkObject = gameObject.GetComponentsInChildren<NetworkObject>()[0];
+            if (networkObject.IsSpawned)
+                networkObject.Despawn();
+        }
+    }
 }

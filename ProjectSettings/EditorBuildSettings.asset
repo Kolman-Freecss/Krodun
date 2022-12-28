@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kolman.unity
     guid: 763f9d9ea7623794280d6e74dca2e8d3
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 5d9f8e765e943944ca532bc21e0aec69
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: db3ed55b6a44f664f9d841f6a09166a9, type: 2}

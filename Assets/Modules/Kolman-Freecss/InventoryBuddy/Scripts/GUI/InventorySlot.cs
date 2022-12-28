@@ -207,4 +207,16 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
             InventoryEvents.OnScrollInfoDeactivated();
         }
     }
+    
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+            
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            if (networkObject.IsSpawned)
+                networkObject.Despawn();
+        }
+    }
 }
