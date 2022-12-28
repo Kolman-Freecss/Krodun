@@ -61,7 +61,7 @@ namespace Kolman_Freecss.Krodun
             
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             // Get the player name from the input field
-            playerName = string.IsNullOrEmpty(playerNameText.text) ? "Player_" + NetworkManager.Singleton.LocalClientId : playerNameText.text;
+            playerName = string.IsNullOrEmpty(playerNameText.text) ? "" : playerNameText.text;
             ConnectionManager.Instance.StartClient(playerName, ip, portInt);
             
         }
@@ -77,7 +77,7 @@ namespace Kolman_Freecss.Krodun
             ip = string.IsNullOrEmpty(ip) ? DefaultIp : ip;
             
             // Get the player name from the input field
-            playerName = string.IsNullOrEmpty(playerNameText.text) ? "Player_" + NetworkManager.Singleton.LocalClientId  : playerNameText.text;
+            playerName = string.IsNullOrEmpty(playerNameText.text) ? ""  : playerNameText.text;
             ConnectionManager.Instance.StartHost(playerName, ip, portInt);
             
         }

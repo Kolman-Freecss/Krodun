@@ -5,6 +5,7 @@ using Model;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 namespace Kolman_Freecss.Krodun
 {
@@ -37,6 +38,7 @@ namespace Kolman_Freecss.Krodun
             Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
             Instance = this;
             DontDestroyOnLoad(this);
+            isGameOver.OnValueChanged += OnGameOver;
             
             OnSingletonReady?.Invoke();
             if (IsServer)
@@ -47,6 +49,26 @@ namespace Kolman_Freecss.Krodun
                     OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
                 else
                     SubscribeToDelegatesAndUpdateValues();
+            }
+        }
+        
+        private void OnGameOver(bool oldValue, bool newValue)
+        {
+            if (newValue)
+            {
+                Debug.Log("Game Over");
+                if (NetworkManager.Singleton.IsConnectedClient)
+                {
+                    NetworkManager.Shutdown();
+                    if (IsServer)
+                    {
+                        foreach (Player player in ConnectionManager.Instance.PlayersInGame)
+                        {
+                            NetworkManager.Singleton.DisconnectClient(player.Id);
+                        }
+                    }
+                }
+                SceneManager.LoadScene("GameOver");
             }
         }
         

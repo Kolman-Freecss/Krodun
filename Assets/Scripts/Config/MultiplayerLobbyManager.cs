@@ -18,25 +18,26 @@ namespace Kolman_Freecss.Krodun
         private GameObject playerInLobbyPrefab;
         [SerializeField]
         private Button startGameButton;
-        private string _gameSceneName = "Kolman";
-        private string _mainMenuScene = "MainMenu";
+        private readonly string _gameSceneName = "Kolman";
+        private readonly string _mainMenuScene = "MainMenu";
 
-        private int minPlayers = 1;
-        private int maxPlayers = 2;
+        private readonly int _minPlayers = 2;
+        private readonly int _maxPlayers = 2;
         
-        private Dictionary<ulong, GameObject> _playersReady = new Dictionary<ulong, GameObject>();
+        private Dictionary<ulong, GameObject> _playersReady;
 
         public override void OnNetworkSpawn()
         {
+            _playersReady =new Dictionary<ulong, GameObject>();
             if (IsServer)
             {
                 NetworkManager.Singleton.SceneManager.OnLoadComplete += OnClientLoadScene;
-                NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
                 startGameButton.GetComponent<CanvasGroup>().alpha = 1;
                 startGameButton.GetComponent<CanvasGroup>().interactable = true;
                 startGameButton.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
             ConnectionManager.Instance.PlayersInGame.OnListChanged += OnPlayersInGameChanged;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
             RefreshScreen();
         }
 
@@ -49,7 +50,6 @@ namespace Kolman_Freecss.Krodun
 
         private void OnPlayersInGameChanged(NetworkListEvent<Player> e)
         {
-            Debug.Log("OnPlayersInGameChanged");
             RefreshScreen();
         }
         
@@ -73,17 +73,41 @@ namespace Kolman_Freecss.Krodun
             if (IsServer)
             {
                 NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
-                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
             }
+            
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
+            ConnectionManager.Instance.PlayersInGame.OnListChanged -= OnPlayersInGameChanged;
         }
 
-        private void OnClientDisconnect(ulong obj)
+        /*public override void OnDestroy()
         {
-            if (_playersReady.ContainsKey(obj))
+            base.OnDestroy();
+            
+            if (IsServer)
             {
-                Destroy(_playersReady[obj]);
-                _playersReady.Remove(obj);
-                RemovePlayer(obj);
+                if (NetworkManager.Singleton.SceneManager != null)
+                    NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
+                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
+            }
+            
+            ConnectionManager.Instance.PlayersInGame.OnListChanged -= OnPlayersInGameChanged;
+        }*/
+
+        private void OnClientDisconnect(ulong clientId)
+        {
+            // Server disconnects client
+            if (!IsServer && (clientId == NetworkManager.Singleton.LocalClientId || NetworkManager.Singleton.NetworkConfig.NetworkTransport.ServerClientId == clientId))
+            {
+                Debug.Log("Client disconnected from server");
+                NetworkManager.Singleton.Shutdown();
+                ClientCloseSession();
+                return;
+            }
+            if (_playersReady.ContainsKey(clientId))
+            {
+                Destroy(_playersReady[clientId]);
+                _playersReady.Remove(clientId);
+                RemovePlayer(clientId);
             }
         }
         
@@ -154,7 +178,7 @@ namespace Kolman_Freecss.Krodun
 
         private bool CheckAllPlayersReady()
         {
-            if (ConnectionManager.Instance.PlayersInGame.Count >= minPlayers)
+            if (ConnectionManager.Instance.PlayersInGame.Count >= _minPlayers)
             {
                 foreach (Player player in ConnectionManager.Instance.PlayersInGame)
                 {
@@ -220,16 +244,26 @@ namespace Kolman_Freecss.Krodun
             SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
             if (IsServer)
             {
+                NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
                 NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
-                // Close the server
-                NetworkManager.Singleton.Shutdown();
-                SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_mainMenuScene);
+                /*foreach (Player player in ConnectionManager.Instance.PlayersInGame)
+                {
+                    if (player.Id == NetworkManager.Singleton.LocalClientId) continue;
+                    NetworkManager.Singleton.DisconnectClient(player.Id);
+                }*/
+                ConnectionManager.Instance.DisconnectGameServerRpc();
             }
-            else
-            {
-                // Disconnect from the server
-                ClientDisconnectServerRpc();
-            }
+            NetworkManager.Singleton.Shutdown();
+            ClientCloseSession();
+        }
+
+        /**
+         * Client process to remove any event listeners and clean up the scene and go back to the main menu
+         */
+        private void ClientCloseSession()
+        {
+            ConnectionManager.Instance.PlayersInGame.OnListChanged-= OnPlayersInGameChanged;
+            SceneManager.LoadScene(_mainMenuScene);
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -286,7 +320,7 @@ namespace Kolman_Freecss.Krodun
             Player player = new Player
             {
                 Id = clientId,
-                Name = playerName,
+                Name = string.IsNullOrEmpty(playerName) ? "Player_" + clientId  : playerName,
                 IsReady = false
             };
             ConnectionManager.Instance.PlayersInGame.Add(player);

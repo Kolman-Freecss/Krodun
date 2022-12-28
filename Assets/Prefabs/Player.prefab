@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverCanvas: {fileID: 0}
-  health: 1000
+  health: 120
   damage: 20
 --- !u!114 &8513965869898875968
 MonoBehaviour:
@@ -197,6 +197,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  clientId: 655
 --- !u!114 &8513965869898875969
 MonoBehaviour:
   m_ObjectHideFlags: 0

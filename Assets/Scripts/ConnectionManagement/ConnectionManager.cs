@@ -24,7 +24,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             {
                 _mainMenuManager = FindObjectOfType<MainMenuManager>();
             }
-            PlayersInGame  = new NetworkList<Player>();
+            PlayersInGame  = new NetworkList<Player>(default, NetworkVariableReadPermission.Everyone ,NetworkVariableWritePermission.Owner );
         }
         
         private void ManageSingleton()
@@ -94,6 +94,12 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             {
                 Console.WriteLine(e);
             }
+        }
+
+        [ServerRpc]
+        public void DisconnectGameServerRpc()
+        {
+            PlayersInGame.Clear();
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Kolman_Freecss.Krodun
 {
     public class PlayerBehaviour : MonoBehaviour
     {
-        [SerializeField] private Canvas gameOverCanvas;
         [SerializeField] float health = 1000f;
         public int damage = 100;
         int _experience = 0;
@@ -29,8 +28,6 @@ namespace Kolman_Freecss.Krodun
         public void Init()
         {
             _experience = 0;
-            if (gameOverCanvas != null)
-                gameOverCanvas.enabled = false;
         }
 
         public void TakeDamage(float damage)
@@ -45,10 +42,10 @@ namespace Kolman_Freecss.Krodun
         
         public void HandleDeath()
         {
-            gameOverCanvas.enabled = true;
-            Time.timeScale = 0;
+            GameManager.Instance.isGameOver.Value = true;
+            /*Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            Cursor.visible = true;*/
         }
 
         public void EventQuest(EventQuestType eventQuestType, AmountType amountType)
