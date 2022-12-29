@@ -171,9 +171,16 @@ namespace Kolman_Freecss.Krodun
 
             NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnClientLoadScene;
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
+            OnStartGameClientRpc();
             SceneTransitionHandler.sceneTransitionHandler.RegisterGameCallbacks();
             //Transition to the ingame scene
             SceneTransitionHandler.sceneTransitionHandler.SwitchScene(_gameSceneName);
+        }
+
+        [ClientRpc]
+        private void OnStartGameClientRpc()
+        {
+            ConnectionManager.Instance.PlayersInGame.OnListChanged-= OnPlayersInGameChanged;
         }
 
         private bool CheckAllPlayersReady()

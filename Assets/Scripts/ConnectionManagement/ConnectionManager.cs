@@ -17,6 +17,9 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         public NetworkList<Player> PlayersInGame;
         public string PlayerName;
 
+        public int playersInGameCount = 0;
+        public int playersInSceneCount = 0;
+
         private void Awake()
         {
             ManageSingleton();
@@ -64,10 +67,13 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
                 Console.WriteLine(e);
             }
         }
-        
-        private void LoadGame()
+
+        public void GameOver()
         {
-            NetworkManager.Singleton.SceneManager.OnSynchronize += SceneManager_LoadGame; 
+            if (IsServer)
+            {
+                NetworkManager.Singleton.Shutdown();
+            }
         }
 
         private void SceneManager_LoadGame(ulong clientId)
@@ -99,7 +105,21 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         [ServerRpc]
         public void DisconnectGameServerRpc()
         {
+            playersInGameCount = PlayersInGame.Count;
             PlayersInGame.Clear();
+        }
+        
+        public bool AllPlayersWithoutHostDisconnected()
+        {
+            return PlayersInGame.Count <= 1;
+        }
+
+        public void RemovePlayer(ulong clientId)
+        {
+            ConnectionManager.Instance.PlayersInGame.Remove(new Player
+            {
+                Id = clientId
+            });
         }
     }
 }

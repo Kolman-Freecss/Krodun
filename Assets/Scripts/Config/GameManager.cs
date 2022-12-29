@@ -3,6 +3,7 @@ using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
 using Model;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -62,15 +63,34 @@ namespace Kolman_Freecss.Krodun
                 {
                     NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
                     SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene -= ClientLoadedGameScene;
-                    /*foreach (Player player in ConnectionManager.Instance.PlayersInGame)
-                    {
-                        NetworkManager.Singleton.DisconnectClient(player.Id);
-                    }*/
+                    // foreach (Player player in ConnectionManager.Instance.PlayersInGame)
+                    // {
+                    //     if (player.Id == NetworkManager.Singleton.LocalClientId) continue;
+                    //     ClientRpcParams clientRpcParams = new ClientRpcParams
+                    //     {
+                    //         Send = new ClientRpcSendParams
+                    //         {
+                    //             TargetClientIds = new ulong[] {player.Id}
+                    //         }
+                    //     };
+                    //     GameOverClientRpc(player.Id, clientRpcParams);
+                    //     NetworkManager.Singleton.DisconnectClient(player.Id);
+                    // }
+                    //NetworkManager.Singleton.Shutdown();
+                    ConnectionManager.Instance.DisconnectGameServerRpc();
+                    SceneTransitionHandler.sceneTransitionHandler.SwitchScene("GameOver");
                 }
-                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
-                NetworkManager.Shutdown();
-                SceneManager.LoadScene("GameOver");
+                SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.GameOver);
+                //GameOverClientRpc();
             }
+        }
+
+        [ClientRpc]
+        private void GameOverClientRpc()
+        {
+            Debug.Log("Game Over Client Rpc");
+            //NetworkManager.Singleton.Shutdown();
+            SceneManager.LoadScene("GameOver");
         }
         
         private void SubscribeToDelegatesAndUpdateValues()
@@ -172,8 +192,23 @@ namespace Kolman_Freecss.Krodun
             if (!IsServer && (clientId == NetworkManager.Singleton.LocalClientId || NetworkManager.Singleton.NetworkConfig.NetworkTransport.ServerClientId == clientId))
             {
                 Debug.Log("Server shutdowns");
-                NetworkManager.Singleton.Shutdown();
+                //NetworkManager.Singleton.Shutdown();
+                if (SceneTransitionHandler.sceneTransitionHandler.GetCurrentSceneState() == SceneTransitionHandler.SceneStates.Kolman)
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
             } 
+            if (IsServer)
+            {
+                ConnectionManager.Instance.RemovePlayer(clientId);
+                Debug.Log("cLIENT Removed" + clientId);
+                if (ConnectionManager.Instance.AllPlayersWithoutHostDisconnected())
+                {
+                    Debug.Log("All players disconnected");
+                    //NetworkManager.Singleton.Shutdown();
+                }
+            }
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
         }
     }
 }

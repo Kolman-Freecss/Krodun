@@ -115,6 +115,7 @@ namespace Kolman_Freecss.Krodun
 
         protected void FaceTarget()
         {
+            if (transform == null) return;
             Vector3 direction = (_playerTarget.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);

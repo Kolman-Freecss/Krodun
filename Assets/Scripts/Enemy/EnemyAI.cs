@@ -36,10 +36,14 @@ namespace Kolman_Freecss.Krodun
             {
                 EngageTarget();
             }
-            if (_players.Any(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange))
+
+            if (transform != null)
             {
-                isProvoked = true;
-                _playerTarget = _players.First(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange);
+                if (_players.Any(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange))
+                {
+                    isProvoked = true;
+                    _playerTarget = _players.First(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange);
+                }
             }
         }
         

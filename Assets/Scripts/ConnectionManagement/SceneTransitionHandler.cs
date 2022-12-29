@@ -17,6 +17,11 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         public event ClientLoadedSceneDelegateHandler OnClientLoadedGameScene;
         
         [HideInInspector]
+        public delegate void ClientLoadedSceneCountDelegateHandler(ulong clientId);
+        [HideInInspector]
+        public event ClientLoadedSceneCountDelegateHandler OnClientLoadedGameSceneCount;
+        
+        [HideInInspector]
         public delegate void SceneStateChangedDelegateHandler(SceneStates newState);
         [HideInInspector]
         public event SceneStateChangedDelegateHandler OnSceneStateChanged;
@@ -28,7 +33,8 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
             Init,
             Start,
             Lobby,
-            Kolman
+            Kolman,
+            GameOver
         }
         
         private SceneStates m_SceneState;
@@ -96,8 +102,15 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         
         private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
         {
-            m_numberOfClientLoaded += 1;
-            OnClientLoadedGameScene?.Invoke(clientId);
+            if ("Kolman".Equals(sceneName))
+            {
+                m_numberOfClientLoaded += 1;
+                OnClientLoadedGameScene?.Invoke(clientId);
+            }
+            else
+            {
+                OnClientLoadedGameSceneCount?.Invoke(clientId);
+            }
         }
         
         public void SwitchScene(string scenename)
