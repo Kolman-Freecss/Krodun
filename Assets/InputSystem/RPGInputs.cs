@@ -5,7 +5,9 @@ namespace Kolman_Freecss.Krodun
 {
     public class RPGInputs : MonoBehaviour
     {
-        [Header("Character Input Values")] public bool action1; //Attack, fire, etc.
+        [Header("Character Input Values")] 
+        public bool action1; //Attack, fire, etc.
+        public bool action2; //Attack, fire, etc.
         public Vector2 move;
         public Vector2 look;
         public bool jump;
@@ -93,6 +95,16 @@ namespace Kolman_Freecss.Krodun
         public void Action1Input(bool newAction1State)
         {
             action1 = newAction1State;
+        }
+        
+        public void OnAction2(InputValue value)
+        {
+            Action2Input(value.isPressed);
+        }
+        
+        public void Action2Input(bool newAction2State)
+        {
+            action2 = newAction2State;
         }
         
         public void OnLeftClick(InputValue value)

@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Action2",
+                    "type": "Button",
+                    "id": "5f2f28f3-17c5-44e2-9205-0b70aedc8eee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RightClick",
                     "type": "Button",
                     "id": "10205fe5-2b40-4551-b148-f746faf189f3",
@@ -252,6 +261,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73896709-fe9a-4977-823f-eefc75b81d03",
+                    "path": "<Keyboard>/2",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Action2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

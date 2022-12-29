@@ -106,6 +106,7 @@ namespace Kolman_Freecss.Krodun
         private int _animIDWalk;
         private int _animIDRun;
         private int _animIDAttack01;
+        private int _animIDAttack02;
         private int _animIDJump;
         private int _animIDOnGround;
         private int _animIDJumpVelocity;
@@ -183,13 +184,6 @@ namespace Kolman_Freecss.Krodun
         {
             if (IsServer)
             {
-                /*if (ConnectionManager.Instance.GetPlayer(clientId).Id == -1f)
-                {
-                    ConnectionManager.Instance.PlayersInGame.Add(new Player
-                    {
-                        Id = clientId,
-                    });
-                }*/
                 ClientRpcParams clientRpcParams = new ClientRpcParams
                 {
                     Send = new ClientRpcSendParams
@@ -200,15 +194,6 @@ namespace Kolman_Freecss.Krodun
                 SendClientInitDataClientRpc(clientId, clientRpcParams);
             }
         }
-        
-        /*private void CheckInGame(SceneTransitionHandler.SceneStates state)
-        {
-            Debug.Log("CheckInGame -> We are in the game -> " + state);
-            if (state == SceneTransitionHandler.SceneStates.Kolman)
-            {
-                _gameLoaded = true;
-            }
-        }*/
         
         /*
          * This is called when a client has loaded the scene and is ready to be initialized.
@@ -325,6 +310,7 @@ namespace Kolman_Freecss.Krodun
             _animIDWalk = Animator.StringToHash("Walk");
             _animIDRun = Animator.StringToHash("Run");
             _animIDAttack01 = Animator.StringToHash("Attack01");
+            _animIDAttack02 = Animator.StringToHash("Attack02");
             _animIDJump = Animator.StringToHash("Jump");
             _animIDOnGround = Animator.StringToHash("OnGround");
             _animIDJumpVelocity = Animator.StringToHash("JumpVelocity");
@@ -334,13 +320,21 @@ namespace Kolman_Freecss.Krodun
         {
             if (_hasAnimator)
             {
-                _animator.ResetTrigger(_animIDAttack01);
+                _animator.SetBool(_animIDAttack01, false);
+                _animator.SetBool(_animIDAttack02, false);
             }
             if (_input.action1)
             {
                 if (_hasAnimator)
                 {
-                    _animator.SetTrigger(_animIDAttack01);
+                    _animator.SetBool(_animIDAttack01, true);
+                }
+            }
+            else if (_input.action2)
+            {
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDAttack02, true);
                 }
             }
         }
@@ -348,6 +342,7 @@ namespace Kolman_Freecss.Krodun
         // Method assigned to the animation event
         private void AttackPlayerHitEvent()
         {
+            if (!IsOwner) return;
             _hitbox.Attack();
         }
 
@@ -483,7 +478,7 @@ namespace Kolman_Freecss.Krodun
                 
                 if (_hasAnimator)
                 {
-                    _animator.ResetTrigger(_animIDJump);
+                    _animator.SetBool(_animIDJump, false);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -498,7 +493,7 @@ namespace Kolman_Freecss.Krodun
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetTrigger(_animIDJump);
+                        _animator.SetBool(_animIDJump, true);
                     }
                     
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
