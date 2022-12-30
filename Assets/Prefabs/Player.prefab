@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 3380401506969291358}
   - component: {fileID: 8902645350318365970}
   - component: {fileID: 2437887853147575325}
+  - component: {fileID: 5400767214417357109}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -158,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a78d90f986e4b4f81e19c920695b065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverCanvas: {fileID: 0}
   health: 120
   damage: 20
 --- !u!114 &8513965869898875968
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   action1: 0
+  action2: 0
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
@@ -329,26 +330,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList:
-  - Layer: 0
-    OriginatingState: -601574123
-    DestinationState: -1238576965
-    TransitionDuration: 0.25
-    TriggerNameHash: 1331344109
-    TransitionIndex: 3
-  - Layer: 0
-    OriginatingState: -601574123
-    DestinationState: 790987009
-    TransitionDuration: 0.25
-    TriggerNameHash: -699145385
-    TransitionIndex: 4
-  - Layer: 0
-    OriginatingState: -601574123
-    DestinationState: 1523721793
-    TransitionDuration: 0.25
-    TriggerNameHash: 1654612129
-    TransitionIndex: 5
+  TransitionStateInfoList: []
   m_Animator: {fileID: 8513965869898875974}
+--- !u!136 &5400767214417357109
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592880286225764589}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.40719223
+  m_Height: 1.8278751
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.99629116, z: 0.05196762}
 --- !u!1001 &464685576659718819
 PrefabInstance:
   m_ObjectHideFlags: 0

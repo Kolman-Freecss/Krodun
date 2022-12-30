@@ -1,17 +1,9 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
-using Kolman_Freecss.QuestSystem;
-using Model;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
-
-/* Note: animations are called via the controller for both the character and capsule using animator null checks
- */
 
 namespace Kolman_Freecss.Krodun
 {
@@ -274,7 +266,7 @@ namespace Kolman_Freecss.Krodun
             _input = GetComponent<RPGInputs>();
             // By default the player input is disabled to prevent incorrect behaviours with netcode for objects with the new input system
             // So we enabled it here
-            UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.enabled = true;
             _playerInput = GetComponent<PlayerInput>();
             
