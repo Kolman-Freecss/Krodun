@@ -18,7 +18,7 @@ MonoBehaviour:
     y aplasta unos cuantos de esta gentuza que se ha adue\xF1ado de nuestros parajes!!!"
   _objectives:
   - _eventQuestType: 0
-    _requiredAmount: 3
+    _requiredAmount: 2
     _amountType: 0
     isCompleted: 0
   _storyStep: 1

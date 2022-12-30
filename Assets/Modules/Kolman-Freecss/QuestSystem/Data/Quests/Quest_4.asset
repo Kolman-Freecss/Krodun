@@ -16,9 +16,9 @@ MonoBehaviour:
   _description: Bienvenido a Kolman
   _objectiveText: objective text
   _objectives:
-  - _eventQuestType: 0
+  - _eventQuestType: 1
     _requiredAmount: 1
-    _amountType: 0
+    _amountType: 1
     isCompleted: 0
   _storyStep: 3
   _reward:

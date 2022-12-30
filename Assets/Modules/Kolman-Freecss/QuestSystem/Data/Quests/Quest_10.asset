@@ -22,7 +22,7 @@ MonoBehaviour:
   _objectives:
   - _eventQuestType: 0
     _requiredAmount: 1
-    _amountType: 0
+    _amountType: 2
     isCompleted: 0
   _storyStep: 9
   _reward:
