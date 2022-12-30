@@ -36,7 +36,6 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
             }
         }
         
-        [Conditional("DEBUG")]
         public void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

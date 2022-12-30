@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using Kolman_Freecss.HitboxHurtboxSystem;
+﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Kolman_Freecss.Krodun
 {

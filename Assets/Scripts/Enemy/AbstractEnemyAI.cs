@@ -51,7 +51,16 @@ namespace Kolman_Freecss.Krodun
         
         void Start()
         {
+            // TryGetComponent in child components
             _hasAnimator = TryGetComponent(out _animator);
+            if (!_hasAnimator)
+            {
+                _animator = GetComponentInChildren<Animator>();
+                if (_animator != null)
+                {
+                    _hasAnimator = true;
+                }
+            }
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<EnemyBehaviour>();
             AssignAnimationIDs();

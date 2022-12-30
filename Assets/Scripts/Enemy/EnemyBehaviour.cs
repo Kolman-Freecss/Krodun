@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.QuestSystem;
@@ -44,7 +43,16 @@ namespace Kolman_Freecss.Krodun
         void Start()
         {
             _hitbox = GetComponentInChildren<EnemyHitbox>();
+            // TryGetComponent in child components
             _hasAnimator = TryGetComponent(out _animator);
+            if (!_hasAnimator)
+            {
+                _animator = GetComponentInChildren<Animator>();
+                if (_animator != null)
+                {
+                    _hasAnimator = true;
+                }
+            }
             AssignAnimationIDs();
         }
         
