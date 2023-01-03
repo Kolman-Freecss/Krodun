@@ -1,9 +1,7 @@
 ﻿using System;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
-using Model;
 using Unity.Netcode;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;

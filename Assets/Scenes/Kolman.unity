@@ -2053,6 +2053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aymon
       objectReference: {fileID: 0}
+    - target: {fileID: 8753619234690991416, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1917505841872629879, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
     m_AddedGameObjects: []
