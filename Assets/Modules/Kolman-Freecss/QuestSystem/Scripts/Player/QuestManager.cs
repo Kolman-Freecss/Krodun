@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Kolman_Freecss.Krodun;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Kolman_Freecss.QuestSystem
         
         private List<Story> stories = new List<Story>();
         private List<QuestGiver> _questGivers = new List<QuestGiver>();
+        private List<SceneItemHandler> _sceneItemHandlers = new List<SceneItemHandler>();
         
         #endregion
 
@@ -160,7 +162,61 @@ namespace Kolman_Freecss.QuestSystem
         {
             CompleteQuestServerRpc();
         }
-
+        
+        private void HandleDoorState(DoorState doorState, DoorType doorType)
+        {
+            foreach (var sceneItemHandler in SceneItemHandlers)
+            {
+                // Filter the door type from the list
+                if (doorType == sceneItemHandler.DoorType)
+                {
+                    // Filter doorType to open or close
+                    if (doorType == DoorType.Entrance)
+                    {
+                        if (doorState == DoorState.Open)
+                        {
+                            sceneItemHandler.OpenEntranceDoors();
+                        }
+                        else
+                        {
+                            sceneItemHandler.CloseEntranceDoors();
+                        }
+                    }
+                    else
+                    {
+                        if (doorState == DoorState.Open)
+                        {
+                            sceneItemHandler.OpenExitDoors();
+                        }
+                        else
+                        {
+                            sceneItemHandler.CloseExitDoors();
+                        }
+                    }
+                }
+            }
+        }
+        
+        private void CloseEntranceDoors()
+        {
+            HandleDoorState(DoorState.Closed, DoorType.Entrance);         
+        }
+        
+        private void OpenEntranceDoors()
+        {
+            HandleDoorState(DoorState.Open, DoorType.Entrance);
+        }
+        
+        private void CloseExitDoors()
+        {
+            HandleDoorState(DoorState.Closed, DoorType.Exit);
+        }
+        
+        private void OpenExitDoors()
+        {
+            HandleDoorState(DoorState.Open, DoorType.Exit);
+        }
+        
         #region ######## Client RPCs ########
 
         [ClientRpc]
@@ -169,6 +225,8 @@ namespace Kolman_Freecss.QuestSystem
             Debug.Log("----------------- Quests Init -----------------");
             
             QuestGivers = FindObjectsOfType<QuestGiver>().ToList();
+            SceneItemHandlers = FindObjectsOfType<SceneItemHandler>().ToList();
+            CloseEntranceDoors();
             storiesSO.ForEach(storySO => { Stories.Add(new Story(storySO)); });
             //TODO : Add a way to choose the story
             CurrentStory = Stories[0];
@@ -285,6 +343,8 @@ namespace Kolman_Freecss.QuestSystem
 
         public List<QuestGiver> QuestGivers { get => _questGivers; set => _questGivers = value; }
         
+        public List<SceneItemHandler> SceneItemHandlers { get => _sceneItemHandlers; set => _sceneItemHandlers = value; }
+
         public List<Story> Stories { get => stories; set => stories = value; }
         
         public Story CurrentStory { get => currentStory; set => currentStory = value; }

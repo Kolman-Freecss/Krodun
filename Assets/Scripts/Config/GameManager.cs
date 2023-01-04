@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
@@ -31,7 +32,7 @@ namespace Kolman_Freecss.Krodun
         [HideInInspector] public bool isSceneLoadedValue;
         
         internal static event Action OnSingletonReady;
-    
+        
         private void Awake()
         {
             Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
