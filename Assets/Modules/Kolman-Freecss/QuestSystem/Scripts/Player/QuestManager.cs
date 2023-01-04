@@ -33,6 +33,11 @@ namespace Kolman_Freecss.QuestSystem
         public delegate void OnQuestObjectiveHandler(EventQuestType eventQuestType, AmountType amountType, int questId);
         [HideInInspector]
         public event OnQuestObjectiveHandler OnQuestObjectiveEvent;
+        
+        [HideInInspector]
+        public delegate void OnLastQuestHandler();
+        [HideInInspector]
+        public event OnLastQuestHandler OnLastQuestEvent;
 
         #endregion
 
@@ -65,6 +70,7 @@ namespace Kolman_Freecss.QuestSystem
         private void SubscribeToDelegatesAndUpdateValuesClient()
         {
             QuestStateSync.OnValueChanged += UpdateQuestState;
+            OnLastQuestEvent += UpdateLastQuest;
         }
 
         private void SubscribeToDelegatesAndUpdateValues()
@@ -292,6 +298,36 @@ namespace Kolman_Freecss.QuestSystem
         {
             UpdateStatusGiverByQuestId(CurrentStory.CurrentQuest);
             CurrentStory.AcceptQuest();
+            IsLastQuest();
+        }
+
+        public void IsLastQuest()
+        {
+            if (CurrentStory.Quests.Count == CurrentStory.CurrentQuest.storyStep + 1)
+            {
+                Debug.Log("Last quest");
+                OnLastQuestEvent?.Invoke();
+            }
+        }
+
+        public void UpdateLastQuest()
+        {
+            UpdateLastQuestServerRpc();
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void UpdateLastQuestServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            var clientId = serverRpcParams.Receive.SenderClientId;
+            Debug.Log($"Last quest updated by client -> {clientId}");
+            UpdateLastQuestClientRpc();
+        }
+        
+        [ClientRpc]
+        public void UpdateLastQuestClientRpc()
+        {
+            Debug.Log("UpdateLastQuest");
+            OpenEntranceDoors();
         }
 
         /**

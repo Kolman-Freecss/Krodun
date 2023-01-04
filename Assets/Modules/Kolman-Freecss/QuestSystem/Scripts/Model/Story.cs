@@ -45,6 +45,7 @@ namespace Kolman_Freecss.QuestSystem
 
         public Quest CompleteQuest()
         {
+            if (CurrentQuest == null) return null;
             CurrentQuest.UpdateStatus();
             if (CurrentQuest.IsCompleted())
             {

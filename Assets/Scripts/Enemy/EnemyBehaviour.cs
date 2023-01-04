@@ -138,6 +138,8 @@ namespace Kolman_Freecss.Krodun
 
         public override void OnDestroy()
         {
+            if (!IsServer) return;
+            
             base.OnDestroy();
             
             NetworkObject networkObject = GetComponent<NetworkObject>();

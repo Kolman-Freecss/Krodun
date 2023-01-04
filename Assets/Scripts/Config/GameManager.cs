@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Kolman_Freecss.Krodun.ConnectionManagement;
 using Kolman_Freecss.QuestSystem;
@@ -33,6 +34,8 @@ namespace Kolman_Freecss.Krodun
         
         internal static event Action OnSingletonReady;
         
+        private const float DelayToGameOver = 6f;
+        
         private void Awake()
         {
             Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
@@ -41,18 +44,30 @@ namespace Kolman_Freecss.Krodun
             isGameOver.OnValueChanged += OnGameOver;
             
             OnSingletonReady?.Invoke();
-            if (IsServer)
-            {
-                isGameStarted.Value = false;
-                isGameOver.Value = false;
-                if (!Instance)
-                    OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
-                else
-                    SubscribeToDelegatesAndUpdateValues();
-            }
-            
         }
         
+        public override void OnNetworkSpawn()
+        {
+            /*if (IsClient && IsServer)
+            }*/
+            
+            if (IsServer)
+            {
+                //Server will be notified when a client connects
+                NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
+                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
+                
+                isGameStarted.Value = false;
+                isGameOver.Value = false;
+                /*if (!Instance)
+                    OnSingletonReady += SubscribeToDelegatesAndUpdateValues;
+                else*/
+                SubscribeToDelegatesAndUpdateValues();
+            }
+            
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
+        }
+
         private void OnGameOver(bool oldValue, bool newValue)
         {
             if (newValue)
@@ -102,23 +117,15 @@ namespace Kolman_Freecss.Krodun
         {
             if (story.IsCompleted)
             {
-                isGameOver.Value = true;
+                StartCoroutine(HandleGameOver());
             }
         }
         
-        public override void OnNetworkSpawn()
+        IEnumerator HandleGameOver()
         {
-            /*if (IsClient && IsServer)
-            }*/
-            
-            if (IsServer)
-            {
-                //Server will be notified when a client connects
-                NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
-                SceneTransitionHandler.sceneTransitionHandler.OnClientLoadedGameScene += ClientLoadedGameScene;
-            }
-            
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
+            yield return new WaitForSeconds(DelayToGameOver);
+            Debug.Log("Game Over");
+            isGameOver.Value = true;
         }
         
         private void ClientLoadedGameScene(ulong clientId)

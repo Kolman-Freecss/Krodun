@@ -1010,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f5ac109748122c3428349f2ae462da6e, type: 2}
+      objectReference: {fileID: 11400000, guid: db74e94fa4841e0478f68db635a4fd25, type: 2}
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 2
@@ -1290,8 +1290,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1.3023114, z: 6.0000005}
-  m_Center: {x: 0.00000047683716, y: 0.65115523, z: 2.9999998}
+  m_Size: {x: 8, y: 1.3023114, z: 7.4044194}
+  m_Center: {x: 0.00000047683716, y: 0.65115523, z: 3.7022092}
 --- !u!1001 &669975844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1701,8 +1701,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1.3023114, z: 6.0000005}
-  m_Center: {x: 0.00000047683716, y: 0.65115523, z: 2.9999998}
+  m_Size: {x: 8, y: 1.6537137, z: 6.0000005}
+  m_Center: {x: 0.00000047683716, y: 0.8268564, z: 2.9999998}
 --- !u!1001 &999137867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2121,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: db74e94fa4841e0478f68db635a4fd25, type: 2}
+      objectReference: {fileID: 11400000, guid: f5ac109748122c3428349f2ae462da6e, type: 2}
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 10
@@ -2816,8 +2816,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1.3023114, z: 6.0000005}
-  m_Center: {x: 0.00000047683716, y: 0.65115523, z: 2.9999998}
+  m_Size: {x: 8, y: 1.1156964, z: 7.384033}
+  m_Center: {x: 0.00000047683716, y: 0.55784774, z: 3.6920166}
 --- !u!1001 &1637380559
 PrefabInstance:
   m_ObjectHideFlags: 0
