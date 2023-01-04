@@ -12,20 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_6
   m_EditorClassIdentifier: 
-  _title: Default quest 6
-  _description: Bienvenido a Kolman
-  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
-    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
-    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _title: Maldito Grosk
+  _description: "Son todos unos cobardes, no te fies de ellos!\t"
+  _objectiveText: "Krodun! \n\nQue bueno verte por aqu\xED! Seguro que has encontrado
+    con ese maldito de Grosk, es un maldito cobarde, se esconde donde sabe que hay
+    menos de estos malditos muertos vivientes lo que sean.\n\nNo te f\xEDes de ninguno
+    de los que conoc\xEDas! Han cambiado mucho, tienen miedo!\n\nY sobre todo ese
+    Grosk...\n\nBueno, Krodun, la situaci\xF3n... aunque ya te habr\xE1n dicho!\n\nTienes
+    que ayudar a los dem\xE1s en este paraje y seguir el camino! Para poder derrotar
+    a Aymon!\n\nAymon es un monstruo que se esconde detr\xE1s de un castillo, encerrado,
+    est\xE1 maldiciendo a todos los nuestros con alg\xFAn tipo de brujeria. Tienes
+    que encontrarlo y matarlo! No estoy seguro si los dem\xE1s se curar\xE1n, pero
+    por lo menos nos dejar\xE1 en paz a los supervivientes.\n\nEncima te habr\xE1
+    pedido un mont\xF3n de cosas, ese Grosk... deber\xEDan de haberle hechizado a
+    el...\n\nPor cierto! no se te olvide buscar al siguiente de nosotros en un paraje
+    m\xE1s adelante de aqu\xED!"
   _objectives:
-  - _eventQuestType: 1
-    _requiredAmount: 1
-    _amountType: 1
+  - _eventQuestType: 0
+    _requiredAmount: 14
+    _amountType: 0
     isCompleted: 0
   _storyStep: 5
   _reward:
-    _gold: 4
-    _exp: 5
+    _gold: 30
+    _exp: 400
   storyId: 0

@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_10
   m_EditorClassIdentifier: 
-  _title: Default quest 10
-  _description: Bienvenido a Kolman
-  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
-    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
-    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _title: "La maldici\xF3n de Aymon"
+  _description: Derrota a Aymon y salva Kolman
+  _objectiveText: "Porfin Krodun, llegaste!\n\nKrodun, soy Krapted,, llevo todo este
+    tiempo esperandote, me dijo tu padre que un d\xEDa volver\xEDas.\n\nAymon se
+    esconde dentro del castillo, es un monstruou que ha llegado a trav\xE9s de nuestras
+    pesadillas, ha maldecido a muchos de nosotros y no va a parar hasta que alguien
+    haga algo.\n\nCreo que hay alguien detr\xE1s de todo esto y la llegada de Aymon...
+    Pero no hay tiempo para detenernos aqu\xED, te abrir\xE9 la puerta, entra y derrota
+    a esa bestia.\n\nSalva Kolman!"
   _objectives:
   - _eventQuestType: 0
     _requiredAmount: 1
@@ -26,6 +28,6 @@ MonoBehaviour:
     isCompleted: 0
   _storyStep: 9
   _reward:
-    _gold: 4
-    _exp: 5
+    _gold: 500
+    _exp: 2000
   storyId: 0

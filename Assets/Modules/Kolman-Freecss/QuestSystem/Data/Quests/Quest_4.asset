@@ -12,13 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_4
   m_EditorClassIdentifier: 
-  _title: Default quest 4
-  _description: Bienvenido a Kolman
-  _objectiveText: objective text
+  _title: "Ponte en situaci\xF3n"
+  _description: Bienvenido a Kolman - 2/2
+  _objectiveText: "Buenas Krodun!\n\nSoy Zozz! Nose si te acuerdas de mi!\n\nHemos
+    esperado mucho este momento para que puedas librarnos de toda esta situaci\xF3n!\n\nComo
+    te dijo Frel y los dem\xE1s, la situaci\xF3n esta complicada, ya que parece que
+    todos se han vuelto locos! Pero parece que todo est\xE1 siendo por algo o alguien
+    que se llama Aymon... \n\nEscuchar\xE1s m\xE1s de una vez por alguno de nosotros...
+    \n\nSeguro que Frel te ha dicho que estoy muy al tanto! Pero tampoco tanto, solo
+    se lo que te he dicho! \n\nTODOS LOCOS!\n\nBusca por el paraje m\xE1s a la derecha,
+    ver\xE1s que hay tierra y encontrar\xE1s a Grosk, se ha asentado por esa zona
+    escondiendose de todos..."
   _objectives:
-  - _eventQuestType: 1
-    _requiredAmount: 1
-    _amountType: 1
+  - _eventQuestType: 0
+    _requiredAmount: 3
+    _amountType: 0
     isCompleted: 0
   _storyStep: 3
   _reward:

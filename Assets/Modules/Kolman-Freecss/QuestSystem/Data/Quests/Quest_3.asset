@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_3
   m_EditorClassIdentifier: 
-  _title: Default quest 3
-  _description: Bienvenido a Kolman
+  _title: Sigue el camino
+  _description: Bienvenido a Kolman - 1/2
   _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
     yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
     de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+    favor, encuentra a Zozz y que te explique toda la situaci\xF3n...\n\nSigue este
+    camino y despu\xE9s de las dos torres lo encontrar\xE1s.\n\nAunque antes... si
+    me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
   _objectives:
   - _eventQuestType: 1
     _requiredAmount: 1

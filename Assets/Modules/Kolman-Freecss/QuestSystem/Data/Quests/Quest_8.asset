@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_8
   m_EditorClassIdentifier: 
-  _title: Default quest 8
-  _description: Bienvenido a Kolman
-  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
-    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
-    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _title: Aymon
+  _description: Encuentra el final del camino
+  _objectiveText: "Krodun! \n\nTe habr\xE1 costado mucho llegar hasta aqu\xED! Seguro
+    que est\xE1s cansado de que se sorprendan al verte, pero esque necesitamos mucha
+    ayuda la verdad, estamos cayendo como moscas por Aymon.\n\nDetr\xE1s de estas
+    monta\xF1as encontrar\xE1s el castillo donde se esconde, pero creo que est\xE1
+    cerrado, necesitas encontrar a Wazed, el te guiar\xE1 al final del camino para
+    que te abran las puertas de ese castillo.\n\nQue donde lo encontrar\xE1s? Pues
+    vuelve al camino del que saliste para encontrarnos a todos y siguelo, lo ver\xE1s
+    facilmente!"
   _objectives:
   - _eventQuestType: 1
     _requiredAmount: 1

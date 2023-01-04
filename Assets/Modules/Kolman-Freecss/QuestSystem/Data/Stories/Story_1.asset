@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Story_1
   m_EditorClassIdentifier: 
   id: 0
-  name: S1
-  description: S1D
+  name: "La maldici\xF3n de Aymon"
+  description: Derrota a Aymon
   quests:
   - {fileID: 11400000, guid: f5ac109748122c3428349f2ae462da6e, type: 2}
   - {fileID: 11400000, guid: f665c3b2f8f42144095271370da3698c, type: 2}

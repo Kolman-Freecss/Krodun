@@ -1010,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: db74e94fa4841e0478f68db635a4fd25, type: 2}
+      objectReference: {fileID: 11400000, guid: f5ac109748122c3428349f2ae462da6e, type: 2}
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 2
@@ -2121,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 2439673575862490216, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: QuestsSO.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f5ac109748122c3428349f2ae462da6e, type: 2}
+      objectReference: {fileID: 11400000, guid: db74e94fa4841e0478f68db635a4fd25, type: 2}
     - target: {fileID: 3843615399318425607, guid: eb1b410dc250586499ab5a6c2d90a187, type: 3}
       propertyPath: m_Name
       value: Ally 10

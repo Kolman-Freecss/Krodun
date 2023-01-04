@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_1
   m_EditorClassIdentifier: 
-  _title: Default quest 1
-  _description: Investiga la zona (INSERT - NAME)
+  _title: Conociendo Kolman
+  _description: Investiga la zona
   _objectiveText: "Bienvenido Krodun, hac\xEDa tiempo que no te ve\xEDamos por aqu\xED,
     te noto extra\xF1o...\n\nBueno, quer\xEDa pedirte algo ya que est\xE1s aqu\xED,
-    podr\xEDas recogerme unas manzanas para mi hijo porfavor, me est\xE1 costando
-    conseguirlas en la situaci\xF3n en la que estamos...\n\nSuerte!"
+    podr\xEDas recogerme unas manzanas porfavor, me est\xE1 costando conseguirlas
+    en la situaci\xF3n en la que estamos...\n\nSuerte!"
   _objectives:
   - _eventQuestType: 1
     _requiredAmount: 2

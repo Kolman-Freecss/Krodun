@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_2
   m_EditorClassIdentifier: 
-  _title: Default quest 2
+  _title: "Ayuda a tus compa\xF1eros"
   _description: Limpieza
-  _objectiveText: "Krodun! Que raro verte por estos lares!\n\nOye hazme un favor
-    y aplasta unos cuantos de esta gentuza que se ha adue\xF1ado de nuestros parajes!!!"
+  _objectiveText: "Krodun! Que raro verte por estas tierras!\n\nOye hazme un favor
+    y aplasta a unos cuantos de los que se hacen pasar por nosotros, que se han adue\xF1ado
+    de nuestros parajes!!!"
   _objectives:
   - _eventQuestType: 0
     _requiredAmount: 2

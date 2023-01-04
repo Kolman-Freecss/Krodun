@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_9
   m_EditorClassIdentifier: 
-  _title: Default quest 9
-  _description: Bienvenido a Kolman
-  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
-    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
-    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _title: "Cerca de las monta\xF1as"
+  _description: "A las puertas de las monta\xF1as"
+  _objectiveText: "Krodun, el tiempo urge, no te detengas aqu\xED mucho tiempo, encuentra
+    a Krapted, te est\xE1 esperando desde hace tiempo para poder abrirte las puertas
+    de ese maldito castillo y callar para siempre a Aymon.\n\nCORRE!"
   _objectives:
-  - _eventQuestType: 1
-    _requiredAmount: 1
-    _amountType: 1
+  - _eventQuestType: 0
+    _requiredAmount: 4
+    _amountType: 0
     isCompleted: 0
   _storyStep: 8
   _reward:

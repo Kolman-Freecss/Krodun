@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc29ff992889ca4a9bfe794579dc848, type: 3}
   m_Name: Quest_5
   m_EditorClassIdentifier: 
-  _title: Default quest 5
-  _description: Bienvenido a Kolman
-  _objectiveText: "Buenas Krodun, te he estado esperando todo este tiempo.\n\nTanto
-    yo como los dem\xE1s hemos esperado tu regreso, se que debes estar confuso despu\xE9s
-    de ver todo lo que est\xE1 pasando por aqu\xED, pero es nuestra nueva normalidad...\n\nPor
-    favor, encuentra a (INSERT-NAME) y que te explique toda la situaci\xF3n...\n\nAunque
-    antes... si me pudieras traer una manzana, nos est\xE1 costando mucho cogerlas!"
+  _title: Ese maldito Aymon
+  _description: Escucha a Grosk y sigue tu camino
+  _objectiveText: "Krodun...\n\nYa era hora... Seguro que te han contado acerca de
+    Aymon... ese monstruo... est\xE1 maldiciendo a todos de alguna manera... \n\nTienes
+    que salvarnos... Busca a Tezenis, seguro que lo encontrar\xE1s justo al otro
+    lado donde viniste, ese brib\xF3n se esconde entre muchos arboles en m\xE1s cercanos
+    a las monta\xF1as.\n\nDe los \xFAnicos que a\xFAn sigue luchando por aqu\xED
+    soy yo, no lo entiendo como pueden ser tan cobardes!"
   _objectives:
   - _eventQuestType: 1
-    _requiredAmount: 1
+    _requiredAmount: 12
     _amountType: 1
     isCompleted: 0
   _storyStep: 4
