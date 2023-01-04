@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df7b84e1f42de4381a64802b8952b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 40
-  SprintSpeed: 5.335
+  MoveSpeed: 3
+  SprintSpeed: 6
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: 9be63439d338b1b4ab0dde7030885b3a, type: 3}
