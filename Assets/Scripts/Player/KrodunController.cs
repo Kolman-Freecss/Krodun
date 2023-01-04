@@ -102,6 +102,7 @@ namespace Kolman_Freecss.Krodun
         private int _animIDJump;
         private int _animIDOnGround;
         private int _animIDJumpVelocity;
+        private int _animIDDeath;
 
         private PlayerInput _playerInput;
         private Animator _animator;
@@ -112,8 +113,12 @@ namespace Kolman_Freecss.Krodun
         private MenuManager _menuManager;
         private Hitbox _hitbox;
         private Hurtbox _hurtbox;
+        private PlayerBehaviour _playerBehaviour;
 
         private const float _threshold = 0.01f;
+        
+        // Auxiliar variables
+        private bool _alreadyDead = false;
         
         private bool _hasAnimator;
         
@@ -264,6 +269,7 @@ namespace Kolman_Freecss.Krodun
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<RPGInputs>();
+            _playerBehaviour = GetComponent<PlayerBehaviour>();
             // By default the player input is disabled to prevent incorrect behaviours with netcode for objects with the new input system
             // So we enabled it here
             PlayerInput playerInput = GetComponent<PlayerInput>();
@@ -286,15 +292,37 @@ namespace Kolman_Freecss.Krodun
         
         private void Update()
         {
-            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || _input == null)
+            if (!IsLocalPlayer || !IsOwner || !_gameLoaded || _input == null || GameManager.Instance.isGameOver.Value)
             {
                 return;
             }
             _hasAnimator = TryGetComponent(out _animator);
+            if (_playerBehaviour.IsDead)
+            {
+                Die();
+                return;
+            }
             JumpAndGravity();
             GroundedCheck();
             Move();
             Attack();
+        }
+
+        private void Die()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDDeath, false);
+            }
+            if (_alreadyDead)
+            {
+                return;
+            }
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDDeath, true);
+            }
+            _alreadyDead = true;
         }
         
         private void AssignAnimationIDs()
@@ -306,6 +334,7 @@ namespace Kolman_Freecss.Krodun
             _animIDJump = Animator.StringToHash("Jump");
             _animIDOnGround = Animator.StringToHash("OnGround");
             _animIDJumpVelocity = Animator.StringToHash("JumpVelocity");
+            _animIDDeath = Animator.StringToHash("Die");
         }
 
         private void Attack()

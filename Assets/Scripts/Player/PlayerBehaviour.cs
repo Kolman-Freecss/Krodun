@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Kolman_Freecss.QuestSystem;
 using UnityEngine;
 
@@ -8,7 +9,13 @@ namespace Kolman_Freecss.Krodun
     {
         [SerializeField] float health = 1000f;
         public int damage = 100;
+        private bool _isDead = false;
+        public bool IsDead
+        {
+            get { return _isDead; }
+        }
         int _experience = 0;
+        private const float DelayToDeath = 6f;
         private static PlayerBehaviour Instance { get; set; }
         private KrodunController _krodunController;
         public KrodunController KrodunController
@@ -34,7 +41,7 @@ namespace Kolman_Freecss.Krodun
         {
             health -= damage;
             //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
-            if (health <= 0)
+            if (health <= 0 && !_isDead)
             {
                 HandleDeath();
             }
@@ -42,10 +49,17 @@ namespace Kolman_Freecss.Krodun
         
         public void HandleDeath()
         {
-            GameManager.Instance.isGameOver.Value = true;
+            _isDead = true;
+            StartCoroutine(HandleDeathCoroutine());
             /*Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;*/
+        }
+
+        IEnumerator HandleDeathCoroutine()
+        {
+            yield return new WaitForSeconds(DelayToDeath);
+            GameManager.Instance.isGameOver.Value = true;
         }
 
         public void EventQuest(EventQuestType eventQuestType, AmountType amountType)
