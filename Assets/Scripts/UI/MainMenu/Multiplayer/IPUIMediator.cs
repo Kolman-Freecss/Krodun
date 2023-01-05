@@ -12,7 +12,7 @@ namespace Kolman_Freecss.Krodun
         public const string DefaultIp = "127.0.0.1";
         public string Ip => DefaultIp;
         
-        public const int DefaultPort = 9998;
+        public const int DefaultPort = 7777;
         public int Port => DefaultPort;
         public string playerName = "";
         public TMP_InputField playerNameText; 
