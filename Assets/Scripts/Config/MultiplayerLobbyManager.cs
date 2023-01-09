@@ -22,7 +22,7 @@ namespace Kolman_Freecss.Krodun
         private readonly string _mainMenuScene = "MainMenu";
 
         private readonly int _minPlayers = 2;
-        private readonly int _maxPlayers = 2;
+        /*private readonly int _maxPlayers = 2;*/
         
         private Dictionary<ulong, GameObject> _playersReady;
 

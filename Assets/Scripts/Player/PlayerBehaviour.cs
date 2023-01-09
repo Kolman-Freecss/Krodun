@@ -8,7 +8,7 @@ namespace Kolman_Freecss.Krodun
     public class PlayerBehaviour : MonoBehaviour
     {
         [SerializeField] float health = 1000f;
-        public int damage = 100;
+        public int defaultDamage = 40;
         private bool _isDead = false;
         public bool IsDead
         {

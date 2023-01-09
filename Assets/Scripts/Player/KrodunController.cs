@@ -99,6 +99,7 @@ namespace Kolman_Freecss.Krodun
         private int _animIDRun;
         private int _animIDAttack01;
         private int _animIDAttack02;
+        private int _animIDAttack03;
         private int _animIDJump;
         private int _animIDOnGround;
         private int _animIDJumpVelocity;
@@ -331,6 +332,7 @@ namespace Kolman_Freecss.Krodun
             _animIDRun = Animator.StringToHash("Run");
             _animIDAttack01 = Animator.StringToHash("Attack01");
             _animIDAttack02 = Animator.StringToHash("Attack02");
+            _animIDAttack03 = Animator.StringToHash("Attack03");
             _animIDJump = Animator.StringToHash("Jump");
             _animIDOnGround = Animator.StringToHash("OnGround");
             _animIDJumpVelocity = Animator.StringToHash("JumpVelocity");
@@ -343,6 +345,7 @@ namespace Kolman_Freecss.Krodun
             {
                 _animator.SetBool(_animIDAttack01, false);
                 _animator.SetBool(_animIDAttack02, false);
+                _animator.SetBool(_animIDAttack03, false);
             }
             if (_input.action1)
             {
@@ -357,16 +360,34 @@ namespace Kolman_Freecss.Krodun
                 {
                     _animator.SetBool(_animIDAttack02, true);
                 }
+            } else if (_input.action3)
+            {
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDAttack03, true);
+                }
             }
         }
         
         // Method assigned to the animation event
-        private void AttackPlayerHitEvent()
+        private void Attack1PlayerHitEvent()
         {
             if (!IsOwner) return;
             _hitbox.Attack();
         }
-
+        
+        private void Attack2PlayerHitEvent()
+        {
+            if (!IsOwner) return;
+            _hitbox.Attack(100);
+        }
+        
+        private void Attack3PlayerHitEvent()
+        {
+            if (!IsOwner) return;
+            _hitbox.Attack(150);
+        }
+        
         private void LateUpdate()
         {
             if (!IsLocalPlayer || IsOwner || !_gameLoaded || _input == null)

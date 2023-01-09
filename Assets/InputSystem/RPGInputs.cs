@@ -8,6 +8,7 @@ namespace Kolman_Freecss.Krodun
         [Header("Character Input Values")] 
         public bool action1; //Attack, fire, etc.
         public bool action2; //Attack, fire, etc.
+        public bool action3; //Attack, fire, etc.
         public Vector2 move;
         public Vector2 look;
         public bool jump;
@@ -105,6 +106,16 @@ namespace Kolman_Freecss.Krodun
         public void Action2Input(bool newAction2State)
         {
             action2 = newAction2State;
+        }
+        
+        public void OnAction3(InputValue value)
+        {
+            Action3Input(value.isPressed);
+        }
+        
+        public void Action3Input(bool newAction3State)
+        {
+            action3 = newAction3State;
         }
         
         public void OnLeftClick(InputValue value)

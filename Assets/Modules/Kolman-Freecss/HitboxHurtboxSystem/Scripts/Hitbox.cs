@@ -22,13 +22,18 @@ namespace Kolman_Freecss.HitboxHurtboxSystem
         {
             _playerBehaviour = FindObjectOfType<PlayerBehaviour>();
         }
-
+        
         public void Attack()
+        {
+            Attack(_playerBehaviour.defaultDamage);
+        }
+
+        public void Attack(int damage)
         {
             if (InHitbox && CurrentCollider != null)
             {
                 EnemyHurtbox hurtbox = CurrentCollider.GetComponent<EnemyHurtbox>();
-                hurtbox?.OnHit(_playerBehaviour.damage);
+                hurtbox?.OnHit(damage);
             }
         }
         

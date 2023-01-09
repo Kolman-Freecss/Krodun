@@ -11,7 +11,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
         public static ConnectionManager Instance { get; internal set; }
         private MainMenuManager _mainMenuManager;
         
-        private string _gameSceneName = "Kolman";
+        /*private string _gameSceneName = "Kolman";*/
         private string _lobbySceneName = "MultiplayerLobby";
 
         public NetworkList<Player> PlayersInGame;
