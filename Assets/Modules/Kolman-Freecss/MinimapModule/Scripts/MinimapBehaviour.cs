@@ -8,19 +8,20 @@ namespace Kolman_Freecss.Krodun
         public Transform targetToFollow;
         public bool rotateWithTarget = true;
 
-        private void Start()
+        private void Awake()
         {
-            if (targetToFollow == null)
-            {
-                targetToFollow = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("MinimapSymbol");
-            }
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
         }
-
-        void Update()
+        
+        private void OnGameStarted(bool isLoaded, ulong clientId)
         {
-            if (targetToFollow == null)
+            Debug.Log("Minimap OnGameStarted");
+            if (isLoaded)
             {
-                targetToFollow = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("MinimapSymbol");
+                if (targetToFollow == null)
+                {
+                    targetToFollow = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("MinimapSymbol");
+                }
             }
         }
     }

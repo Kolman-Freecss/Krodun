@@ -16,6 +16,7 @@ namespace Kolman_Freecss.Krodun
 
         void LateUpdate()
         {
+            if (_minimapBehaviour == null || _minimapBehaviour.targetToFollow == null) return;
             Vector3 targetPosition = _minimapBehaviour.targetToFollow.transform.position;
             transform.position = new Vector3(targetPosition.x,  targetPosition.y + cameraHeight, targetPosition.z);
             if (_minimapBehaviour.rotateWithTarget)
