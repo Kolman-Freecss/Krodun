@@ -61,6 +61,7 @@ namespace Kolman_Freecss.Krodun
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
+        public GameObject ThirdPersonFollowCamera;
 
         [Tooltip("How far in degrees can you move the camera up")]
         public float TopClamp = 70.0f;
@@ -234,6 +235,14 @@ namespace Kolman_Freecss.Krodun
                 CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().Follow = transform;
                 CinemachineCameraTarget.GetComponent<CinemachineVirtualCamera>().LookAt = transform;
             }
+            
+            if (ThirdPersonFollowCamera == null)
+            {
+                ThirdPersonFollowCamera = GameObject.Find("ThirdPersonFollowCamera");
+                ThirdPersonFollowCamera.GetComponent<CinemachineFreeLook>().Follow = transform.Find("ThirdFollowTarget");
+                ThirdPersonFollowCamera.GetComponent<CinemachineFreeLook>().LookAt = transform.Find("ThirdFollowTarget");
+                ThirdPersonFollowCamera.GetComponent<CinemachineFreeLook>().enabled = false;
+            }
 
             if (_menuManager == null)
             {
@@ -303,10 +312,25 @@ namespace Kolman_Freecss.Krodun
                 Die();
                 return;
             }
+
+            HandleDifferentCamera();
             JumpAndGravity();
             GroundedCheck();
             Move();
             Attack();
+        }
+
+        private void HandleDifferentCamera()
+        {
+            if (_input.rightClick)
+            {
+                //_mainCamera.SetActive(false);
+                ThirdPersonFollowCamera.GetComponent<CinemachineFreeLook>().enabled = true;
+            } else
+            {
+                //_mainCamera.SetActive(true);
+                ThirdPersonFollowCamera.GetComponent<CinemachineFreeLook>().enabled = false;
+            }
         }
 
         private void Die()
