@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Kolman_Freecss.Krodun.ConnectionManagement;
-using Model;
 using TMPro;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FixedString128Bytes = Unity.Collections.FixedString128Bytes;
 
 namespace Kolman_Freecss.Krodun
 {

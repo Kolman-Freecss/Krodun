@@ -2,7 +2,7 @@
 using Unity.Collections;
 using Unity.Netcode;
 
-namespace Model
+namespace Kolman_Freecss.Krodun
 {
     public struct Player : INetworkSerializable, System.IEquatable<Player>
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Model;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -116,7 +115,7 @@ namespace Kolman_Freecss.Krodun.ConnectionManagement
 
         public void RemovePlayer(ulong clientId)
         {
-            ConnectionManager.Instance.PlayersInGame.Remove(new Player
+            Instance.PlayersInGame.Remove(new Player
             {
                 Id = clientId
             });
