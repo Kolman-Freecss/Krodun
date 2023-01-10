@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Controls",
+                    "type": "Button",
+                    "id": "9e151573-a486-47d6-8ac8-1a0600ca00c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -292,6 +301,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Action3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "331f7cfd-0ed1-4d01-ad29-6783796a1397",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Controls",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -15,6 +15,7 @@ namespace Kolman_Freecss.Krodun
         public bool sprint;
         public bool leftClick;
         public bool rightClick;
+        public bool f1Button;
 
         [Header("Movement Settings")] public bool analogMovement;
 
@@ -22,6 +23,7 @@ namespace Kolman_Freecss.Krodun
         public bool cursorInputForLook = true;
 
         private MenuManager _menuManager;
+        private Canvas _gettingStartedPaperCanvas;
 
         private void Awake()
         {
@@ -30,9 +32,16 @@ namespace Kolman_Freecss.Krodun
         
         private void OnGameStarted(bool isLoaded, ulong clientId)
         {
-            if (_menuManager == null && isLoaded)
+            if (isLoaded)
             {
-                _menuManager = FindObjectOfType<MenuManager>();
+                if (_menuManager == null)
+                {
+                    _menuManager = FindObjectOfType<MenuManager>();
+                }
+                if (_gettingStartedPaperCanvas == null)
+                {
+                    _gettingStartedPaperCanvas = GameObject.Find("GettingStartedPaper").GetComponent<Canvas>();
+                }
             }
         }
 
@@ -57,6 +66,15 @@ namespace Kolman_Freecss.Krodun
         public void OnSprint(InputValue value)
         {
             SprintInput(value.isPressed);
+        }
+        
+        public void OnControls(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                _gettingStartedPaperCanvas.enabled = !_gettingStartedPaperCanvas.enabled;
+                f1Button = value.isPressed;
+            }
         }
 
 
