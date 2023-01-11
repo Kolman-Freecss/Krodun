@@ -23,7 +23,7 @@ namespace Kolman_Freecss.Krodun
         protected override void Update()
         {
             if (!_gameStarted) return;
-            if (health.IsDead())
+            if (enemyBehaviour.IsDead())
             {
                 enabled = false;
                 navMeshAgent.enabled = false;

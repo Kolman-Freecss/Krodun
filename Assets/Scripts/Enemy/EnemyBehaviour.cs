@@ -23,7 +23,10 @@ namespace Kolman_Freecss.Krodun
             NetworkVariableWritePermission.Server);
         
         protected List<PlayerBehaviour> _players;
-        protected PlayerBehaviour _playerTarget;
+        [HideInInspector]
+        public PlayerBehaviour playerTarget;
+        [SerializeField]
+        private ParticleSystem _hurtParticles;
         
         // animation IDs
         private int _animIDMoving;
@@ -66,7 +69,7 @@ namespace Kolman_Freecss.Krodun
             if (isLoaded)
             {
                 _players = FindObjectsOfType<PlayerBehaviour>().ToList();
-                _playerTarget = _players[0].GetComponent<PlayerBehaviour>();
+                playerTarget = _players[0].GetComponent<PlayerBehaviour>();
             }
         }
         
@@ -80,9 +83,16 @@ namespace Kolman_Freecss.Krodun
         public void TakeDamage(int damage)
         {
             TakeDamageServerRpc(damage);
+            TakeDamageClientRpc();
             
             if (health.Value <= 0) return;
             BroadcastMessage("OnDamageTaken");
+        }
+
+        [ClientRpc]
+        public void TakeDamageClientRpc()
+        {
+            _hurtParticles.Play();
         }
         
         [ServerRpc(RequireOwnership = false)]
@@ -101,7 +111,7 @@ namespace Kolman_Freecss.Krodun
             if (!IsServer || _isDead.Value) return;
             _isDead.Value = true;
             // TODO Event to all players
-            _playerTarget.EventQuest(EventQuestType.Kill, enemyType);
+            playerTarget.EventQuest(EventQuestType.Kill, enemyType);
             DieClientRpc();
         }
         
@@ -126,8 +136,8 @@ namespace Kolman_Freecss.Krodun
             if (_hitbox.InHitbox)
             {
                 // TODO Event to all players
-                if (_playerTarget == null) return;
-                _playerTarget.TakeDamage(damage);
+                if (playerTarget == null) return;
+                playerTarget.TakeDamage(damage);
             }
         }
         

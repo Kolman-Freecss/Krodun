@@ -4,6 +4,7 @@
     {
         TROLL,
         APPLE,
-        AYMON
+        AYMON,
+        WOLF
     }
-}
+} 

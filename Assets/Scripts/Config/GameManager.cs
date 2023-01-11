@@ -68,6 +68,17 @@ namespace Kolman_Freecss.Krodun
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
         }
 
+        public void PlayerDeath()
+        {
+            PlayerDeathServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayerDeathServerRpc()
+        {
+            isGameOver.Value = true;
+        }
+
         private void OnGameOver(bool oldValue, bool newValue)
         {
             if (newValue)

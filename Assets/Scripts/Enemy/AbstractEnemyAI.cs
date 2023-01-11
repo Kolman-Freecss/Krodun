@@ -16,7 +16,7 @@ namespace Kolman_Freecss.Krodun
         protected NavMeshAgent navMeshAgent;
         protected float distanceToTarget = Mathf.Infinity;
         protected bool isProvoked = false;
-        protected EnemyBehaviour health;
+        protected EnemyBehaviour enemyBehaviour;
         
         protected List<Transform> _players;
         protected Transform _playerTarget;
@@ -62,7 +62,7 @@ namespace Kolman_Freecss.Krodun
                 }
             }
             navMeshAgent = GetComponent<NavMeshAgent>();
-            health = GetComponent<EnemyBehaviour>();
+            enemyBehaviour = GetComponent<EnemyBehaviour>();
             AssignAnimationIDs();
             
             // set our initial facing direction hitbox

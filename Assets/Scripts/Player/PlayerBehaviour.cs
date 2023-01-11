@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Kolman_Freecss.QuestSystem;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -25,6 +25,8 @@ namespace Kolman_Freecss.Krodun
                 return _krodunController;
             }
         }
+        [SerializeField]
+        private ParticleSystem _hurtParticles;
 
         private void Start()
         {
@@ -40,6 +42,7 @@ namespace Kolman_Freecss.Krodun
         public void TakeDamage(float damage)
         {
             health -= damage;
+            _hurtParticles.Play();
             //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
             if (health <= 0 && !_isDead)
             {
@@ -59,7 +62,7 @@ namespace Kolman_Freecss.Krodun
         IEnumerator HandleDeathCoroutine()
         {
             yield return new WaitForSeconds(DelayToDeath);
-            GameManager.Instance.isGameOver.Value = true;
+            GameManager.Instance.PlayerDeath();
         }
 
         public void EventQuest(EventQuestType eventQuestType, AmountType amountType)

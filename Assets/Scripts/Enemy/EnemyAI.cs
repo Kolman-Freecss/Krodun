@@ -16,7 +16,7 @@ namespace Kolman_Freecss.Krodun
         {
             if (!_gameStarted) return;
             
-            if (health.IsDead())
+            if (enemyBehaviour.IsDead())
             {
                 enabled = false;
                 navMeshAgent.enabled = false;
@@ -40,6 +40,7 @@ namespace Kolman_Freecss.Krodun
                 {
                     isProvoked = true;
                     _playerTarget = _players.First(player => Vector3.Distance(player.transform.position, transform.position) <= chaseRange);
+                    enemyBehaviour.playerTarget = _playerTarget.GetComponent<PlayerBehaviour>();
                 }
             }
         }
