@@ -4,6 +4,7 @@ using Kolman_Freecss.Krodun.ConnectionManagement;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Kolman_Freecss.Krodun
 {
@@ -126,6 +127,8 @@ namespace Kolman_Freecss.Krodun
         
         // Multiplayer variables
         private bool _gameLoaded;
+        
+        private Image _healthBar;
         
         private bool IsCurrentDeviceMouse
         {
@@ -256,6 +259,13 @@ namespace Kolman_Freecss.Krodun
             GetReferences();
         }
 
+        public void TakeDamage(float health, float maxHealth)
+        {
+            if (!IsOwner)
+                return;
+            _healthBar.fillAmount = health / maxHealth;
+        }
+
         private void RegisterPostCallbacks()
         {
             OnFacingDirectionChangedHitbox += _hitbox.OnFacingDirectionChangedHandler;
@@ -285,6 +295,7 @@ namespace Kolman_Freecss.Krodun
             PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.enabled = true;
             _playerInput = GetComponent<PlayerInput>();
+            _healthBar = GameObject.FindWithTag("HealthBar").GetComponent<Image>();
             
             _menuManager.Init();
 

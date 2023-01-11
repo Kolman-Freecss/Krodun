@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Kolman_Freecss.QuestSystem;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kolman_Freecss.Krodun
 {
     public class PlayerBehaviour : MonoBehaviour
     {
         [SerializeField] float health = 1000f;
+        private float maxHealth;
+        private Image _healthBar;
         public int defaultDamage = 40;
         private bool _isDead = false;
         public bool IsDead
@@ -28,6 +32,25 @@ namespace Kolman_Freecss.Krodun
         [SerializeField]
         private ParticleSystem _hurtParticles;
 
+        private void Awake()
+        {
+            maxHealth = health;
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            GameManager.Instance.OnSceneLoadedChanged += OnGameStarted;
+        }
+        
+        public void OnGameStarted(bool isLoaded, ulong clientId)
+        {
+            if (isLoaded && clientId == NetworkManager.Singleton.LocalClientId)
+            {
+                _healthBar = GameObject.FindWithTag("HealthBar").GetComponent<Image>();
+            }
+        }
+
         private void Start()
         {
             _krodunController = GetComponent<KrodunController>();
@@ -42,8 +65,8 @@ namespace Kolman_Freecss.Krodun
         public void TakeDamage(float damage)
         {
             health -= damage;
+            _krodunController.TakeDamage(health, maxHealth);
             _hurtParticles.Play();
-            //_player.GetComponent<DisplayDamage>().ShowDamageImpact();
             if (health <= 0 && !_isDead)
             {
                 HandleDeath();
@@ -54,9 +77,6 @@ namespace Kolman_Freecss.Krodun
         {
             _isDead = true;
             StartCoroutine(HandleDeathCoroutine());
-            /*Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;*/
         }
 
         IEnumerator HandleDeathCoroutine()

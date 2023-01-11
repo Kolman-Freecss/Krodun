@@ -10,6 +10,7 @@ TagManager:
   - Settings
   - Fire
   - KrodunFollowCamera
+  - HealthBar
   layers:
   - Default
   - TransparentFX
