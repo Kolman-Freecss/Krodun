@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Minimap",
+                    "type": "Button",
+                    "id": "f6656a43-4702-465f-82fb-444e755f6726",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -312,6 +321,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Controls",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9afb4176-e4da-4f09-b4cd-ba1bb56ab84b",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Minimap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

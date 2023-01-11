@@ -15,7 +15,6 @@ namespace Kolman_Freecss.Krodun
         
         private void OnGameStarted(bool isLoaded, ulong clientId)
         {
-            Debug.Log("Minimap OnGameStarted");
             if (isLoaded)
             {
                 if (targetToFollow == null)

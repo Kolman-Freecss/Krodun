@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7232651989740756728}
   - component: {fileID: 6413015361637033577}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: MinimapCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ Transform:
   - {fileID: 3497696025966694961}
   - {fileID: 6205263999111595751}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3497696027577044535
 MonoBehaviour:

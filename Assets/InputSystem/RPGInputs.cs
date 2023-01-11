@@ -24,6 +24,7 @@ namespace Kolman_Freecss.Krodun
 
         private MenuManager _menuManager;
         private Canvas _gettingStartedPaperCanvas;
+        private Canvas _minimapCanvas;
 
         private void Awake()
         {
@@ -41,6 +42,10 @@ namespace Kolman_Freecss.Krodun
                 if (_gettingStartedPaperCanvas == null)
                 {
                     _gettingStartedPaperCanvas = GameObject.Find("GettingStartedPaper").GetComponent<Canvas>();
+                }
+                if (_minimapCanvas == null)
+                {
+                    _minimapCanvas = GameObject.Find("Minimap").transform.GetChild(1).GetComponent<Canvas>();
                 }
             }
         }
@@ -74,6 +79,14 @@ namespace Kolman_Freecss.Krodun
             {
                 _gettingStartedPaperCanvas.enabled = !_gettingStartedPaperCanvas.enabled;
                 f1Button = value.isPressed;
+            }
+        }
+        
+        public void OnMinimap(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                _minimapCanvas.enabled = !_minimapCanvas.enabled;
             }
         }
 
