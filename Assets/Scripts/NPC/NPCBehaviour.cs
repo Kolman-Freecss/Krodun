@@ -27,6 +27,7 @@ namespace NPC
 
         private void Update()
         {
+            
             if (_hasAnimator && !GameManager.Instance.isGameOver.Value)
             {
                 _animator.SetBool(_animIDIdle, true);

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa25fee98093bb84fbd1ca16f7a0b1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Apple
+  itemName: Manzana
 --- !u!114 &4581217033266119115
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14816,12 +14816,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterItems:
   - prefabID: 0
-    itemName: Apple
-    itemDescription: Apple
-    itemIcon: {fileID: 21300000, guid: 4a89a0b790ba24846a3faf5b376110ba, type: 3}
+    itemName: Manzana
+    itemDescription: Esta manzana tiene buena pinta
+    itemIcon: {fileID: 21300000, guid: d3dec23b471bf5f4382af4687f4d08d5, type: 3}
     itemObject: {fileID: 2102061714738248673, guid: 781ead7e00428564cac24ee4ca4c3b1c, type: 3}
     isUnique: 0
     amountType: 1
+    isConsumable: 1
+    healthAmount: 100
   database: {fileID: 11400000, guid: 52fe8d56a110ef745b5f1ec368fe279c, type: 2}
   NetworkPrefabsList:
   - key: 0

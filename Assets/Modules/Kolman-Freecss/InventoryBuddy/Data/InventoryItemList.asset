@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: InventoryItemList
   m_EditorClassIdentifier: 
   itemList:
-  - itemName: Apple
+  - prefabID: 0
+    itemName: Manzana
     itemDescription: Esta manzana tiene buena pinta
-    itemIcon: {fileID: 21300000, guid: 4a89a0b790ba24846a3faf5b376110ba, type: 3}
+    itemIcon: {fileID: 21300000, guid: d3dec23b471bf5f4382af4687f4d08d5, type: 3}
     itemObject: {fileID: 5327153660874874909, guid: 10e3f57b7dc4658449c382c784a75c31, type: 3}
     isUnique: 0
     amountType: 1
+    isConsumable: 1
+    healthAmount: 100

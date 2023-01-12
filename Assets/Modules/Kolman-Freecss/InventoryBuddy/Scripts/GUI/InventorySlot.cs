@@ -1,4 +1,6 @@
-﻿using Kolman_Freecss.Krodun;
+﻿using System;
+using System.Linq;
+using Kolman_Freecss.Krodun;
 using Ragnarok;
 using TMPro;
 using Unity.Netcode;
@@ -18,8 +20,12 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
     [HideInInspector] public bool vendor = false;
     [HideInInspector] public bool treasureChest = false;
     [HideInInspector] public bool inventory = false;
+    [HideInInspector] public PlayerBehaviour playerBehaviour;
     [HideInInspector] public Inventory player;
-    [HideInInspector] public Inventory tChest;
+    [HideInInspector] public KrodunController krodunController;
+
+    private ulong clientId;
+    /*[HideInInspector] public Inventory tChest;*/
 
     private void Awake()
     {
@@ -31,20 +37,11 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
         Debug.Log("InventorySlot OnGameStarted");
         if (isLoaded)
         {
-            GameObject gObject = GameObject.Find("TreasureChest");
+            /*GameObject gObject = GameObject.Find("TreasureChest");
             if (gObject)
-                tChest = gObject.GetComponent<Inventory>();
-        
-            gObject = GameObject.Find("Player");
-            if (gObject)
-                player = gObject.GetComponent<Inventory>();
-            else
-            {
-                gObject = GameObject.FindWithTag("Player");
-                if (gObject)
-                    player = gObject.GetComponent<Inventory>();
-            }
-
+                tChest = gObject.GetComponent<Inventory>();*/
+            GetReferences();
+            this.clientId = clientId;
             selectedItem =
                 GameObject.Find("SelectedItem")
                     .GetComponent<
@@ -56,12 +53,37 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
         }
     }
 
+    private void GetReferences()
+    {
+        GameObject gObject = null;
+        try
+        {
+            krodunController = GameObject.FindObjectsOfType<KrodunController>().First(p => p.clientId == clientId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            krodunController = null;
+        }
+        if (krodunController)
+            gObject = krodunController.gameObject;
+        if (gObject)
+        {
+            player = gObject.GetComponent<Inventory>();
+            playerBehaviour = gObject.GetComponent<PlayerBehaviour>();
+        }
+    }
+
     /**
      * Run this when an inventory slot needs to be updated
      */
     public void Setup(InventoryItem item)
     {
         this.item = item; //this slot will now hold the constructor(InventoryItem item) as its new item
+        if (krodunController == null)
+        {
+            GetReferences();
+        }
 
         if (this.item != null) //Lets update the slot with our new item's info:
         {
@@ -90,10 +112,14 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
      */
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (krodunController == null)
+        {
+            GetReferences();
+        }
         //!!WARNING!!Do not have selectedItem highlighted in the Hierarchy window or it will not update!!WARNING!!
         if (eventData.button == PointerEventData.InputButton.Right) // button was right clicked
         {
-            if (vendor && this.item != null) //-----------------VENDOR SLOT ------------------------//
+            /*if (vendor && this.item != null) //-----------------VENDOR SLOT ------------------------//
             {
                 player.GiveItem(this.item.itemName); //add item to player's inventory   
                 Debug.Log("gave to player");
@@ -122,10 +148,16 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
                         InventoryEvents.OnScrollInfoDeactivated(); //remove the mouse over info
                     }
                 }
-            }
+            }*/
 
             //currently right clicking turns it off... could be a good place to trade item to another inventory display
             //    InventoryEvents.OnClickDeactivated();
+            if (this.item != null && this.item.isConsumable && selectedItem.item == null) // Consumable Item
+            {
+                player.RemoveItem(this.item.itemName);
+                this.playerBehaviour.Heal(this.item);
+                Setup(null);
+            }
         }
 
         if (eventData.button == PointerEventData.InputButton.Left) // User left clicked on this slot
@@ -136,7 +168,7 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
                 {
                     SpawnItemServerRpc(selectedItem.item.prefabID);
                     //currently does not remove from inventory...
-                    player.GetComponent<Inventory>().RemoveItem(selectedItem.item.itemName);
+                    player.RemoveItem(selectedItem.item.itemName);
                     selectedItem.Setup(null);
                     Debug.Log("we've  thrown out the item");
                 }
@@ -145,11 +177,11 @@ public class InventorySlot : NetworkBehaviour, IPointerClickHandler, IPointerEnt
             }
             else
             {
-                if (vendor)
+                /*if (vendor)
                 {
                     //-------check player can afford item here----------------------
                     return; //for now we just dont allow the action1 to do anything
-                }
+                }*/
 
                 if (this.item != null) //---This slot has an item loaded into it already ---
                 {

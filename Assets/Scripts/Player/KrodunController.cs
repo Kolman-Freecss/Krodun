@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Kolman_Freecss.Krodun.ConnectionManagement;
+using Ragnarok;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -260,6 +261,16 @@ namespace Kolman_Freecss.Krodun
         }
 
         public void TakeDamage(float health, float maxHealth)
+        {
+            RefreshHealthBar(health, maxHealth);
+        }
+        
+        public void Heal(float health, float maxHealth)
+        {
+            RefreshHealthBar(health, maxHealth);
+        }
+        
+        private void RefreshHealthBar(float health, float maxHealth)
         {
             if (!IsOwner)
                 return;

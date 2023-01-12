@@ -73,6 +73,16 @@ namespace Kolman_Freecss.Krodun
             }
         }
         
+        public void Heal(InventoryItem item)
+        {
+            health += item.healthAmount;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            _krodunController.Heal(health, maxHealth);
+        }
+        
         public void HandleDeath()
         {
             _isDead = true;

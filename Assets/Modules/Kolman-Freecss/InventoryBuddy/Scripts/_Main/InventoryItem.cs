@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using Kolman_Freecss.QuestSystem;
-using Ragnarok;
+using UnityEngine;
 
-[System.Serializable]                         //    Our Representation of an InventoryItem
+[Serializable]                         //    Our Representation of an InventoryItem
 public class InventoryItem 
 {
     public int prefabID;                    //    The ID of the prefab
@@ -14,6 +13,9 @@ public class InventoryItem
     public GameObject itemObject;
     public bool isUnique = false;             //    Optional checkbox to indicate that there should only be one of these items per game
     public AmountType amountType = AmountType.APPLE;
+    
+    public bool isConsumable = false;
+    public float healthAmount = 0f;
 
     //public bool isIndestructible = false;     //    Optional checkbox to prevent an item from being destroyed by the player (unimplemented)
     //public bool isQuestItem = false;          //    Examples of additional information that could be held in InventoryItem
