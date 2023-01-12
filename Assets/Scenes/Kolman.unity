@@ -5508,6 +5508,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 803262054}
     m_Modifications:
+    - target: {fileID: 2134519949751218101, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
+      propertyPath: damage
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 2989814482913476454, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1745230135
