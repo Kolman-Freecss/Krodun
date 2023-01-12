@@ -21,7 +21,7 @@ namespace Kolman_Freecss.QuestSystem
 
         public override string ToString()
         {
-            return string.Format("Gold: {0}, Exp: {1}", _gold, _exp);
+            return string.Format("Oro: {0}, Exp: {1}", _gold, _exp);
         }
     }
 }
