@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Kolman_Freecss.Krodun
@@ -7,6 +8,7 @@ namespace Kolman_Freecss.Krodun
     {
         public Transform targetToFollow;
         public bool rotateWithTarget = true;
+        private ulong clientIdTarget;
 
         private void Awake()
         {
@@ -19,9 +21,25 @@ namespace Kolman_Freecss.Krodun
             {
                 if (targetToFollow == null)
                 {
-                    targetToFollow = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("MinimapSymbol");
+                    this.clientIdTarget = clientId;
+                    GetPlayerToFollow();
                 }
             }
+        }
+
+        public bool GetPlayerToFollow()
+        {
+            try
+            {
+                targetToFollow = GameObject.FindObjectsOfType<KrodunController>().First(p => p.clientId == clientIdTarget).transform.Find("MinimapSymbol");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                targetToFollow = null;
+            }
+
+            return targetToFollow != null;
         }
     }
 }
