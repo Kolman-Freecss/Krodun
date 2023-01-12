@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Kolman_Freecss.HitboxHurtboxSystem;
 using Unity.Netcode;
@@ -133,7 +134,15 @@ namespace Kolman_Freecss.Krodun
         void ChaseTarget()
         {
             TriggerAnimationMove();
-            navMeshAgent.SetDestination(_playerTarget.position);
+            try
+            {
+                navMeshAgent.SetDestination(_playerTarget.position);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Console.WriteLine(e);
+            }
             // set our facing direction hitbox
             OnFacingDirectionChangedHitbox?.Invoke(transform);
             OnFacingDirectionChangedHurtbox?.Invoke(transform);
