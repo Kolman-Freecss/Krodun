@@ -2724,9 +2724,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198968771048269536, guid: 9f1ffe9ffb32b914e9f892abf50271c8, type: 3}
       propertyPath: m_text
-      value: 'Input listen IP
+      value: 'Escribe la IP de entrada
 
-        (local: 127.0.0.1, public: 0.0.0.0)'
+        (local: 127.0.0.1, public: X.X.X.X)'
       objectReference: {fileID: 0}
     - target: {fileID: 7364837832478444914, guid: 9f1ffe9ffb32b914e9f892abf50271c8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3125,6 +3125,10 @@ PrefabInstance:
     - target: {fileID: 6644900169582958186, guid: 9f1ffe9ffb32b914e9f892abf50271c8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198968771048269536, guid: 9f1ffe9ffb32b914e9f892abf50271c8, type: 3}
+      propertyPath: m_text
+      value: Escribe la IP del host
       objectReference: {fileID: 0}
     - target: {fileID: 7541309578306295332, guid: 9f1ffe9ffb32b914e9f892abf50271c8, type: 3}
       propertyPath: m_Pivot.x

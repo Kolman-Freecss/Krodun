@@ -278,7 +278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Input the Host IP
+  m_text: Escribe la IP de Host
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Join
+  m_text: Entrar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
   m_sharedMaterial: {fileID: 9038707157813117265, guid: 01f0b271012fc6d428917e256d092c38, type: 2}
