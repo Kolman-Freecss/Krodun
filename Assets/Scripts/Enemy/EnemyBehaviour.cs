@@ -10,6 +10,7 @@ namespace Kolman_Freecss.Krodun
     public class EnemyBehaviour : NetworkBehaviour
     {
         [SerializeField] float damage = 40f;
+        public float maxHealth = 1000f;
         [SerializeField] 
         public NetworkVariable<float> health = new NetworkVariable<float>(100f, 
             NetworkVariableReadPermission.Everyone, 
@@ -45,6 +46,7 @@ namespace Kolman_Freecss.Krodun
 
         void Start()
         {
+            health.Value = maxHealth;
             _hitbox = GetComponentInChildren<EnemyHitbox>();
             // TryGetComponent in child components
             _hasAnimator = TryGetComponent(out _animator);

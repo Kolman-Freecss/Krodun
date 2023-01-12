@@ -425,7 +425,7 @@ namespace Kolman_Freecss.Krodun
         private void Attack2PlayerHitEvent()
         {
             if (!IsOwner) return;
-            _hitbox.Attack(100);
+            _hitbox.Attack(80);
         }
         
         private void Attack3PlayerHitEvent()

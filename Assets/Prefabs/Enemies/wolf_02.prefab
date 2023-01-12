@@ -1374,7 +1374,7 @@ Transform:
   - {fileID: 2499900499886183382}
   - {fileID: 6414327868659945675}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &13580392
 SphereCollider:
@@ -1401,9 +1401,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!95 &1656714301
 Animator:
@@ -1474,6 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
+  maxHealth: 300
   health:
     m_InternalValue: 300
   enemyType: 3
