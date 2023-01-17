@@ -36,7 +36,6 @@ Trailer -> https://www.youtube.com/watch?v=yw5vrO6yVR0
 
 ## Notes:
 
-- The game is not finished yet, so there are some bugs and missing features.
 - The game includes a payment assets, so you'll need to have them installed or the game won't work properly.
 
 ---
