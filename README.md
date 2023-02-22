@@ -8,6 +8,15 @@ Max players for multiplayer 2
 Trailer -> https://www.youtube.com/watch?v=yw5vrO6yVR0
 
 ---
+
+## Table of Contents
+
+- [Requirements](#requirements)
+  - [Packages](#packages)
+  - [Editor version](#editor-version)
+- [Installation steps](#installation-steps)
+- [Extra packages](#extra-packages)
+- [Notes](#notes)
  
 ## Requirements:
 
